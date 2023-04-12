@@ -38,7 +38,7 @@ class LoginController extends ChangeNotifier {
   static Stream<int> batteryStream() async* {
     while (1 == 1) {
       var batteryLevel = await _battery.batteryLevel;
-      debugPrint(batteryLevel.toString());
+      // debugPrint(batteryLevel.toString());
       yield batteryLevel;
       await Future.delayed(const Duration(seconds: 5));
     }

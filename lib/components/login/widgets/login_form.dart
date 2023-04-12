@@ -23,7 +23,7 @@ class LoginForm extends StatelessWidget {
             Text("xiaoshuyui",
                 style: TextStyle(color: AppStyle.light2, fontSize: 35)),
             const SizedBox(
-              height: 5,
+              height: 15,
             ),
             Container(
               decoration: BoxDecoration(
@@ -43,8 +43,9 @@ class LoginForm extends StatelessWidget {
                   style: TextStyle(fontSize: 16, color: AppStyle.light2),
                   controller: passwardController,
                   obscureText: passwordVisible,
+                  maxLines: 1,
                   decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(left: 5, top: 8.5),
+                    contentPadding: const EdgeInsets.only(left: 10, top: 8.5),
                     hintText: "密码",
                     hintStyle: TextStyle(fontSize: 16, color: AppStyle.light2),
                     border: InputBorder.none,
@@ -71,18 +72,28 @@ class LoginForm extends StatelessWidget {
                           const SizedBox(
                             width: 10,
                           ),
-                          InkWell(
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: AppStyle.light2,
-                              size: 20,
-                            ),
-                            onTap: () async {
-                              await ctx
-                                  .read<LoginFormController>()
-                                  .submit(passwardController.text);
-                            },
-                          )
+                          ctx.select<LoginFormController, bool>(
+                                  (value) => !value.isLoading)
+                              ? InkWell(
+                                  child: Icon(
+                                    Icons.chevron_right,
+                                    color: AppStyle.light2,
+                                    size: 20,
+                                  ),
+                                  onTap: () async {
+                                    await ctx
+                                        .read<LoginFormController>()
+                                        .submit(passwardController.text);
+                                  },
+                                )
+                              : SizedBox(
+                                  width: 15,
+                                  height: 15,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2.0,
+                                    color: AppStyle.light2,
+                                  ),
+                                )
                         ],
                       ),
                     ),

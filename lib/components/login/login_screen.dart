@@ -76,10 +76,16 @@ class _LoginScreen extends StatelessWidget {
                         if (s.data == null) {
                           return const CircularProgressIndicator();
                         }
+                        var minute = "";
+                        if (s.data!.minute < 10) {
+                          minute = "0${s.data!.minute}";
+                        } else {
+                          minute = s.data!.minute.toString();
+                        }
                         return Column(
                           children: [
                             Text(
-                              "${s.data!.hour}:${s.data!.minute}",
+                              "${s.data!.hour}:$minute",
                               style: TextStyle(
                                   color: AppStyle.light2, fontSize: 72),
                             ),
