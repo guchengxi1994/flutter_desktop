@@ -6,31 +6,31 @@ import 'package:flutter_desktop/components/window_types.dart';
 
 import 'window_shortcut.dart';
 
-class ShortCutController {
-  ShortCutController._();
+class ShortcutController {
+  ShortcutController._();
 
   static init() {
-    registerShortCut(backToLoginScreenShortCut());
+    registerShortCut(backToLoginScreenShortcut());
   }
 
-  static final Set<WindowShortCut> _shortCuts = {};
+  static final Set<WindowShortcut> _shortCuts = {};
 
-  static registerShortCut(WindowShortCut shortCut) {
+  static registerShortCut(WindowShortcut shortCut) {
     _shortCuts.add(shortCut);
   }
 
-  static removeShortCut(WindowShortCut shortCut) {
+  static removeShortCut(WindowShortcut shortCut) {
     _shortCuts.remove(shortCut);
   }
 
   static ShortCutCallback? accepts(
-      RawKeyEvent event, WindowShortCutTypes type) {
-    final Iterable<WindowShortCut> shortcuts;
-    if (type == WindowShortCutTypes.system) {
+      RawKeyEvent event, WindowShortcutTypes type) {
+    final Iterable<WindowShortcut> shortcuts;
+    if (type == WindowShortcutTypes.system) {
       shortcuts = _shortCuts.where((element) => element.type == type);
     } else {
       shortcuts = _shortCuts.where((element) =>
-          element.type == type || element.type == WindowShortCutTypes.system);
+          element.type == type || element.type == WindowShortcutTypes.system);
     }
 
     if (shortcuts.isEmpty) {
@@ -39,7 +39,7 @@ class ShortCutController {
     ShortCutCallback? callback = null;
     for (final s in shortcuts) {
       if (s.shortCut.accepts(event, RawKeyboard.instance)) {
-        if (s.type == WindowShortCutTypes.system) {
+        if (s.type == WindowShortcutTypes.system) {
           return s.callback;
         } else {
           callback = s.callback;

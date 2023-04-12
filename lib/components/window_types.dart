@@ -1,2 +1,2 @@
 // system > desktop = folder
-enum WindowShortCutTypes { desktop, folder, system }
+enum WindowShortcutTypes { desktop, folder, system }
