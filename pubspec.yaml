@@ -1,0 +1,62 @@
+name: flutter_desktop
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  battery_plus: ^3.0.4
+  ffi: ^2.0.1
+  flutter:
+    sdk: flutter
+  flutter_rust_bridge: 1.62.1
+  flutter_smart_dialog: ^4.9.0+5
+  intl: ^0.18.0
+  loading_indicator: ^3.1.0
+  network_info_plus: ^3.0.3
+  provider: ^6.0.3
+  window_manager: ^0.3.2
+
+dev_dependencies:
+  build_runner: ^2.3.3
+  ffigen: ^6.0.1
+  flutter_launcher_icons: ^0.13.0
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.3.2
+  freezed_annotation: ^2.2.0
+
+dependency_overrides: 
+  cli_util: ^0.4.0
+
+deferred-components:
+  - name: flutter_desktop
+    libraries:
+      - package:flutter_desktop/components/loading/loading_screen.dart
+      - package:flutter_desktop/components/login/login_screen.dart
+
+flutter_icons:
+  windows:
+    generate: true
+    image_path: "assets/images/icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/icon.png"
+  linux:
+    generate: true
+    image_path: "assets/images/icon.png"
+
+flutter:
+  uses-material-design: true
+  assets: 
+    - assets/images/
+
+  fonts:
+    - family: 思源
+      fonts:
+        - asset: assets/fonts/SourceHanSans-Medium.ttc
