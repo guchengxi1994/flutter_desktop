@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/components/routers.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class LoginController extends ChangeNotifier {
@@ -9,7 +10,6 @@ class LoginController extends ChangeNotifier {
   static final _battery = Battery();
   static final _info = NetworkInfo();
   var batteryState = BatteryState.unknown;
-  bool passwordVisible = true;
 
   init() {
     _battery.onBatteryStateChanged.listen((event) {
@@ -20,12 +20,10 @@ class LoginController extends ChangeNotifier {
   }
 
   changeShowForm() {
-    showForm = !showForm;
-    notifyListeners();
-  }
-
-  changePasswordStatus() {
-    passwordVisible = !passwordVisible;
+    if (showForm) {
+      return;
+    }
+    showForm = true;
     notifyListeners();
   }
 
@@ -52,5 +50,25 @@ class LoginController extends ChangeNotifier {
       yield wifiName;
       await Future.delayed(const Duration(seconds: 5));
     }
+  }
+}
+
+class LoginFormController extends ChangeNotifier {
+  bool passwordVisible = true;
+  bool isLoading = false;
+
+  changePasswordStatus() {
+    passwordVisible = !passwordVisible;
+    notifyListeners();
+  }
+
+  Future submit(String password) async {
+    isLoading = true;
+    notifyListeners();
+    await Future.delayed(const Duration(seconds: 2));
+    isLoading = false;
+    notifyListeners();
+    Routers.navigatorKey.currentState!
+        .pushNamedAndRemoveUntil(Routers.desktopScreen, (route) => false);
   }
 }

@@ -11,6 +11,7 @@ void main() async {
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();
     WindowOptions windowOptions = const WindowOptions(
+      title: "桌面",
       size: Size(1280, 720),
       minimumSize: Size(1280, 720),
       maximumSize: Size(1280, 720),
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Desktop',
+      title: '桌面',
       theme: ThemeData(fontFamily: "思源"),
       routes: Routers.routers,
       initialRoute: Routers.loadingScreen,

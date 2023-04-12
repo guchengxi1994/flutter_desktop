@@ -36,7 +36,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Icon(
             Icons.desktop_windows,
             color: AppStyle.light,
-            size: 100,
+            size: 150,
           ),
           const SizedBox(
             height: 150,
@@ -45,7 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
             width: 30,
             height: 30,
             child: CircularProgressIndicator(
-              color: AppStyle.light,
+              color: AppStyle.light2,
             ),
           ),
           const Expanded(child: SizedBox()),
