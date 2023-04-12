@@ -8,7 +8,7 @@ WindowShortcut backToLoginScreenShortcut() {
   final shortcut =
       LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyL);
   return WindowShortcut(
-    shortCut: shortcut,
+    shortcut: shortcut,
     type: WindowShortcutTypes.system,
     callback: () {
       Routers.navigatorKey.currentState!.popAndPushNamed(Routers.loginScreen);

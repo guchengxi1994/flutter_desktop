@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
-import 'package:flutter_desktop/components/short_cuts/shortcut_builder.dart';
+import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
 import 'package:flutter_desktop/components/window_types.dart';
 
 class DesktopScreen extends StatefulWidget {

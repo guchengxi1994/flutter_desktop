@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_init_to_null
 
 import 'package:flutter/services.dart';
-import 'package:flutter_desktop/components/short_cuts/_back_to_login_screen_shortcut.dart';
+import 'package:flutter_desktop/components/shortcuts/_back_to_login_screen_shortcut.dart';
 import 'package:flutter_desktop/components/window_types.dart';
 
 import 'window_shortcut.dart';
@@ -38,7 +38,7 @@ class ShortcutController {
     }
     ShortCutCallback? callback = null;
     for (final s in shortcuts) {
-      if (s.shortCut.accepts(event, RawKeyboard.instance)) {
+      if (s.shortcut.accepts(event, RawKeyboard.instance)) {
         if (s.type == WindowShortcutTypes.system) {
           return s.callback;
         } else {
