@@ -16,7 +16,6 @@ void main() async {
       title: "桌面",
       size: Size(1280, 720),
       minimumSize: Size(1280, 720),
-      maximumSize: Size(1280, 720),
       center: false,
       // backgroundColor: Colors.transparent,
     );

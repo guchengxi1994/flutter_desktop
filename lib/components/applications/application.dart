@@ -38,8 +38,8 @@ class Application extends StatelessWidget {
         left: appDetails.xmin,
         top: appDetails.ymin,
         child: GestureDetector(
-          onPanDown: (details) {
-            // context.read<DesktopController>().setFocusedUuid(uuid);
+          onTapUp: (details) {
+            context.read<DesktopController>().setFocusedUuid(uuid);
           },
           onPanUpdate: (details) {
             context
@@ -150,12 +150,20 @@ class Application extends StatelessWidget {
             width: appDetails.xmax - appDetails.xmin,
             child: Row(
               children: [
+                const SizedBox(
+                  width: 10,
+                ),
                 appDetails.icon!,
                 const SizedBox(
                   width: 5,
                 ),
-                Text(appDetails.name),
-                const Expanded(child: SizedBox()),
+                Expanded(
+                    child: Text(
+                  appDetails.name,
+                  softWrap: true,
+                  maxLines: 1,
+                  overflow: TextOverflow.clip,
+                )),
                 InkWell(
                   onTap: () {
                     ctx.read<ApplicationController>().removeDetail(uuid);
@@ -165,12 +173,16 @@ class Application extends StatelessWidget {
                     Icons.close,
                     color: AppStyle.dark,
                   ),
-                )
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
               ],
             ),
           ),
           Expanded(
               child: SingleChildScrollView(
+            padding: const EdgeInsets.all(5),
             child: child,
           ))
         ],

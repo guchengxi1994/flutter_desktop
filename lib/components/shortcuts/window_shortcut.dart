@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/window_types.dart';
+import 'package:flutter_desktop/components/window_shortcut_types.dart';
 
 typedef ShortCutCallback = void Function();
 

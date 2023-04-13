@@ -4,7 +4,7 @@ import 'package:flutter_desktop/components/applications/application_controller.d
 import 'package:flutter_desktop/components/applications/application_details.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
-import 'package:flutter_desktop/components/window_types.dart';
+import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 

@@ -10,8 +10,8 @@ crate-type = ["lib","staticlib","cdylib",]
 
 [dependencies]
 anyhow = "1.0.66"
-flutter_rust_bridge = "= 1.62.1"
+flutter_rust_bridge = "= 1.74.0"
 lazy_static = "1.4.0"
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "= 1.62.1"
+flutter_rust_bridge_codegen = "= 1.74.0"
