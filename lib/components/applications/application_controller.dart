@@ -13,6 +13,14 @@ class ApplicationController extends ChangeNotifier {
     return details[index];
   }
 
+  bool exists(String uuid) {
+    final index = details.findIndex(uuid);
+    if (index == -1) {
+      return false;
+    }
+    return true;
+  }
+
   changeApplicationPosition(String uuid, DragUpdateDetails d) {
     final index = details.findIndex(uuid);
     if (index == -1) {

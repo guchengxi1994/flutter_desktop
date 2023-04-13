@@ -145,7 +145,8 @@ class Application extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(color: AppStyle.grey),
             height: 30,
             width: appDetails.xmax - appDetails.xmin,
             child: Row(
@@ -153,7 +154,11 @@ class Application extends StatelessWidget {
                 const SizedBox(
                   width: 10,
                 ),
-                appDetails.icon!,
+                SizedBox(
+                  width: AppStyle.appbarIconSize,
+                  height: AppStyle.appbarIconSize,
+                  child: appDetails.icon!,
+                ),
                 const SizedBox(
                   width: 5,
                 ),
@@ -188,15 +193,6 @@ class Application extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ApplicationEntry extends StatelessWidget {
-  const ApplicationEntry({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 

@@ -14,6 +14,7 @@ class ApplicationDetails {
 
   /// 是否支持多开
   final bool multiple;
+  final bool deletable;
   Widget? icon;
   String? iconUrl;
 
@@ -34,17 +35,17 @@ class ApplicationDetails {
     }
   }
 
-  ApplicationDetails({
-    this.icon,
-    this.iconUrl,
-    required this.uuid,
-    this.multiple = false,
-    required this.name,
-    this.xmax = 100,
-    this.xmin = 0,
-    this.ymax = 100,
-    this.ymin = 0,
-  }) {
+  ApplicationDetails(
+      {this.icon,
+      this.iconUrl,
+      required this.uuid,
+      this.multiple = false,
+      required this.name,
+      this.xmax = 100,
+      this.xmin = 0,
+      this.ymax = 100,
+      this.ymin = 0,
+      this.deletable = true}) {
     if (icon == null && iconUrl == null) {
       icon = const Icon(
         Icons.apps,

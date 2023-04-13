@@ -2,7 +2,7 @@ name: flutter_desktop
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.1+1
+version: 0.1.1+2
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -56,6 +56,7 @@ flutter:
   uses-material-design: true
   assets: 
     - assets/images/
+    - assets/images/appicons/
 
   fonts:
     - family: 思源

@@ -23,12 +23,15 @@ class DesktopController extends ChangeNotifier {
     applications.add(s);
   }
 
-  addApplication(Widget w) {
-    applications.add(w);
+  addApplication(Widget w, {bool exists = false}) {
+    if (!exists) {
+      applications.add(w);
+    }
     if (w is Application) {
       focusedApplicationUuid = w.uuid;
       sortByUuid();
     }
+
     notifyListeners();
   }
 
