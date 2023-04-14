@@ -6,6 +6,7 @@ import 'future_builder.dart';
 import 'loading/loading_screen.dart' deferred as loading;
 import 'login/login_screen.dart' deferred as login;
 import 'desktop/desktop_screen.dart' deferred as desktop;
+import 'taskbar/taskbar_controller.dart';
 
 class Routers {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -25,6 +26,7 @@ class Routers {
           providers: [
             ChangeNotifierProvider(create: (_) => ApplicationController()),
             ChangeNotifierProvider(create: (_) => DesktopController()),
+            ChangeNotifierProvider(create: (_) => TaskbarController())
           ],
           child: FutureLoaderWidget(
               builder: (context) => desktop.DesktopScreen(),

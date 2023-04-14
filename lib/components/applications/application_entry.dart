@@ -33,7 +33,7 @@ class ApplicationEntry extends StatelessWidget {
               message: details.name,
               child: Text(
                 details.name,
-                style: TextStyle(color: AppStyle.light2),
+                style: const TextStyle(color: AppStyle.light2),
                 overflow: TextOverflow.ellipsis,
               ),
             )

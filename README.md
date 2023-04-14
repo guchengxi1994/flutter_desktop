@@ -2,9 +2,15 @@
 
 ## changelogs
 
-* **0.1.1+2** double click to start an application
-* **0.1.1+1** bump flutter_rust_bridge version
-* **0.1.1** application controller
+* **0.1.2** taskbar & statusbar
+
+  ![image-20230414145815436](./screenshots/image-20230414145815436.png)
+
+* **0.1.1** applications
+
+  * **0.1.1+2** double click to start an application
+  * **0.1.1+1** bump flutter_rust_bridge version
+  * **0.1.1** application controller
 
 ## screenshots
 

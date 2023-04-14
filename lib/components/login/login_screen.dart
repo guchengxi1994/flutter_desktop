@@ -135,13 +135,13 @@ class _LoginScreen extends StatelessWidget {
                                   stream: LoginController.wifiStream(),
                                   builder: (ctx, s) {
                                     if (s.data == null) {
-                                      return Icon(
+                                      return const Icon(
                                         Icons.wifi_off,
                                         size: AppStyle.iconSize,
                                         color: AppStyle.light2,
                                       );
                                     } else {
-                                      return Icon(
+                                      return const Icon(
                                         Icons.wifi,
                                         size: AppStyle.iconSize,
                                         color: AppStyle.light2,

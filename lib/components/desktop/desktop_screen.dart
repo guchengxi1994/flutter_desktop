@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:provider/provider.dart';
 
-import '../applications/_system_applications/entries.dart';
+import '../taskbar/taskbar.dart';
 
 class DesktopScreen extends StatefulWidget {
   const DesktopScreen({super.key});
@@ -28,16 +30,25 @@ class _DesktopScreenState extends State<DesktopScreen>
                     fit: BoxFit.fill)),
             child: Stack(
               children: [
-                SizedBox.expand(
-                  child: Wrap(
-                    direction: Axis.vertical,
-                    spacing: 10,
-                    runSpacing: 10,
-                    children: [
-                      myComputerBuilder(ctx),
-                      recycleBuilder(ctx),
-                    ],
-                  ),
+                Column(
+                  children: [
+                    Expanded(
+                        child: SizedBox.expand(
+                      child: Wrap(
+                        direction: Axis.vertical,
+                        spacing: 10,
+                        runSpacing: 10,
+                        children: [
+                          SystemApplicationBuilder.build(
+                              ctx, myComputerDetails),
+                          SystemApplicationBuilder.build(ctx, recycleDetails),
+                          SystemApplicationBuilder.build(
+                              ctx, appManagementDetails),
+                        ],
+                      ),
+                    )),
+                    const Taskbar()
+                  ],
                 ),
                 ...context.watch<DesktopController>().applications
               ],

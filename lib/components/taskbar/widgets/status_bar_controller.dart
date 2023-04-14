@@ -1,19 +1,17 @@
-// ignore_for_file: prefer_typing_uninitialized_variables
-
-import 'dart:async';
-
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/routers.dart';
+import 'package:flutter_volume_controller/flutter_volume_controller.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
-class LoginController extends ChangeNotifier {
-  bool showForm = false;
+class StatusBarController extends ChangeNotifier {
   static final _battery = Battery();
   static final _info = NetworkInfo();
   var batteryState = BatteryState.unknown;
+  double volume = 0;
 
-  init() {
+  init() async {
+    volume = (await FlutterVolumeController.getVolume()) ?? 0;
+    notifyListeners();
     _battery.onBatteryStateChanged.listen((event) {
       // debugPrint(event.toString());
       if (hasListeners) {
@@ -21,14 +19,16 @@ class LoginController extends ChangeNotifier {
         notifyListeners();
       }
     });
-  }
 
-  changeShowForm() {
-    if (showForm) {
-      return;
-    }
-    showForm = true;
-    notifyListeners();
+    FlutterVolumeController.addListener(
+      (v) {
+        // debugPrint('Volume changed: $volume');
+        if (hasListeners) {
+          volume = v;
+          notifyListeners();
+        }
+      },
+    );
   }
 
   static Stream<DateTime> timeStream() async* {
@@ -54,25 +54,5 @@ class LoginController extends ChangeNotifier {
       yield wifiName;
       await Future.delayed(const Duration(seconds: 5));
     }
-  }
-}
-
-class LoginFormController extends ChangeNotifier {
-  bool passwordVisible = true;
-  bool isLoading = false;
-
-  changePasswordStatus() {
-    passwordVisible = !passwordVisible;
-    notifyListeners();
-  }
-
-  Future submit(String password) async {
-    isLoading = true;
-    notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
-    isLoading = false;
-    notifyListeners();
-    Routers.navigatorKey.currentState!
-        .pushNamedAndRemoveUntil(Routers.desktopScreen, (route) => false);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/details.dart'
+    show myComputerDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 
 Widget myComputerApplication() {

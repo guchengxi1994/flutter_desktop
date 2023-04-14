@@ -18,6 +18,9 @@ class ApplicationDetails {
   Widget? icon;
   String? iconUrl;
 
+  final bool needsTaskbarDisplay;
+  final bool needsTrayDisplay;
+
   double xmin;
   double xmax;
   double ymin;
@@ -45,7 +48,9 @@ class ApplicationDetails {
       this.xmin = 0,
       this.ymax = 100,
       this.ymin = 0,
-      this.deletable = true}) {
+      this.deletable = true,
+      this.needsTaskbarDisplay = false,
+      this.needsTrayDisplay = false}) {
     if (icon == null && iconUrl == null) {
       icon = const Icon(
         Icons.apps,

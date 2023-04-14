@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   battery_plus
+  flutter_volume_controller
   network_info_plus
   screen_retriever
   window_manager

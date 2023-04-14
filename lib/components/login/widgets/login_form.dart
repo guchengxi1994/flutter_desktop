@@ -46,14 +46,15 @@ class LoginForm extends StatelessWidget {
                         .submit(passwardController.text);
                   },
                   obscuringCharacter: "*",
-                  style: TextStyle(fontSize: 16, color: AppStyle.light2),
+                  style: const TextStyle(fontSize: 16, color: AppStyle.light2),
                   controller: passwardController,
                   obscureText: passwordVisible,
                   maxLines: 1,
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(left: 10, top: 8.5),
                     hintText: "密码",
-                    hintStyle: TextStyle(fontSize: 16, color: AppStyle.light2),
+                    hintStyle:
+                        const TextStyle(fontSize: 16, color: AppStyle.light2),
                     border: InputBorder.none,
                     suffixIcon: SizedBox(
                       width: 60,
@@ -81,7 +82,7 @@ class LoginForm extends StatelessWidget {
                           ctx.select<LoginFormController, bool>(
                                   (value) => !value.isLoading)
                               ? InkWell(
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.chevron_right,
                                     color: AppStyle.light2,
                                     size: 20,
@@ -92,7 +93,7 @@ class LoginForm extends StatelessWidget {
                                         .submit(passwardController.text);
                                   },
                                 )
-                              : SizedBox(
+                              : const SizedBox(
                                   width: 15,
                                   height: 15,
                                   child: CircularProgressIndicator(

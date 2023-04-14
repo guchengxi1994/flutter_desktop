@@ -9,10 +9,14 @@ class BatteryWidget extends StatelessWidget {
       {super.key,
       required this.battery,
       required this.state,
-      this.showBattery = true});
+      this.showBattery = true,
+      this.color = AppStyle.light2,
+      this.size = AppStyle.iconSize});
   final BatteryState state;
   final int battery;
   final bool showBattery;
+  final Color color;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class BatteryWidget extends StatelessWidget {
         if (showBattery)
           Text(
             battery.toString(),
-            style: TextStyle(color: AppStyle.light2, fontSize: 20),
+            style: TextStyle(color: color, fontSize: 20),
           )
       ],
     );
@@ -39,8 +43,8 @@ class BatteryWidget extends StatelessWidget {
           angle: math.pi / 2,
           child: Icon(
             Icons.battery_charging_full,
-            color: AppStyle.light2,
-            size: AppStyle.iconSize,
+            color: color,
+            size: size,
           ),
         );
       case BatteryState.full:
@@ -48,8 +52,8 @@ class BatteryWidget extends StatelessWidget {
           angle: math.pi / 2,
           child: Icon(
             Icons.battery_full,
-            color: AppStyle.light2,
-            size: AppStyle.iconSize,
+            color: color,
+            size: size,
           ),
         );
       case BatteryState.discharging:
@@ -57,8 +61,8 @@ class BatteryWidget extends StatelessWidget {
           angle: math.pi / 2,
           child: Icon(
             Icons.battery_4_bar,
-            color: AppStyle.light2,
-            size: AppStyle.iconSize,
+            color: color,
+            size: size,
           ),
         );
       default:
@@ -66,8 +70,8 @@ class BatteryWidget extends StatelessWidget {
           angle: math.pi / 2,
           child: Icon(
             Icons.battery_alert,
-            color: AppStyle.light2,
-            size: AppStyle.iconSize,
+            color: color,
+            size: size,
           ),
         );
     }

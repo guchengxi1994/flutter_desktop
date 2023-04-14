@@ -286,6 +286,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      sha256: c224ac897bed083dabf11f238dd11a239809b446740be0c2044608c50029ffdf
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.9"
   flutter_rust_bridge:
     dependency: "direct main"
     description:
@@ -307,6 +315,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_volume_controller:
+    dependency: "direct main"
+    description:
+      name: flutter_volume_controller
+      sha256: "13839a70f583de9d7d4e0d3b6bbc3b27ec2958bc4515e8a2b09c92869ee06ece"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.5"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
