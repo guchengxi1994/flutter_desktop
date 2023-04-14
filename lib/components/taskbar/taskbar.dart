@@ -18,11 +18,11 @@ class Taskbar extends StatelessWidget {
     return Container(
       height: 50,
       width: MediaQuery.of(context).size.width,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           gradient: LinearGradient(
         colors: [
-          Color.fromARGB(255, 219, 206, 195),
-          Color.fromARGB(255, 98, 180, 235)
+          const Color.fromARGB(255, 219, 206, 195).withOpacity(0.75),
+          const Color.fromARGB(255, 98, 180, 235).withOpacity(0.75)
         ],
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,

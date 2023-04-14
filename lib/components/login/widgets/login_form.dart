@@ -1,10 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/login/login_controller.dart';
 import 'package:flutter_desktop/components/screen_fit_utils.dart';
+import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatelessWidget with OperationLoggerMixin {
   LoginForm({super.key});
   final TextEditingController passwardController = TextEditingController();
 
@@ -41,6 +44,7 @@ class LoginForm extends StatelessWidget {
                   enabled: ctx.select<LoginFormController, bool>(
                       (value) => !value.isLoading),
                   onSubmitted: (value) async {
+                    await log(content: "登录", result: "成功");
                     await ctx
                         .read<LoginFormController>()
                         .submit(passwardController.text);
@@ -88,6 +92,7 @@ class LoginForm extends StatelessWidget {
                                     size: 20,
                                   ),
                                   onTap: () async {
+                                    await log(content: "登录", result: "成功");
                                     await ctx
                                         .read<LoginFormController>()
                                         .submit(passwardController.text);

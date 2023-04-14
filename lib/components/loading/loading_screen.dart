@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/bridge/native.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/screen_fit_utils.dart';
+
+import '../utils.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -12,7 +15,10 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen> {
   Future loading() async {
-    await Future.delayed(const Duration(seconds: 3)).then((value) {
+    await api.setDbPath(s: "${DevUtils.executableDir.path}/data.db");
+    await api.initDb();
+
+    await Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context)
           .pushNamedAndRemoveUntil(Routers.loginScreen, (route) => false);
     });
