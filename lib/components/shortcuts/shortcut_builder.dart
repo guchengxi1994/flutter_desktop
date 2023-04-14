@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
-import 'package:flutter_desktop/components/window_types.dart';
+import 'package:flutter_desktop/components/window_shortcut_types.dart';
 
 class ShortcutBuilder extends StatelessWidget {
   const ShortcutBuilder({super.key, required this.builder, required this.type});

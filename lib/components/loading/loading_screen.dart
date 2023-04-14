@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/routers.dart';
+import 'package:flutter_desktop/components/screen_fit_utils.dart';
 
 class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
@@ -25,9 +26,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
+      width: size.width,
+      height: size.height,
       color: AppStyle.dark,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,10 +38,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
           Icon(
             Icons.desktop_windows,
             color: AppStyle.light,
-            size: 150,
+            size: 150.h(size.height),
           ),
-          const SizedBox(
-            height: 150,
+          SizedBox(
+            height: 150.h(size.height),
           ),
           SizedBox(
             width: 30,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/components/applications/application_controller.dart';
+import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
+import 'package:provider/provider.dart';
 import 'future_builder.dart';
 import 'loading/loading_screen.dart' deferred as loading;
 import 'login/login_screen.dart' deferred as login;
@@ -18,8 +21,14 @@ class Routers {
     loginScreen: (context) => FutureLoaderWidget(
         builder: (context) => login.LoginScreen(),
         loadWidgetFuture: login.loadLibrary()),
-    desktopScreen: (context) => FutureLoaderWidget(
-        builder: (context) => desktop.DesktopScreen(),
-        loadWidgetFuture: desktop.loadLibrary()),
+    desktopScreen: (context) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => ApplicationController()),
+            ChangeNotifierProvider(create: (_) => DesktopController()),
+          ],
+          child: FutureLoaderWidget(
+              builder: (context) => desktop.DesktopScreen(),
+              loadWidgetFuture: desktop.loadLibrary()),
+        ),
   };
 }

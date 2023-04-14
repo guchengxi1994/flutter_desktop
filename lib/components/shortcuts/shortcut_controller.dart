@@ -2,7 +2,7 @@
 
 import 'package:flutter/services.dart';
 import 'package:flutter_desktop/components/shortcuts/_back_to_login_screen_shortcut.dart';
-import 'package:flutter_desktop/components/window_types.dart';
+import 'package:flutter_desktop/components/window_shortcut_types.dart';
 
 import 'window_shortcut.dart';
 

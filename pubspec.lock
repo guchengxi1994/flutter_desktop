@@ -290,10 +290,10 @@ packages:
     dependency: "direct main"
     description:
       name: flutter_rust_bridge
-      sha256: aedbf045f72c7ed778d1cfc8bff0ceae28519d258e3f477abd70ce375ae8cdda
+      sha256: "9964f0105534e8fcd1508521125f5e33e76b1f1a679dbe42cf6b73b7ef28268a"
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.62.1"
+    version: "1.74.0"
   flutter_smart_dialog:
     dependency: "direct main"
     description:
@@ -726,7 +726,7 @@ packages:
     source: hosted
     version: "0.7.0"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       sha256: "648e103079f7c64a36dc7d39369cabb358d377078a051d6ae2ad3aa539519313"

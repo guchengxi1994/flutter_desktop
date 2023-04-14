@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/login/login_controller.dart';
+import 'package:flutter_desktop/components/screen_fit_utils.dart';
 import 'package:provider/provider.dart';
 
 class LoginForm extends StatelessWidget {
@@ -9,6 +10,8 @@ class LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return ChangeNotifierProvider(
       create: (_) => LoginFormController(),
       builder: (ctx, child) {
@@ -18,18 +21,21 @@ class LoginForm extends StatelessWidget {
           children: [
             ClipOval(
               child: Image.asset("assets/images/avatar.png",
-                  height: 200, width: 200, fit: BoxFit.cover),
+                  height: 200.h(size.height),
+                  width: 200.h(size.height),
+                  fit: BoxFit.cover),
             ),
             Text("xiaoshuyui",
-                style: TextStyle(color: AppStyle.light2, fontSize: 35)),
-            const SizedBox(
-              height: 15,
+                style:
+                    TextStyle(color: AppStyle.light2, fontSize: 35.sp(size))),
+            SizedBox(
+              height: 15.h(size.height),
             ),
             Container(
               decoration: BoxDecoration(
                   color: AppStyle.passwordInputBackground,
                   borderRadius: BorderRadius.circular(5)),
-              width: 250,
+              width: 250.w(size.width),
               height: 40,
               child: TextField(
                   enabled: ctx.select<LoginFormController, bool>(

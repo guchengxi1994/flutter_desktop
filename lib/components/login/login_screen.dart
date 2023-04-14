@@ -7,6 +7,7 @@ import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/login/widgets/battery.dart';
 import 'package:flutter_desktop/components/login/login_controller.dart';
 import 'package:flutter_desktop/components/login/widgets/login_form.dart';
+import 'package:flutter_desktop/components/screen_fit_utils.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -29,6 +30,8 @@ class _LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return GestureDetector(
       onTap: () {
         context.read<LoginController>().changeShowForm();
@@ -36,8 +39,8 @@ class _LoginScreen extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+            width: size.width,
+            height: size.height,
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/login_background.jpg"),
@@ -62,8 +65,8 @@ class _LoginScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // const Expanded(child: SizedBox()),
-                const SizedBox(
-                  height: 100,
+                SizedBox(
+                  height: 100.h(size.height),
                 ),
                 if (context
                     .select<LoginController, bool>((value) => value.showForm))
@@ -87,12 +90,14 @@ class _LoginScreen extends StatelessWidget {
                             Text(
                               "${s.data!.hour}:$minute",
                               style: TextStyle(
-                                  color: AppStyle.light2, fontSize: 72),
+                                  color: AppStyle.light2,
+                                  fontSize: 72.sp(size)),
                             ),
                             Text(
                               "${s.data!.month}月${s.data!.day}日 ${DateFormat('EEEE', "zh_CN").format(s.data!)}",
                               style: TextStyle(
-                                  color: AppStyle.light2, fontSize: 35),
+                                  color: AppStyle.light2,
+                                  fontSize: 35.sp(size)),
                             ),
                           ],
                         );
@@ -146,8 +151,8 @@ class _LoginScreen extends StatelessWidget {
                             ],
                           ),
                         ))),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 20.h(size.height),
                 ),
               ],
             ),
