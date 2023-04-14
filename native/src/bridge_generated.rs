@@ -31,6 +31,47 @@ fn wire_rust_bridge_say_hello_impl(port_: MessagePort) {
         move || move |task_callback| Ok(rust_bridge_say_hello()),
     )
 }
+fn wire_set_db_path_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_db_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_db_path(api_s))
+        },
+    )
+}
+fn wire_init_db_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "init_db",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(init_db()),
+    )
+}
+fn wire_new_log_impl(
+    port_: MessagePort,
+    content: impl Wire2Api<String> + UnwindSafe,
+    result: impl Wire2Api<Option<String>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "new_log",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_content = content.wire2api();
+            let api_result = result.wire2api();
+            move |task_callback| Ok(new_log(api_content, api_result))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -53,6 +94,13 @@ where
         (!self.is_null()).then(|| self.wire2api())
     }
 }
+
+impl Wire2Api<u8> for u8 {
+    fn wire2api(self) -> u8 {
+        self
+    }
+}
+
 // Section: impl IntoDart
 
 // Section: executor
@@ -73,20 +121,3 @@ pub use web::*;
 mod io;
 #[cfg(not(target_family = "wasm"))]
 pub use io::*;
-
-    // ----------- DUMMY CODE FOR BINDGEN ----------
-
-    // copied from: allo-isolate
-    pub type DartPort = i64;
-    pub type DartPostCObjectFnType = unsafe extern "C" fn(port_id: DartPort, message: *mut std::ffi::c_void) -> bool;
-    #[no_mangle] pub unsafe extern "C" fn store_dart_post_cobject(ptr: DartPostCObjectFnType) { panic!("dummy code") }
-    #[no_mangle] pub unsafe extern "C" fn get_dart_object(ptr: usize) -> Dart_Handle { panic!("dummy code") }
-    #[no_mangle] pub unsafe extern "C" fn drop_dart_object(ptr: usize) { panic!("dummy code") }
-    #[no_mangle] pub unsafe extern "C" fn new_dart_opaque(handle: Dart_Handle) -> usize { panic!("dummy code") }
-    #[no_mangle] pub unsafe extern "C" fn init_frb_dart_api_dl(obj: *mut c_void) -> isize { panic!("dummy code") }
-
-    pub struct DartCObject;
-    pub type WireSyncReturn = *mut DartCObject;
-
-    // ---------------------------------------------
-    

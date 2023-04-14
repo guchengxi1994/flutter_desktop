@@ -14,6 +14,19 @@ abstract class Native {
   Future<String> rustBridgeSayHello({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kRustBridgeSayHelloConstMeta;
+
+  Future<void> setDbPath({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetDbPathConstMeta;
+
+  Future<void> initDb({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kInitDbConstMeta;
+
+  /// operation-logger
+  Future<void> newLog({required String content, String? result, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNewLogConstMeta;
 }
 
 class NativeImpl implements Native {
@@ -41,6 +54,57 @@ class NativeImpl implements Native {
         argNames: [],
       );
 
+  Future<void> setDbPath({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_db_path(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetDbPathConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetDbPathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_db_path",
+        argNames: ["s"],
+      );
+
+  Future<void> initDb({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_init_db(port_),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kInitDbConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kInitDbConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "init_db",
+        argNames: [],
+      );
+
+  Future<void> newLog({required String content, String? result, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(content);
+    var arg1 = _platform.api2wire_opt_String(result);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_new_log(port_, arg0, arg1),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kNewLogConstMeta,
+      argValues: [content, result],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNewLogConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "new_log",
+        argNames: ["content", "result"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -57,9 +121,18 @@ class NativeImpl implements Native {
   Uint8List _wire2api_uint_8_list(dynamic raw) {
     return raw as Uint8List;
   }
+
+  void _wire2api_unit(dynamic raw) {
+    return;
+  }
 }
 
 // Section: api2wire
+
+@protected
+int api2wire_u8(int raw) {
+  return raw;
+}
 
 // Section: finalizer
 
@@ -68,6 +141,22 @@ class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
 
 // Section: api2wire
 
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_String(String raw) {
+    return api2wire_uint_8_list(utf8.encoder.convert(raw));
+  }
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_opt_String(String? raw) {
+    return raw == null ? ffi.nullptr : api2wire_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<wire_uint_8_list> api2wire_uint_8_list(Uint8List raw) {
+    final ans = inner.new_uint_8_list_0(raw.length);
+    ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
+    return ans;
+  }
 // Section: finalizer
 
 // Section: api_fill_to_wire
@@ -182,6 +271,70 @@ class NativeWire implements FlutterRustBridgeWireBase {
   late final _wire_rust_bridge_say_hello =
       _wire_rust_bridge_say_helloPtr.asFunction<void Function(int)>();
 
+  void wire_set_db_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_db_path(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_db_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_set_db_path');
+  late final _wire_set_db_path = _wire_set_db_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_init_db(
+    int port_,
+  ) {
+    return _wire_init_db(
+      port_,
+    );
+  }
+
+  late final _wire_init_dbPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>('wire_init_db');
+  late final _wire_init_db = _wire_init_dbPtr.asFunction<void Function(int)>();
+
+  void wire_new_log(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> content,
+    ffi.Pointer<wire_uint_8_list> result,
+  ) {
+    return _wire_new_log(
+      port_,
+      content,
+      result,
+    );
+  }
+
+  late final _wire_new_logPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_new_log');
+  late final _wire_new_log = _wire_new_logPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
+    int len,
+  ) {
+    return _new_uint_8_list_0(
+      len,
+    );
+  }
+
+  late final _new_uint_8_list_0Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<wire_uint_8_list> Function(
+              ffi.Int32)>>('new_uint_8_list_0');
+  late final _new_uint_8_list_0 = _new_uint_8_list_0Ptr
+      .asFunction<ffi.Pointer<wire_uint_8_list> Function(int)>();
+
   void free_WireSyncReturn(
     WireSyncReturn ptr,
   ) {
@@ -198,6 +351,13 @@ class NativeWire implements FlutterRustBridgeWireBase {
 }
 
 class _Dart_Handle extends ffi.Opaque {}
+
+class wire_uint_8_list extends ffi.Struct {
+  external ffi.Pointer<ffi.Uint8> ptr;
+
+  @ffi.Int32()
+  external int len;
+}
 
 typedef DartPostCObjectFnType = ffi.Pointer<
     ffi.NativeFunction<ffi.Bool Function(DartPort, ffi.Pointer<ffi.Void>)>>;
