@@ -2,9 +2,9 @@
 
 ## changelogs
 
-* **0.1.3**
+* **0.1.4** dialog
 
-  * **0.1.3+1** add logger (native)
+* **0.1.3** add logger (native)
 
 * **0.1.2** taskbar & status-bar
 

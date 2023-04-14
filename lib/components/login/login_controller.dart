@@ -50,8 +50,14 @@ class LoginController extends ChangeNotifier {
 
   static Stream<String?> wifiStream() async* {
     while (1 == 1) {
-      final wifiName = await _info.getWifiName();
-      yield wifiName;
+      try {
+        final wifiName = await _info.getWifiName();
+        // debugPrint(wifiName);
+        yield wifiName;
+      } catch (e) {
+        // debugPrint(e.toString());
+        yield null;
+      }
       await Future.delayed(const Duration(seconds: 5));
     }
   }
