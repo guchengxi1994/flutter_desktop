@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/application_controller.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
+import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
 import 'package:provider/provider.dart';
 
 import 'application_details.dart';
@@ -12,20 +13,11 @@ const double pointSize = 20;
 
 class Application extends StatelessWidget {
   Application(
-      {super.key,
-      required this.child,
-      this.needsTaskbarDisplay = false,
-      this.needsTrayDisplay = false,
-      required this.uuid,
-      this.name = "窗口"});
+      {super.key, required this.child, required this.uuid, this.name = "窗口"});
   final Widget child;
 
   final String uuid;
   final String name;
-
-  final bool needsTaskbarDisplay;
-
-  final bool needsTrayDisplay;
 
   late ApplicationDetails appDetails;
 
@@ -146,7 +138,10 @@ class Application extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            decoration: BoxDecoration(color: AppStyle.grey),
+            decoration: const BoxDecoration(
+                color: AppStyle.grey,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8), topRight: Radius.circular(8))),
             height: 30,
             width: appDetails.xmax - appDetails.xmin,
             child: Row(
@@ -173,8 +168,9 @@ class Application extends StatelessWidget {
                   onTap: () {
                     ctx.read<ApplicationController>().removeDetail(uuid);
                     ctx.read<DesktopController>().removeWidget(uuid);
+                    ctx.read<TaskbarController>().removeDetails(uuid);
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.close,
                     color: AppStyle.dark,
                   ),
@@ -193,15 +189,6 @@ class Application extends StatelessWidget {
         ],
       ),
     );
-  }
-}
-
-class ApplicationOnTaskbar extends StatelessWidget {
-  const ApplicationOnTaskbar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
 

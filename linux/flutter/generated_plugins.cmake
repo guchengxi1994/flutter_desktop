@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  flutter_volume_controller
   screen_retriever
   window_manager
 )

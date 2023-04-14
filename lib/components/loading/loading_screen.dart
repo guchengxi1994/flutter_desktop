@@ -43,7 +43,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
           SizedBox(
             height: 150.h(size.height),
           ),
-          SizedBox(
+          const SizedBox(
             width: 30,
             height: 30,
             child: CircularProgressIndicator(
