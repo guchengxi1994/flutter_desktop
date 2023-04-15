@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
+import 'package:flutter_desktop/components/context_menu/desktop_context_menu.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
@@ -21,7 +22,11 @@ class DesktopScreen extends StatefulWidget {
 }
 
 class _DesktopScreenState extends State<DesktopScreen>
-    with AutomaticKeepAliveClientMixin, OperationLoggerMixin, WindowListener {
+    with
+        AutomaticKeepAliveClientMixin,
+        OperationLoggerMixin,
+        WindowListener,
+        DesktopContextMenuMixin {
   @override
   void initState() {
     windowManager.addListener(this);
@@ -49,41 +54,49 @@ class _DesktopScreenState extends State<DesktopScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return ShortcutBuilder(
-        builder: (ctx) {
-          return Container(
-            // color: AppStyle.light2,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/desktop.jpg"),
-                    fit: BoxFit.fill)),
-            child: Stack(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                        child: SizedBox.expand(
-                      child: Wrap(
-                        direction: Axis.vertical,
-                        spacing: 10,
-                        runSpacing: 10,
-                        children: [
-                          SystemApplicationBuilder.build(
-                              ctx, myComputerDetails),
-                          SystemApplicationBuilder.build(ctx, recycleDetails),
-                          SystemApplicationBuilder.build(
-                              ctx, appManagementDetails),
-                        ],
-                      ),
-                    )),
-                    const Taskbar()
-                  ],
-                ),
-                ...context.watch<DesktopController>().applications
-              ],
-            ),
-          );
-        },
-        type: WindowShortcutTypes.desktop);
+      builder: (ctx) {
+        return GestureDetector(
+            onSecondaryTapUp: (details) {
+              showContextMenu(details.globalPosition, context);
+            },
+            onTapUp: (details) {
+              dismiss();
+            },
+            child: Container(
+              // color: AppStyle.light2,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/desktop.jpg"),
+                      fit: BoxFit.fill)),
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Expanded(
+                          child: SizedBox.expand(
+                        child: Wrap(
+                          direction: Axis.vertical,
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: [
+                            SystemApplicationBuilder.build(
+                                ctx, myComputerDetails),
+                            SystemApplicationBuilder.build(ctx, recycleDetails),
+                            SystemApplicationBuilder.build(
+                                ctx, appManagementDetails),
+                          ],
+                        ),
+                      )),
+                      const Taskbar()
+                    ],
+                  ),
+                  ...context.watch<DesktopController>().applications
+                ],
+              ),
+            ));
+      },
+      type: WindowShortcutTypes.desktop,
+    );
   }
 
   @override

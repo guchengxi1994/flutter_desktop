@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/applications/application_details.dart';
+import 'package:provider/provider.dart';
 
 import '../app_style.dart';
+import '../desktop/desktop_controller.dart';
 
 class ApplicationOnTaskbar extends StatelessWidget {
   const ApplicationOnTaskbar(
@@ -14,7 +16,17 @@ class ApplicationOnTaskbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isHighlighted = context.select<DesktopController, bool>(
+      (value) => value.applications.isEmpty
+          ? false
+          : value.applications.last.uuid == details.uuid,
+    );
     return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: isHighlighted
+              ? AppStyle.light2.withOpacity(0.75)
+              : Colors.transparent),
       height: min(
           MediaQuery.of(context).size.width *
               AppStyle.taskbarFactor /

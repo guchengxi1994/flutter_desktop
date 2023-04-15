@@ -4,6 +4,10 @@
 
 * **0.1.4** 
 
+  * **0.1.4+3** highlight taskbar app icons && context menu
+
+    ![image-20230415221716387](./screenshots/image-20230415221716387.png)
+
   * **0.1.4+2** using `PageView`
 
   * **0.1.4+1** shutdown alert dialog

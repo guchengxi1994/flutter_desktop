@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/utils.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
@@ -76,7 +75,7 @@ class LoginFormController extends ChangeNotifier {
   Future submit(String password) async {
     isLoading = true;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     isLoading = false;
     notifyListeners();
     // Routers.navigatorKey.currentState!.pushNamed(Routers.desktopScreen);
