@@ -15,6 +15,7 @@ class ApplicationController<T extends ApplicationDetails>
   }
 
   bool exists(String uuid) {
+    // print(details);
     final index = details.findIndex(uuid);
     if (index == -1) {
       return false;

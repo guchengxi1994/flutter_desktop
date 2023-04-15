@@ -1,8 +1,10 @@
+// ignore_for_file: unnecessary_type_check
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
 
-class DesktopController extends ChangeNotifier {
-  List<Widget> applications = [];
+class DesktopController<T extends Application> extends ChangeNotifier {
+  List<T> applications = [];
 
   String focusedApplicationUuid = "";
 
@@ -13,8 +15,8 @@ class DesktopController extends ChangeNotifier {
   }
 
   sortByUuid() {
-    final w = applications.indexWhere(
-        (element) => (element as Application).uuid == focusedApplicationUuid);
+    final w = applications
+        .indexWhere((element) => (element).uuid == focusedApplicationUuid);
     if (w == -1) {
       return;
     }
@@ -23,7 +25,7 @@ class DesktopController extends ChangeNotifier {
     applications.add(s);
   }
 
-  addApplication(Widget w, {bool exists = false}) {
+  addApplication(T w, {bool exists = false}) {
     if (!exists) {
       applications.add(w);
     }
@@ -36,8 +38,7 @@ class DesktopController extends ChangeNotifier {
   }
 
   removeWidget(String uuid) {
-    final w = applications
-        .indexWhere((element) => (element as Application).uuid == uuid);
+    final w = applications.indexWhere((element) => element.uuid == uuid);
 
     if (w == -1) {
       return;

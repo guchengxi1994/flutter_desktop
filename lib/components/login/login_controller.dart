@@ -78,7 +78,6 @@ class LoginFormController extends ChangeNotifier {
     await Future.delayed(const Duration(seconds: 2));
     isLoading = false;
     notifyListeners();
-    Routers.navigatorKey.currentState!
-        .pushNamedAndRemoveUntil(Routers.desktopScreen, (route) => false);
+    Routers.navigatorKey.currentState!.pushNamed(Routers.desktopScreen);
   }
 }

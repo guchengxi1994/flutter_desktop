@@ -3,7 +3,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/det
     show recycleDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 
-Widget recycleApplication() {
+Application recycleApplication() {
   return Application(
     uuid: recycleDetails.uuid,
     name: recycleDetails.name,

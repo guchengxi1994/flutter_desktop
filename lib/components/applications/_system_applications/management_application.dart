@@ -3,7 +3,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/det
     show appManagementDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 
-Widget managementApplication() {
+Application managementApplication() {
   return Application(
     uuid: appManagementDetails.uuid,
     name: appManagementDetails.name,

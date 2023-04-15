@@ -3,7 +3,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/det
     show myComputerDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 
-Widget myComputerApplication() {
+Application myComputerApplication() {
   return Application(
     uuid: myComputerDetails.uuid,
     name: myComputerDetails.name,

@@ -11,7 +11,7 @@ WindowShortcut backToLoginScreenShortcut() {
     shortcut: shortcut,
     type: WindowShortcutTypes.system,
     callback: () {
-      Routers.navigatorKey.currentState!.popAndPushNamed(Routers.loginScreen);
+      Routers.navigatorKey.currentState!.pop();
     },
   );
 }
