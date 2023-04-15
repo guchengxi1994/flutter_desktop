@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
+import 'package:flutter_desktop/components/utils.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class LoginController extends ChangeNotifier {
@@ -78,6 +79,7 @@ class LoginFormController extends ChangeNotifier {
     await Future.delayed(const Duration(seconds: 2));
     isLoading = false;
     notifyListeners();
-    Routers.navigatorKey.currentState!.pushNamed(Routers.desktopScreen);
+    // Routers.navigatorKey.currentState!.pushNamed(Routers.desktopScreen);
+    PageNavigateController.navigateTo(1);
   }
 }

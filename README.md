@@ -2,9 +2,13 @@
 
 ## changelogs
 
-* **0.1.4** dialog
+* **0.1.4** 
+
+  * **0.1.4+2** using `PageView`
 
   * **0.1.4+1** shutdown alert dialog
+
+    ![image-20230415123427502](./screenshots/image-20230415123427502.png)
 
 * **0.1.3** add logger (native)
 
