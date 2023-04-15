@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/routers.dart';
+import 'package:flutter_desktop/components/utils.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 
 class LoginController extends ChangeNotifier {
@@ -50,8 +50,14 @@ class LoginController extends ChangeNotifier {
 
   static Stream<String?> wifiStream() async* {
     while (1 == 1) {
-      final wifiName = await _info.getWifiName();
-      yield wifiName;
+      try {
+        final wifiName = await _info.getWifiName();
+        // debugPrint(wifiName);
+        yield wifiName;
+      } catch (e) {
+        // debugPrint(e.toString());
+        yield null;
+      }
       await Future.delayed(const Duration(seconds: 5));
     }
   }
@@ -69,10 +75,10 @@ class LoginFormController extends ChangeNotifier {
   Future submit(String password) async {
     isLoading = true;
     notifyListeners();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     isLoading = false;
     notifyListeners();
-    Routers.navigatorKey.currentState!
-        .pushNamedAndRemoveUntil(Routers.desktopScreen, (route) => false);
+    // Routers.navigatorKey.currentState!.pushNamed(Routers.desktopScreen);
+    PageNavigateController.navigateTo(1);
   }
 }

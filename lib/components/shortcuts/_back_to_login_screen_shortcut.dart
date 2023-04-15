@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/window_shortcut.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
+
+import '../utils.dart';
 
 WindowShortcut backToLoginScreenShortcut() {
   final shortcut =
@@ -11,7 +12,8 @@ WindowShortcut backToLoginScreenShortcut() {
     shortcut: shortcut,
     type: WindowShortcutTypes.system,
     callback: () {
-      Routers.navigatorKey.currentState!.popAndPushNamed(Routers.loginScreen);
+      // Routers.navigatorKey.currentState!.pop();
+      PageNavigateController.navigateTo(0);
     },
   );
 }

@@ -20,7 +20,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context)
-          .pushNamedAndRemoveUntil(Routers.loginScreen, (route) => false);
+          .pushNamedAndRemoveUntil(Routers.desktopScreen, (route) => false);
     });
   }
 

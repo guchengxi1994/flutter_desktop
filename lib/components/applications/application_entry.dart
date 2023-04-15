@@ -15,6 +15,9 @@ class ApplicationEntry extends StatelessWidget {
       onDoubleTap: () {
         onDoubleClick();
       },
+      onSecondaryTapUp: (details) {
+        debugPrint("右键点击事件");
+      },
       // ignore: sized_box_for_whitespace
       child: Container(
         width: AppStyle.appEntryWidgetSize,

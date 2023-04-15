@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'application_details.dart';
 
-class ApplicationController extends ChangeNotifier {
-  List<ApplicationDetails> details = [];
+class ApplicationController<T extends ApplicationDetails>
+    extends ChangeNotifier {
+  List<T> details = [];
 
-  ApplicationDetails? getDetailsById(String uuid) {
+  T? getDetailsById(String uuid) {
     final index = details.findIndex(uuid);
     if (index == -1) {
       return null;
@@ -14,6 +15,7 @@ class ApplicationController extends ChangeNotifier {
   }
 
   bool exists(String uuid) {
+    // print(details);
     final index = details.findIndex(uuid);
     if (index == -1) {
       return false;
@@ -114,7 +116,7 @@ class ApplicationController extends ChangeNotifier {
     return details[index].xmax - details[index].xmin;
   }
 
-  addDetail(ApplicationDetails d) {
+  addDetail(T d) {
     details.add(d);
     notifyListeners();
   }
