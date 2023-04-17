@@ -47,7 +47,17 @@ class _LoadingScreenState extends State<LoadingScreen> {
             size: 150.h(size.height),
           ),
           SizedBox(
-            height: 150.h(size.height),
+            height: 15.h(size.height),
+          ),
+          const Text(
+            "Z-Desktop",
+            style: TextStyle(
+              color: AppStyle.light,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          SizedBox(
+            height: 110.h(size.height),
           ),
           const SizedBox(
             width: 30,

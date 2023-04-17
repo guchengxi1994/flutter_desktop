@@ -1,7 +1,8 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
 import 'package:flutter_desktop/components/applications/application_controller.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
@@ -13,13 +14,18 @@ const double pointSize = 20;
 
 class Application extends StatelessWidget {
   Application(
-      {super.key, required this.child, required this.uuid, this.name = "窗口"});
+      {super.key,
+      required this.child,
+      required this.uuid,
+      this.name = "窗口",
+      this.resizable = true});
   final Widget child;
 
   final String uuid;
   final String name;
 
   late ApplicationDetails appDetails;
+  final bool resizable;
 
   @override
   Widget build(BuildContext context) {
@@ -38,91 +44,97 @@ class Application extends StatelessWidget {
                 .read<ApplicationController>()
                 .changeApplicationPosition(uuid, details);
           },
-          child: SizedBox(
-            height: appDetails.ymax - appDetails.ymin,
-            width: appDetails.xmax - appDetails.xmin,
-            child: Stack(
-              children: [
-                _childWrapper(child, context),
-                Positioned(
-                    left: 0,
-                    top: 0,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.resizeUpLeft,
-                      child: GestureDetector(
-                        onPanUpdate: (details) {
-                          context
-                              .read<ApplicationController>()
-                              .changeApplicationByLeftTopPosition(
-                                  uuid, details);
-                        },
-                        child: Container(
-                          width: pointSize,
-                          height: pointSize,
-                          color: Colors.transparent,
-                        ),
-                      ),
-                    )),
-                // right top
-                // Positioned(
-                //     right: 0,
-                //     top: 0,
-                //     child: MouseRegion(
-                //         cursor: SystemMouseCursors.resizeDownLeft,
-                //         child: GestureDetector(
-                //           onPanUpdate: (details) {
-                //             context
-                //                 .read<ApplicationController>()
-                //                 .changeApplicationByRightTopPosition(
-                //                     uuid, details);
-                //           },
-                //           child: Container(
-                //             width: pointSize,
-                //             height: pointSize,
-                //             color: Colors.transparent,
-                //           ),
-                //         ))),
-                // left bottom
-                Positioned(
-                    left: 0,
-                    bottom: 0,
-                    child: MouseRegion(
-                        cursor: SystemMouseCursors.resizeDownLeft,
-                        child: GestureDetector(
-                          onPanUpdate: (details) {
-                            context
-                                .read<ApplicationController>()
-                                .changeApplicationByLeftBottomPosition(
-                                    uuid, details);
-                          },
-                          child: Container(
-                            width: pointSize,
-                            height: pointSize,
-                            color: Colors.transparent,
-                          ),
-                        ))),
-                // right bottom
-                Positioned(
-                    right: 0,
-                    bottom: 0,
-                    child: MouseRegion(
-                        cursor: SystemMouseCursors.resizeUpLeft,
-                        child: GestureDetector(
-                          onPanUpdate: (details) {
-                            context
-                                .read<ApplicationController>()
-                                .changeApplicationByRightBottomPosition(
-                                    uuid, details);
-                          },
-                          child: Container(
-                            width: pointSize,
-                            height: pointSize,
-                            color: Colors.transparent,
-                          ),
-                        ))),
-              ],
-            ),
-          ),
+          child: resizable
+              ? SizedBox(
+                  height: appDetails.ymax - appDetails.ymin,
+                  width: appDetails.xmax - appDetails.xmin,
+                  child: Stack(
+                    children: [
+                      _childWrapper(child, context),
+                      Positioned(
+                          left: 0,
+                          top: 0,
+                          child: MouseRegion(
+                            cursor: SystemMouseCursors.resizeUpLeft,
+                            child: GestureDetector(
+                              onPanUpdate: (details) {
+                                context
+                                    .read<ApplicationController>()
+                                    .changeApplicationByLeftTopPosition(
+                                        uuid, details);
+                              },
+                              child: Container(
+                                width: pointSize,
+                                height: pointSize,
+                                color: Colors.transparent,
+                              ),
+                            ),
+                          )),
+                      // right top
+                      // Positioned(
+                      //     right: 0,
+                      //     top: 0,
+                      //     child: MouseRegion(
+                      //         cursor: SystemMouseCursors.resizeDownLeft,
+                      //         child: GestureDetector(
+                      //           onPanUpdate: (details) {
+                      //             context
+                      //                 .read<ApplicationController>()
+                      //                 .changeApplicationByRightTopPosition(
+                      //                     uuid, details);
+                      //           },
+                      //           child: Container(
+                      //             width: pointSize,
+                      //             height: pointSize,
+                      //             color: Colors.transparent,
+                      //           ),
+                      //         ))),
+                      // left bottom
+                      Positioned(
+                          left: 0,
+                          bottom: 0,
+                          child: MouseRegion(
+                              cursor: SystemMouseCursors.resizeDownLeft,
+                              child: GestureDetector(
+                                onPanUpdate: (details) {
+                                  context
+                                      .read<ApplicationController>()
+                                      .changeApplicationByLeftBottomPosition(
+                                          uuid, details);
+                                },
+                                child: Container(
+                                  width: pointSize,
+                                  height: pointSize,
+                                  color: Colors.transparent,
+                                ),
+                              ))),
+                      // right bottom
+                      Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: MouseRegion(
+                              cursor: SystemMouseCursors.resizeUpLeft,
+                              child: GestureDetector(
+                                onPanUpdate: (details) {
+                                  context
+                                      .read<ApplicationController>()
+                                      .changeApplicationByRightBottomPosition(
+                                          uuid, details);
+                                },
+                                child: Container(
+                                  width: pointSize,
+                                  height: pointSize,
+                                  color: Colors.transparent,
+                                ),
+                              ))),
+                    ],
+                  ),
+                )
+              : SizedBox(
+                  height: appDetails.ymax - appDetails.ymin,
+                  width: appDetails.xmax - appDetails.xmin,
+                  child: _childWrapper(child, context),
+                ),
         ));
   }
 
@@ -165,7 +177,11 @@ class Application extends StatelessWidget {
                   overflow: TextOverflow.clip,
                 )),
                 InkWell(
-                  onTap: () {
+                  onTap: () async {
+                    if (name == SystemConfig.sAudioPlayer) {
+                      await AudioPlayerController.stop();
+                    }
+
                     ctx.read<ApplicationController>().removeDetail(uuid);
                     ctx.read<DesktopController>().removeWidget(uuid);
                     ctx.read<TaskbarController>().removeDetails(uuid);
@@ -181,11 +197,16 @@ class Application extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
-              child: SingleChildScrollView(
-            padding: const EdgeInsets.all(5),
-            child: child,
-          ))
+          resizable
+              ? Expanded(
+                  child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(5),
+                  child: child,
+                ))
+              : Container(
+                  padding: const EdgeInsets.all(5),
+                  child: child,
+                )
         ],
       ),
     );

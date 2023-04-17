@@ -84,6 +84,8 @@ class _DesktopScreenState extends State<DesktopScreen>
                             SystemApplicationBuilder.build(ctx, recycleDetails),
                             SystemApplicationBuilder.build(
                                 ctx, appManagementDetails),
+                            SystemApplicationBuilder.build(
+                                ctx, audioPlayerDetails),
                           ],
                         ),
                       )),
