@@ -8,11 +8,13 @@ import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
 import 'package:flutter_desktop/components/notifications/notification_builder.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
+import 'package:flutter_desktop/components/shortcuts/widgets/key_widget.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../shortcuts/shortcut_controller.dart';
 import '../taskbar/taskbar.dart';
 
 class DesktopScreen extends StatefulWidget {
@@ -24,10 +26,10 @@ class DesktopScreen extends StatefulWidget {
 
 class _DesktopScreenState extends State<DesktopScreen>
     with
-        AutomaticKeepAliveClientMixin,
         OperationLoggerMixin,
         WindowListener,
-        DesktopContextMenuMixin {
+        DesktopContextMenuMixin,
+        AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     windowManager.addListener(this);
@@ -54,8 +56,23 @@ class _DesktopScreenState extends State<DesktopScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Material(
-      child: ShortcutBuilder(
+    return Scaffold(
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 50),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: context
+              .watch<ShortcutPreviewController>()
+              .events
+              .map((e) => Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: KeyWidget(keylabel: e.logicalKey.keyLabel),
+                  ))
+              .toList(),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: ShortcutBuilder(
         builder: (ctx) {
           return GestureDetector(
               onSecondaryTapUp: (details) {

@@ -38,3 +38,19 @@ String durationToMinuts(Duration d) {
     return "$ms:$ss";
   }
 }
+
+Color combineColor(Color c0, Color c1, {double factor = 0.5}) {
+  var r0 = c0.red;
+  var g0 = c0.green;
+  var b0 = c0.blue;
+
+  var r1 = c1.red;
+  var g1 = c1.green;
+  var b1 = c1.blue;
+
+  return Color.fromARGB(
+      255,
+      (r0 * factor + r1 * (1 - factor)).ceil(),
+      (g0 * factor + g1 * (1 - factor)).ceil(),
+      (b0 * factor + b1 * (1 - factor)).ceil());
+}
