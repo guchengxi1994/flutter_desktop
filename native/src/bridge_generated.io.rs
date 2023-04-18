@@ -25,6 +25,15 @@ pub extern "C" fn wire_new_log(
     wire_new_log_impl(port_, content, result)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_new_file(
+    port_: i64,
+    virtual_path: *mut wire_uint_8_list,
+    real_path: *mut wire_uint_8_list,
+) {
+    wire_new_file_impl(port_, virtual_path, real_path)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

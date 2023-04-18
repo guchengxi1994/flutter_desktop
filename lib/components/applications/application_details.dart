@@ -20,6 +20,7 @@ class ApplicationDetails {
 
   final bool needsTaskbarDisplay;
   final bool needsTrayDisplay;
+  final bool resizable;
 
   double xmin;
   double xmax;
@@ -50,7 +51,8 @@ class ApplicationDetails {
       this.ymin = 0,
       this.deletable = true,
       this.needsTaskbarDisplay = false,
-      this.needsTrayDisplay = false}) {
+      this.needsTrayDisplay = false,
+      this.resizable = true}) {
     if (icon == null && iconUrl == null) {
       icon = const Icon(
         Icons.apps,

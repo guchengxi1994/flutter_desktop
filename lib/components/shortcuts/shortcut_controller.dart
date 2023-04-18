@@ -1,10 +1,28 @@
 // ignore_for_file: avoid_init_to_null
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_desktop/components/shortcuts/_back_to_login_screen_shortcut.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 
 import 'window_shortcut.dart';
+
+class ShortcutPreviewController extends ChangeNotifier {
+  List<RawKeyEvent> events = [];
+
+  operateEvent(RawKeyEvent e) {
+    if (e is RawKeyDownEvent) {
+      if (e.repeat) {
+        return;
+      }
+      events.add(e);
+    } else {
+      events.retainWhere(
+          (element) => element.logicalKey.keyLabel != e.logicalKey.keyLabel);
+    }
+    notifyListeners();
+  }
+}
 
 class ShortcutController {
   ShortcutController._();

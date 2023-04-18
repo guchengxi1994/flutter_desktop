@@ -2,6 +2,20 @@
 
 ## changelogs
 
+* **0.1.5** add some features
+
+  * 0.1.5+3 keyboard onKeyDown/up preview
+
+    ![image-20230418175235424](./screenshots/image-20230418175235424.png)
+    
+  * 0.1.5+2 notifications  (WIP)
+
+    ![image-20230418153645695](./screenshots/image-20230418153645695.png)
+    
+  * 0.1.5+1 custom volume controller (WIP)
+
+    ![image-20230418111207573](./screenshots/image-20230418111207573.png)
+
 * **0.1.4** 
 
   * **0.1.4+3** highlight taskbar app icons && context menu
@@ -14,7 +28,7 @@
 
     ![image-20230415123427502](./screenshots/image-20230415123427502.png)
 
-* **0.1.3** add logger (native)
+* **0.1.3** add logger (rust backend)
 
 * **0.1.2** taskbar & status-bar
 

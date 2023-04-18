@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/components/notifications/notification_controller.dart';
+import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../applications/application_controller.dart';
@@ -26,7 +28,9 @@ class _DesktopState extends State<Desktop> with AutomaticKeepAliveClientMixin {
       providers: [
         ChangeNotifierProvider(create: (_) => ApplicationController()),
         ChangeNotifierProvider(create: (_) => DesktopController()),
-        ChangeNotifierProvider(create: (_) => TaskbarController())
+        ChangeNotifierProvider(create: (_) => TaskbarController()),
+        ChangeNotifierProvider(create: (_) => NotificationController()),
+        ChangeNotifierProvider(create: (_) => ShortcutPreviewController()),
       ],
       child: FutureLoaderWidget(
           builder: (context) => desktop.DesktopScreen(),

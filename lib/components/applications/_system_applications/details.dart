@@ -29,3 +29,14 @@ ApplicationDetails appManagementDetails = ApplicationDetails(
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/management.png",
     deletable: false);
+
+ApplicationDetails audioPlayerDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 300,
+    ymax: 400,
+    name: SystemConfig.sAudioPlayer,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: true,
+    iconUrl: "assets/images/appicons/player.png",
+    deletable: false,
+    resizable: false);

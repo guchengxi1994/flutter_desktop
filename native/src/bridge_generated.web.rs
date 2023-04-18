@@ -21,6 +21,11 @@ pub fn wire_new_log(port_: MessagePort, content: String, result: Option<String>)
     wire_new_log_impl(port_, content, result)
 }
 
+#[wasm_bindgen]
+pub fn wire_new_file(port_: MessagePort, virtual_path: String, real_path: String) {
+    wire_new_file_impl(port_, virtual_path, real_path)
+}
+
 // Section: allocate functions
 
 // Section: related functions

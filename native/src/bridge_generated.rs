@@ -72,6 +72,24 @@ fn wire_new_log_impl(
         },
     )
 }
+fn wire_new_file_impl(
+    port_: MessagePort,
+    virtual_path: impl Wire2Api<String> + UnwindSafe,
+    real_path: impl Wire2Api<String> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "new_file",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_virtual_path = virtual_path.wire2api();
+            let api_real_path = real_path.wire2api();
+            move |task_callback| Ok(new_file(api_virtual_path, api_real_path))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks

@@ -33,31 +33,43 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: size.height,
-      color: AppStyle.dark,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Expanded(child: SizedBox()),
-          Icon(
-            Icons.desktop_windows,
-            color: AppStyle.light,
-            size: 150.h(size.height),
-          ),
-          SizedBox(
-            height: 150.h(size.height),
-          ),
-          const SizedBox(
-            width: 30,
-            height: 30,
-            child: CircularProgressIndicator(
-              color: AppStyle.light2,
+    return Material(
+      child: Container(
+        width: size.width,
+        height: size.height,
+        color: AppStyle.dark,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Expanded(child: SizedBox()),
+            Icon(
+              Icons.desktop_windows,
+              color: AppStyle.light,
+              size: 150.h(size.height),
             ),
-          ),
-          const Expanded(child: SizedBox()),
-        ],
+            SizedBox(
+              height: 15.h(size.height),
+            ),
+            const Text(
+              "Z-Desktop",
+              style: TextStyle(
+                color: AppStyle.light,
+                fontStyle: FontStyle.italic,
+              ),
+            ),
+            SizedBox(
+              height: 110.h(size.height),
+            ),
+            const SizedBox(
+              width: 30,
+              height: 30,
+              child: CircularProgressIndicator(
+                color: AppStyle.light2,
+              ),
+            ),
+            const Expanded(child: SizedBox()),
+          ],
+        ),
       ),
     );
   }

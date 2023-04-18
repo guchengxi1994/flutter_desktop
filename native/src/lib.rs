@@ -3,3 +3,4 @@ mod api;
 mod db;
 mod tests;
 mod operation;
+mod files;

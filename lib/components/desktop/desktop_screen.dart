@@ -6,12 +6,15 @@ import 'package:flutter_desktop/components/applications/_system_applications/sys
 import 'package:flutter_desktop/components/context_menu/desktop_context_menu.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
+import 'package:flutter_desktop/components/notifications/notification_builder.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
+import 'package:flutter_desktop/components/shortcuts/widgets/key_widget.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../shortcuts/shortcut_controller.dart';
 import '../taskbar/taskbar.dart';
 
 class DesktopScreen extends StatefulWidget {
@@ -23,10 +26,10 @@ class DesktopScreen extends StatefulWidget {
 
 class _DesktopScreenState extends State<DesktopScreen>
     with
-        AutomaticKeepAliveClientMixin,
         OperationLoggerMixin,
         WindowListener,
-        DesktopContextMenuMixin {
+        DesktopContextMenuMixin,
+        AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     windowManager.addListener(this);
@@ -53,49 +56,70 @@ class _DesktopScreenState extends State<DesktopScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ShortcutBuilder(
-      builder: (ctx) {
-        return GestureDetector(
-            onSecondaryTapUp: (details) {
-              showContextMenu(details.globalPosition, context);
-            },
-            onTapUp: (details) {
-              dismiss();
-            },
-            child: Container(
-              // color: AppStyle.light2,
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/desktop.jpg"),
-                      fit: BoxFit.fill)),
-              child: Stack(
-                children: [
-                  Column(
-                    children: [
-                      Expanded(
-                          child: SizedBox.expand(
-                        child: Wrap(
-                          direction: Axis.vertical,
-                          spacing: 10,
-                          runSpacing: 10,
-                          children: [
-                            SystemApplicationBuilder.build(
-                                ctx, myComputerDetails),
-                            SystemApplicationBuilder.build(ctx, recycleDetails),
-                            SystemApplicationBuilder.build(
-                                ctx, appManagementDetails),
-                          ],
-                        ),
-                      )),
-                      const Taskbar()
-                    ],
-                  ),
-                  ...context.watch<DesktopController>().applications
-                ],
-              ),
-            ));
-      },
-      type: WindowShortcutTypes.desktop,
+    return Scaffold(
+      floatingActionButton: Container(
+        margin: const EdgeInsets.only(bottom: 50),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: context
+              .watch<ShortcutPreviewController>()
+              .events
+              .map((e) => Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: KeyWidget(keylabel: e.logicalKey.keyLabel),
+                  ))
+              .toList(),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: ShortcutBuilder(
+        builder: (ctx) {
+          return GestureDetector(
+              onSecondaryTapUp: (details) {
+                showContextMenu(details.globalPosition, context);
+              },
+              onTapUp: (details) {
+                dismiss();
+              },
+              child: Container(
+                // color: AppStyle.light2,
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage("assets/images/desktop.jpg"),
+                        fit: BoxFit.fill)),
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Expanded(
+                            child: SizedBox.expand(
+                          child: Wrap(
+                            direction: Axis.vertical,
+                            spacing: 10,
+                            runSpacing: 10,
+                            children: [
+                              SystemApplicationBuilder.build(
+                                  ctx, myComputerDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, recycleDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, appManagementDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, audioPlayerDetails),
+                            ],
+                          ),
+                        )),
+                        const Taskbar()
+                      ],
+                    ),
+                    NotificationBuilder(),
+                    ...context.watch<DesktopController>().applications
+                  ],
+                ),
+              ));
+        },
+        type: WindowShortcutTypes.desktop,
+      ),
     );
   }
 
