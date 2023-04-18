@@ -38,4 +38,5 @@ ApplicationDetails audioPlayerDetails = ApplicationDetails(
     needsTaskbarDisplay: true,
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/player.png",
-    deletable: false);
+    deletable: false,
+    resizable: false);

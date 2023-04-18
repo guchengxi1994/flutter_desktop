@@ -2,6 +2,12 @@
 
 ## changelogs
 
+* **0.1.5** audio player
+
+  * 0.1.5+1 custom volume controller
+
+    ![image-20230418111207573](./screenshots/image-20230418111207573.png)
+
 * **0.1.4** 
 
   * **0.1.4+3** highlight taskbar app icons && context menu

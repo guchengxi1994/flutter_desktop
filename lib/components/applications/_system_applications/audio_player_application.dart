@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/widgets/volume_slider.dart';
 import 'package:siri_wave/siri_wave.dart';
 
 import '../../utils.dart' show durationToMinuts;
@@ -13,7 +14,7 @@ import 'details.dart';
 
 Application audioPlayerApplication({String? audioPath}) {
   return Application(
-    resizable: false,
+    resizable: audioPlayerDetails.resizable,
     uuid: audioPlayerDetails.uuid,
     name: audioPlayerDetails.name,
     child: AudioPlayerForm(
@@ -46,6 +47,10 @@ class AudioPlayerController {
     await player.setVolume(v);
   }
 
+  static setDuration(Duration d) async {
+    await player.seek(d);
+  }
+
   static getDuration() async {
     return await player.getDuration();
   }
@@ -62,6 +67,7 @@ class AudioPlayerForm extends StatefulWidget {
 class _AudioPlayerFormState extends State<AudioPlayerForm> {
   bool isPlaying = false;
   late final lisener;
+  late final lisener2;
   final _controller = SiriWaveController();
   final scrollerController = ScrollController();
   late final Timer timer;
@@ -73,6 +79,7 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
   late Duration currentDuration = Duration.zero;
   final GlobalKey<State<Slider>> sliderKey = GlobalKey();
   double f = 0;
+  double volumn = 0.15;
   late String? audioPath = widget.audioPath ?? /* for test */
       r"D:\CloudMusic\CANT太子 - 类少年爱情故事（钢琴版）.mp3";
 
@@ -83,11 +90,14 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
       /// TODO
       ///
       /// remove !
+      volumn = 0.15;
       await AudioPlayerController.setPath(audioPath!);
-      await AudioPlayerController.setVolume(0.15);
-      duration = await AudioPlayerController.getDuration()!;
-
-      setState(() {});
+      await AudioPlayerController.setVolume(volumn);
+      await Future.delayed(const Duration(milliseconds: 1000))
+          .then((value) async {
+        duration = await AudioPlayerController.getDuration()!;
+        setState(() {});
+      });
     });
 
     lisener = AudioPlayerController.player.onPositionChanged.listen((event) {
@@ -99,6 +109,13 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
         }
       });
     });
+
+    lisener2 = AudioPlayerController.player.onPlayerComplete.listen((event) {
+      setState(() {
+        isPlaying = false;
+      });
+    });
+
     timer = Timer.periodic(const Duration(milliseconds: 200), (timer) {
       _count += 1;
       if ((_count * frequency) > length - 50) {
@@ -111,6 +128,7 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
   @override
   void dispose() {
     lisener.cancel();
+    lisener2.cancel();
     timer.cancel();
     super.dispose();
   }
@@ -141,9 +159,11 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          decoration: const BoxDecoration(color: AppStyle.dark),
+          decoration: BoxDecoration(
+              color: AppStyle.dark, borderRadius: BorderRadius.circular(5)),
           width: 200,
           height: 200,
+          padding: const EdgeInsets.all(15),
           child: Column(children: [
             _scrollableText(audioPath ?? "未找到音乐文件"),
             isPlaying
@@ -158,9 +178,19 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
           ]),
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(durationToMinuts(currentDuration)),
-            Slider(key: sliderKey, value: f, onChanged: (v) {}),
+            Slider(
+                key: sliderKey,
+                value: f,
+                onChanged: (v) {
+                  setState(() {
+                    currentDuration =
+                        Duration(seconds: (duration.inSeconds * v).ceil());
+                    AudioPlayerController.setDuration(currentDuration);
+                  });
+                }),
             Text(durationToMinuts(duration)),
           ],
         ),
@@ -188,6 +218,26 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
                     : const Icon(Icons.play_arrow)),
             ElevatedButton(
                 onPressed: () {}, child: const Icon(Icons.skip_next)),
+          ],
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: [
+            const Expanded(child: SizedBox()),
+            CustomVolumeSliderWidget(
+                width: 75,
+                height: 30,
+                onSliderChanged: (p0) async {
+                  setState(() {
+                    volumn = p0;
+                  });
+                  await AudioPlayerController.setVolume(volumn);
+                }),
+            const SizedBox(
+              width: 40,
+            )
           ],
         )
       ],
