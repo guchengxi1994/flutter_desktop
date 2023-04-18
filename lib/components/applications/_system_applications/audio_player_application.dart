@@ -6,6 +6,9 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/widgets/volume_slider.dart';
+import 'package:flutter_desktop/components/notifications/notification_controller.dart';
+import 'package:flutter_desktop/components/notifications/notification_details.dart';
+import 'package:provider/provider.dart';
 import 'package:siri_wave/siri_wave.dart';
 
 import '../../utils.dart' show durationToMinuts;
@@ -217,7 +220,19 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
                     ? const Icon(Icons.pause)
                     : const Icon(Icons.play_arrow)),
             ElevatedButton(
-                onPressed: () {}, child: const Icon(Icons.skip_next)),
+                onPressed: () {
+                  /// TODO
+                  ///
+                  /// remove this
+                  context.read<NotificationController>().raiseANotification(
+                      NotificationDetails(
+                          subject: DateTime.now().toString(),
+                          uuid: audioPlayerDetails.uuid,
+                          name: audioPlayerDetails.name,
+                          icon: audioPlayerDetails.icon,
+                          content: const Text("下一个")));
+                },
+                child: const Icon(Icons.skip_next)),
           ],
         ),
         const SizedBox(
@@ -226,15 +241,17 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
         Row(
           children: [
             const Expanded(child: SizedBox()),
-            CustomVolumeSliderWidget(
-                width: 75,
-                height: 30,
-                onSliderChanged: (p0) async {
-                  setState(() {
-                    volumn = p0;
-                  });
-                  await AudioPlayerController.setVolume(volumn);
-                }),
+            RepaintBoundary(
+              child: CustomVolumeSliderWidget(
+                  width: 75,
+                  height: 30,
+                  onSliderChanged: (p0) async {
+                    setState(() {
+                      volumn = p0;
+                    });
+                    await AudioPlayerController.setVolume(volumn);
+                  }),
+            ),
             const SizedBox(
               width: 40,
             )

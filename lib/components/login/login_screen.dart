@@ -16,11 +16,13 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => LoginController()..init())
-      ],
-      child: const _LoginScreen(),
+    return Material(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => LoginController()..init())
+        ],
+        child: const _LoginScreen(),
+      ),
     );
   }
 }

@@ -19,6 +19,15 @@ const CREATE_OPERATION_DB: &str = "CREATE TABLE IF NOT EXISTS operations (
     create_at integer
 )";
 
+const CREATE_FILE_DB: &str = "CREATE TABLE IF NOT EXISTS files (
+    file_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    virtual_path TEXT,
+    real_path TEXT,
+    file_type TEXT,
+    icon TEXT,
+    create_at integer
+)";
+
 pub fn init_when_first_time_start() -> anyhow::Result<()> {
     let rt = Runtime::new().unwrap();
     rt.block_on(async {
@@ -40,6 +49,8 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
         let _ = sqlx::query(CREATE_OPERATION_DB)
             .execute(pool.get_pool())
             .await?;
+
+        let _ = sqlx::query(CREATE_FILE_DB).execute(pool.get_pool()).await?;
 
         anyhow::Ok(())
     })

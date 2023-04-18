@@ -14,7 +14,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rust_bridge: 1.74.0
-  flutter_smart_dialog: ^4.9.0+5
   flutter_volume_controller: ^1.2.5
   intl: ^0.18.0
   loading_indicator: ^3.1.0

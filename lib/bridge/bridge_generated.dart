@@ -27,6 +27,12 @@ abstract class Native {
   Future<void> newLog({required String content, String? result, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewLogConstMeta;
+
+  /// files
+  Future<int> newFile(
+      {required String virtualPath, required String realPath, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNewFileConstMeta;
 }
 
 class NativeImpl implements Native {
@@ -105,6 +111,25 @@ class NativeImpl implements Native {
         argNames: ["content", "result"],
       );
 
+  Future<int> newFile(
+      {required String virtualPath, required String realPath, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(virtualPath);
+    var arg1 = _platform.api2wire_String(realPath);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_new_file(port_, arg0, arg1),
+      parseSuccessData: _wire2api_i64,
+      constMeta: kNewFileConstMeta,
+      argValues: [virtualPath, realPath],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNewFileConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "new_file",
+        argNames: ["virtualPath", "realPath"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -112,6 +137,10 @@ class NativeImpl implements Native {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  int _wire2api_i64(dynamic raw) {
+    return castInt(raw);
   }
 
   int _wire2api_u8(dynamic raw) {
@@ -317,6 +346,26 @@ class NativeWire implements FlutterRustBridgeWireBase {
           ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
               ffi.Pointer<wire_uint_8_list>)>>('wire_new_log');
   late final _wire_new_log = _wire_new_logPtr.asFunction<
+      void Function(
+          int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_new_file(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> virtual_path,
+    ffi.Pointer<wire_uint_8_list> real_path,
+  ) {
+    return _wire_new_file(
+      port_,
+      virtual_path,
+      real_path,
+    );
+  }
+
+  late final _wire_new_filePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_new_file');
+  late final _wire_new_file = _wire_new_filePtr.asFunction<
       void Function(
           int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
 

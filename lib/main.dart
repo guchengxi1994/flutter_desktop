@@ -1,9 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -29,6 +29,15 @@ void main() async {
   runApp(const MyApp());
 }
 
+class CustomScrollBehavior extends MaterialScrollBehavior {
+  // Override behavior methods and getters like dragDevices
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+      };
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -40,10 +49,9 @@ class MyApp extends StatelessWidget {
       title: '桌面',
       theme: ThemeData(fontFamily: "思源"),
       routes: Routers.routers,
+      scrollBehavior: CustomScrollBehavior(),
       initialRoute: Routers.loadingScreen,
       navigatorKey: Routers.navigatorKey,
-      navigatorObservers: [FlutterSmartDialog.observer],
-      builder: FlutterSmartDialog.init(),
     );
   }
 }
