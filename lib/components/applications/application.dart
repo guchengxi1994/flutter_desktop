@@ -216,12 +216,3 @@ class Application extends StatelessWidget {
     );
   }
 }
-
-class ApplicationOnTray extends StatelessWidget {
-  const ApplicationOnTray({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}

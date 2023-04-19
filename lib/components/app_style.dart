@@ -24,4 +24,5 @@ class SystemConfig {
   static const String sRecycle = "回收站";
   static const String sAppManagement = "管理";
   static const String sAudioPlayer = "音乐播放器";
+  static const String sVideoPlayer = "视频播放器";
 }

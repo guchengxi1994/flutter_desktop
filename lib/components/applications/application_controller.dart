@@ -14,6 +14,20 @@ class ApplicationController<T extends ApplicationDetails>
     return details[index];
   }
 
+  bool trayVisible = false;
+  changeTrayVisible({bool? b}) {
+    if (b != null) {
+      if (b != trayVisible) {
+        trayVisible = b;
+      } else {
+        return;
+      }
+    } else {
+      trayVisible = !trayVisible;
+    }
+    notifyListeners();
+  }
+
   bool exists(String uuid) {
     // print(details);
     final index = details.findIndex(uuid);

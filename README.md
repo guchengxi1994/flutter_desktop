@@ -4,6 +4,7 @@
 
 * **0.1.6**
 
+  * **0.1.6+2** add tray
   * **0.1.6+1** add desktop focus node
 
 * **0.1.5** add some features
