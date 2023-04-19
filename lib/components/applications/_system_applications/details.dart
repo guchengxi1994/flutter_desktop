@@ -43,11 +43,11 @@ ApplicationDetails audioPlayerDetails = ApplicationDetails(
 
 ApplicationDetails videoPlayerDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
-    xmax: 300,
-    ymax: 400,
+    xmax: 800,
+    ymax: 600,
     name: SystemConfig.sVideoPlayer,
     needsTaskbarDisplay: true,
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/video_player.png",
     deletable: false,
-    resizable: true);
+    resizable: false);

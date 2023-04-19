@@ -19,11 +19,13 @@ class Application extends StatelessWidget {
       required this.child,
       required this.uuid,
       this.name = "窗口",
-      this.resizable = true});
+      this.resizable = true,
+      this.background = AppStyle.light2});
   final Widget child;
 
   final String uuid;
   final String name;
+  final Color background;
 
   late ApplicationDetails appDetails;
   final bool resizable;
@@ -144,7 +146,7 @@ class Application extends StatelessWidget {
       height: appDetails.ymax - appDetails.ymin,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: AppStyle.light2,
+          color: background,
           border: Border.all(color: AppStyle.dark, width: 1.5)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

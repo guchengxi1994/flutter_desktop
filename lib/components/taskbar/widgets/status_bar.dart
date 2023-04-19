@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/application_controller.dart';
-import 'package:flutter_desktop/components/taskbar/tray.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
@@ -64,8 +63,8 @@ class StatusBar extends StatelessWidget {
           SizedBox(
             width: 40,
             height: 20,
-            child: VolumnWidget(
-              volumn: context.watch<StatusBarController>().volume,
+            child: VolumeWidget(
+              volume: context.watch<StatusBarController>().volume,
             ),
           ),
           const SizedBox(
