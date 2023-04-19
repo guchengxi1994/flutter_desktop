@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
+import 'package:flutter_desktop/components/utils.dart'
+    show DesktopFocusNodeController;
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +13,7 @@ class ShortcutBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Focus(
+        focusNode: DesktopFocusNodeController.focusNode,
         onKey: (node, event) {
           context.read<ShortcutPreviewController>().operateEvent(event);
           KeyEventResult result = KeyEventResult.ignored;

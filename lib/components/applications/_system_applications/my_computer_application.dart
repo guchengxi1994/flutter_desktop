@@ -22,7 +22,10 @@ class _MyComputerFormState extends State<MyComputerForm> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("这是我的电脑"),
+      child: SizedBox(
+        width: 200,
+        child: TextField(),
+      ),
     );
   }
 }

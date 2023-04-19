@@ -2,17 +2,21 @@
 
 ## changelogs
 
+* **0.1.6**
+
+  * **0.1.6+1** add desktop focus node
+
 * **0.1.5** add some features
 
-  * 0.1.5+3 keyboard onKeyDown/up preview
+  * **0.1.5+3** keyboard onKeyDown/up preview
 
     ![image-20230418175235424](./screenshots/image-20230418175235424.png)
     
-  * 0.1.5+2 notifications  (WIP)
+  * **0.1.5+2** notifications  (WIP)
 
     ![image-20230418153645695](./screenshots/image-20230418153645695.png)
     
-  * 0.1.5+1 custom volume controller (WIP)
+  * **0.1.5+1** custom volume controller (WIP)
 
     ![image-20230418111207573](./screenshots/image-20230418111207573.png)
 

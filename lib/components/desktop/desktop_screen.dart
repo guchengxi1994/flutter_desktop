@@ -61,14 +61,17 @@ class _DesktopScreenState extends State<DesktopScreen>
         margin: const EdgeInsets.only(bottom: 50),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: context
-              .watch<ShortcutPreviewController>()
-              .events
-              .map((e) => Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: KeyWidget(keylabel: e.logicalKey.keyLabel),
-                  ))
-              .toList(),
+          children: context.select<DesktopController, bool>(
+                  (value) => value.applications.isEmpty)
+              ? context
+                  .watch<ShortcutPreviewController>()
+                  .events
+                  .map((e) => Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        child: KeyWidget(keylabel: e.logicalKey.keyLabel),
+                      ))
+                  .toList()
+              : [],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

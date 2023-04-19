@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:media_kit/media_kit.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   ShortcutController.init();
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {

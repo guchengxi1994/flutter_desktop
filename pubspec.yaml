@@ -2,7 +2,7 @@ name: flutter_desktop
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.5+3
+version: 0.1.6+1
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -17,6 +17,11 @@ dependencies:
   flutter_volume_controller: ^1.2.5
   intl: ^0.18.0
   loading_indicator: ^3.1.0
+  media_kit: ^0.0.5                              # Primary package.
+  media_kit_video: ^0.0.6                        # For video rendering.
+  media_kit_native_event_loop: ^1.0.3            # Support for higher number of concurrent instances & better performance.
+  media_kit_libs_linux: ^1.0.2                   # GNU/Linux dependency package.
+  media_kit_libs_windows_video: ^1.0.2
   network_info_plus: ^3.0.3
   provider: ^6.0.3
   siri_wave: ^0.3.0
