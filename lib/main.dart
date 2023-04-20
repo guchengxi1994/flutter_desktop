@@ -4,11 +4,15 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
+import 'package:flutter_desktop/components/sysinfo/sysinfo_controller.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:media_kit/media_kit.dart';
+import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MediaKit.ensureInitialized();
   ShortcutController.init();
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
@@ -44,14 +48,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: '桌面',
-      theme: ThemeData(fontFamily: "思源"),
-      routes: Routers.routers,
-      scrollBehavior: CustomScrollBehavior(),
-      initialRoute: Routers.loadingScreen,
-      navigatorKey: Routers.navigatorKey,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => SysInfoController()),
+      ],
+      builder: (ctx, child) {
+        ctx.read<SysInfoController>().init();
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: '桌面',
+          theme: ThemeData(fontFamily: "思源"),
+          routes: Routers.routers,
+          scrollBehavior: CustomScrollBehavior(),
+          initialRoute: Routers.loadingScreen,
+          navigatorKey: Routers.navigatorKey,
+        );
+      },
     );
   }
 }

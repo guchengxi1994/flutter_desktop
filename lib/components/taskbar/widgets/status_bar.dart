@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
+import 'package:flutter_desktop/components/applications/application_controller.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
@@ -12,16 +13,28 @@ class StatusBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final trayVisible =
+        context.select<ApplicationController, bool>((v) => v.trayVisible);
     return SizedBox(
       width: 220,
       child: Row(
         children: [
-          Transform.rotate(
-            angle: math.pi / 2,
-            child: const Icon(
-              Icons.chevron_left,
-              size: AppStyle.iconSizeSmall + 10,
-              color: AppStyle.dark,
+          InkWell(
+            onTap: () {
+              context.read<ApplicationController>().changeTrayVisible();
+            },
+            child: Transform.rotate(
+              angle: trayVisible ? -math.pi / 2 : math.pi / 2,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: trayVisible ? AppStyle.light2 : Colors.transparent,
+                    borderRadius: BorderRadius.circular(5)),
+                child: const Icon(
+                  Icons.chevron_left,
+                  size: AppStyle.iconSizeSmall + 10,
+                  color: AppStyle.dark,
+                ),
+              ),
             ),
           ),
           const SizedBox(
@@ -50,8 +63,8 @@ class StatusBar extends StatelessWidget {
           SizedBox(
             width: 40,
             height: 20,
-            child: VolumnWidget(
-              volumn: context.watch<StatusBarController>().volume,
+            child: VolumeWidget(
+              volume: context.watch<StatusBarController>().volume,
             ),
           ),
           const SizedBox(

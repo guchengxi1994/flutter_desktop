@@ -10,7 +10,11 @@ class NotificationBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final details = context.watch<NotificationController>().details;
+    final details = context
+        .watch<NotificationController>()
+        .details
+        .where((element) => element.needsTrayDisplay == true)
+        .toList();
     return Positioned(
         bottom: 60,
         right: 10,

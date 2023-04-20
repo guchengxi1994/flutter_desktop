@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
+import 'package:flutter_desktop/components/applications/application_controller.dart';
 import 'package:flutter_desktop/components/context_menu/desktop_context_menu.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
 import 'package:flutter_desktop/components/notifications/notification_builder.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
 import 'package:flutter_desktop/components/shortcuts/widgets/key_widget.dart';
+import 'package:flutter_desktop/components/taskbar/tray.dart';
 import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';
@@ -61,14 +63,17 @@ class _DesktopScreenState extends State<DesktopScreen>
         margin: const EdgeInsets.only(bottom: 50),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: context
-              .watch<ShortcutPreviewController>()
-              .events
-              .map((e) => Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: KeyWidget(keylabel: e.logicalKey.keyLabel),
-                  ))
-              .toList(),
+          children: context.select<DesktopController, bool>(
+                  (value) => value.applications.isEmpty)
+              ? context
+                  .watch<ShortcutPreviewController>()
+                  .events
+                  .map((e) => Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        child: KeyWidget(keylabel: e.logicalKey.keyLabel),
+                      ))
+                  .toList()
+              : [],
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -79,6 +84,7 @@ class _DesktopScreenState extends State<DesktopScreen>
                 showContextMenu(details.globalPosition, context);
               },
               onTapUp: (details) {
+                ctx.read<ApplicationController>().changeTrayVisible(b: false);
                 dismiss();
               },
               child: Container(
@@ -106,6 +112,8 @@ class _DesktopScreenState extends State<DesktopScreen>
                                   ctx, appManagementDetails),
                               SystemApplicationBuilder.build(
                                   ctx, audioPlayerDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, videoPlayerDetails),
                             ],
                           ),
                         )),
@@ -113,6 +121,10 @@ class _DesktopScreenState extends State<DesktopScreen>
                       ],
                     ),
                     NotificationBuilder(),
+                    Visibility(
+                        visible: ctx.select<ApplicationController, bool>(
+                            (value) => value.trayVisible),
+                        child: const Tray()),
                     ...context.watch<DesktopController>().applications
                   ],
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/aud
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/my_computer_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/recycle_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/video_player_application.dart';
 import 'package:flutter_desktop/components/applications/application_entry.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
@@ -49,6 +50,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(audioPlayerApplication(), exists: exists);
+              break;
+            case SystemConfig.sVideoPlayer:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(videoPlayerApplication(), exists: exists);
               break;
             default:
               break;

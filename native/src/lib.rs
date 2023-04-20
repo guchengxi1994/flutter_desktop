@@ -4,3 +4,4 @@ mod db;
 mod tests;
 mod operation;
 mod files;
+mod native_sysinfo;

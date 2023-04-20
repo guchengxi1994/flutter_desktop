@@ -14,6 +14,10 @@ class PageNavigateController {
   }
 }
 
+class DesktopFocusNodeController {
+  static FocusNode focusNode = FocusNode(debugLabel: "desktop");
+}
+
 String durationToMinuts(Duration d) {
   if (d.inSeconds == 0) {
     return "00:00";

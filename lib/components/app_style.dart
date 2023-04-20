@@ -16,6 +16,9 @@ class AppStyle {
   static const double appEntryIconSize = 50;
   static const double appbarIconSize = 18;
   static const double taskbarFactor = 0.4;
+
+  static const double chartWidth = 300;
+  static const double chartHeight = 150;
 }
 
 class SystemConfig {
@@ -24,4 +27,5 @@ class SystemConfig {
   static const String sRecycle = "回收站";
   static const String sAppManagement = "管理";
   static const String sAudioPlayer = "音乐播放器";
+  static const String sVideoPlayer = "视频播放器";
 }
