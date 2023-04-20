@@ -33,6 +33,26 @@ abstract class Native {
       {required String virtualPath, required String realPath, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kNewFileConstMeta;
+
+  Stream<NativeSysInfo> sysInfoStream({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSysInfoStreamConstMeta;
+
+  Future<void> listenSysinfo({String? name, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kListenSysinfoConstMeta;
+}
+
+class NativeSysInfo {
+  final double cpu;
+  final int memory;
+  final int t;
+
+  const NativeSysInfo({
+    required this.cpu,
+    required this.memory,
+    required this.t,
+  });
 }
 
 class NativeImpl implements Native {
@@ -130,6 +150,39 @@ class NativeImpl implements Native {
         argNames: ["virtualPath", "realPath"],
       );
 
+  Stream<NativeSysInfo> sysInfoStream({dynamic hint}) {
+    return _platform.executeStream(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_sys_info_stream(port_),
+      parseSuccessData: _wire2api_native_sys_info,
+      constMeta: kSysInfoStreamConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSysInfoStreamConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "sys_info_stream",
+        argNames: [],
+      );
+
+  Future<void> listenSysinfo({String? name, dynamic hint}) {
+    var arg0 = _platform.api2wire_opt_String(name);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_listen_sysinfo(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kListenSysinfoConstMeta,
+      argValues: [name],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kListenSysinfoConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "listen_sysinfo",
+        argNames: ["name"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -139,7 +192,26 @@ class NativeImpl implements Native {
     return raw as String;
   }
 
+  double _wire2api_f32(dynamic raw) {
+    return raw as double;
+  }
+
   int _wire2api_i64(dynamic raw) {
+    return castInt(raw);
+  }
+
+  NativeSysInfo _wire2api_native_sys_info(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 3)
+      throw Exception('unexpected arr length: expect 3 but see ${arr.length}');
+    return NativeSysInfo(
+      cpu: _wire2api_f32(arr[0]),
+      memory: _wire2api_u64(arr[1]),
+      t: _wire2api_u64(arr[2]),
+    );
+  }
+
+  int _wire2api_u64(dynamic raw) {
     return castInt(raw);
   }
 
@@ -368,6 +440,37 @@ class NativeWire implements FlutterRustBridgeWireBase {
   late final _wire_new_file = _wire_new_filePtr.asFunction<
       void Function(
           int, ffi.Pointer<wire_uint_8_list>, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_sys_info_stream(
+    int port_,
+  ) {
+    return _wire_sys_info_stream(
+      port_,
+    );
+  }
+
+  late final _wire_sys_info_streamPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_sys_info_stream');
+  late final _wire_sys_info_stream =
+      _wire_sys_info_streamPtr.asFunction<void Function(int)>();
+
+  void wire_listen_sysinfo(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> name,
+  ) {
+    return _wire_listen_sysinfo(
+      port_,
+      name,
+    );
+  }
+
+  late final _wire_listen_sysinfoPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_listen_sysinfo');
+  late final _wire_listen_sysinfo = _wire_listen_sysinfoPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,

@@ -1,4 +1,11 @@
-use crate::{db::init::DB_PATH, operation::model::Operation, files::model::Files};
+use flutter_rust_bridge::StreamSink;
+
+use crate::{
+    db::init::DB_PATH,
+    files::model::Files,
+    native_sysinfo::{NativeSysInfo, SEND_TO_DART_NATIVESYSINFO_SINK},
+    operation::model::Operation,
+};
 
 pub fn rust_bridge_say_hello() -> String {
     String::from("hello from rust")
@@ -24,18 +31,29 @@ pub fn init_db() {
 }
 
 /// operation-logger
-pub fn new_log(content: String, result: Option<String>){
-    let _ = Operation::new(content,result);
+pub fn new_log(content: String, result: Option<String>) {
+    let _ = Operation::new(content, result);
 }
 
 /// files
-pub fn new_file(virtual_path: String, real_path: String)->i64{
+pub fn new_file(virtual_path: String, real_path: String) -> i64 {
     let r = Files::new_file(virtual_path, real_path);
     match r {
         Ok(r) => r,
         Err(e) => {
-            println!("[rust-error] {:?}",e);
+            println!("[rust-error] {:?}", e);
             return -1;
-        },
+        }
     }
+}
+
+// native sysinfo stream
+pub fn sys_info_stream(s: StreamSink<NativeSysInfo>) -> anyhow::Result<()> {
+    let mut stream = SEND_TO_DART_NATIVESYSINFO_SINK.write().unwrap();
+    *stream = Some(s);
+    anyhow::Ok(())
+}
+
+pub fn listen_sysinfo(name: Option<String>) {
+    crate::native_sysinfo::start_listen(name)
 }

@@ -34,6 +34,16 @@ pub extern "C" fn wire_new_file(
     wire_new_file_impl(port_, virtual_path, real_path)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_sys_info_stream(port_: i64) {
+    wire_sys_info_stream_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_listen_sysinfo(port_: i64, name: *mut wire_uint_8_list) {
+    wire_listen_sysinfo_impl(port_, name)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

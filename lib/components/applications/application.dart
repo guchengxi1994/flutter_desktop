@@ -203,16 +203,11 @@ class Application extends StatelessWidget {
               ],
             ),
           ),
-          resizable
-              ? Expanded(
-                  child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(5),
-                  child: child,
-                ))
-              : Container(
-                  padding: const EdgeInsets.all(5),
-                  child: child,
-                )
+          Expanded(
+              child: SingleChildScrollView(
+            padding: const EdgeInsets.all(5),
+            child: child,
+          ))
         ],
       ),
     );

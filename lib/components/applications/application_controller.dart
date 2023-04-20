@@ -43,18 +43,16 @@ class ApplicationController<T extends ApplicationDetails>
       return;
     }
 
+    if (details[index].xmin + d.delta.dx < 0 ||
+        details[index].ymin + d.delta.dy < 0) {
+      return;
+    }
+
     details[index].xmin += d.delta.dx;
     details[index].ymin += d.delta.dy;
     details[index].xmax += d.delta.dx;
     details[index].ymax += d.delta.dy;
 
-    if (details[index].xmin < 0) {
-      details[index].xmin = 0;
-    }
-
-    if (details[index].ymin < 0) {
-      details[index].ymin = 0;
-    }
     notifyListeners();
   }
 

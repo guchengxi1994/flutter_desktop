@@ -26,6 +26,16 @@ pub fn wire_new_file(port_: MessagePort, virtual_path: String, real_path: String
     wire_new_file_impl(port_, virtual_path, real_path)
 }
 
+#[wasm_bindgen]
+pub fn wire_sys_info_stream(port_: MessagePort) {
+    wire_sys_info_stream_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_listen_sysinfo(port_: MessagePort, name: Option<String>) {
+    wire_listen_sysinfo_impl(port_, name)
+}
+
 // Section: allocate functions
 
 // Section: related functions

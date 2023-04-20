@@ -19,6 +19,8 @@ use std::sync::Arc;
 
 // Section: imports
 
+use crate::native_sysinfo::NativeSysInfo;
+
 // Section: wire functions
 
 fn wire_rust_bridge_say_hello_impl(port_: MessagePort) {
@@ -90,6 +92,29 @@ fn wire_new_file_impl(
         },
     )
 }
+fn wire_sys_info_stream_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "sys_info_stream",
+            port: Some(port_),
+            mode: FfiCallMode::Stream,
+        },
+        move || move |task_callback| sys_info_stream(task_callback.stream_sink()),
+    )
+}
+fn wire_listen_sysinfo_impl(port_: MessagePort, name: impl Wire2Api<Option<String>> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "listen_sysinfo",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_name = name.wire2api();
+            move |task_callback| Ok(listen_sysinfo(api_name))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -120,6 +145,18 @@ impl Wire2Api<u8> for u8 {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for NativeSysInfo {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.cpu.into_dart(),
+            self.memory.into_dart(),
+            self.t.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for NativeSysInfo {}
 
 // Section: executor
 
