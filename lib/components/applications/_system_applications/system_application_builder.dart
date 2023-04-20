@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/editor_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/my_computer_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/recycle_application.dart';
@@ -55,6 +56,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(videoPlayerApplication(), exists: exists);
+              break;
+            case SystemConfig.sEditor:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(editorApplication(), exists: exists);
               break;
             default:
               break;

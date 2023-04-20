@@ -30,6 +30,16 @@ ApplicationDetails appManagementDetails = ApplicationDetails(
     iconUrl: "assets/images/appicons/management.png",
     deletable: false);
 
+ApplicationDetails editorDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 1100,
+    ymax: 500,
+    name: SystemConfig.sEditor,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: false,
+    iconUrl: "assets/images/appicons/editor.png",
+    deletable: false);
+
 ApplicationDetails audioPlayerDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
     xmax: 300,

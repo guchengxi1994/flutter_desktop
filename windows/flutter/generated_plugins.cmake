@@ -10,6 +10,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   media_kit_video
   network_info_plus
   screen_retriever
+  url_launcher_windows
   window_manager
 )
 

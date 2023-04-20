@@ -28,4 +28,5 @@ class SystemConfig {
   static const String sAppManagement = "管理";
   static const String sAudioPlayer = "音乐播放器";
   static const String sVideoPlayer = "视频播放器";
+  static const String sEditor = "文本编辑器";
 }
