@@ -61,3 +61,14 @@ ApplicationDetails videoPlayerDetails = ApplicationDetails(
     iconUrl: "assets/images/appicons/video_player.png",
     deletable: false,
     resizable: false);
+
+ApplicationDetails gameCenterDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 800,
+    ymax: 600,
+    name: SystemConfig.sGameCenter,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: true,
+    iconUrl: "assets/images/appicons/game.png",
+    deletable: false,
+    resizable: false);

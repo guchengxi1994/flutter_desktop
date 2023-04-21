@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/editor_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/game_center_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/my_computer_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/recycle_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/video_player_application.dart';
 import 'package:flutter_desktop/components/applications/application_entry.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
+import 'package:flutter_desktop/components/minesweeper/mine_application.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -61,6 +63,16 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(editorApplication(), exists: exists);
+              break;
+            case SystemConfig.sGameCenter:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(gameCenterApplication(), exists: exists);
+              break;
+            case SystemConfig.sMinesweeper:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(minesweeperApplication(), exists: exists);
               break;
             default:
               break;
