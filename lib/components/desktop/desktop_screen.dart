@@ -114,6 +114,10 @@ class _DesktopScreenState extends State<DesktopScreen>
                                   ctx, audioPlayerDetails),
                               SystemApplicationBuilder.build(
                                   ctx, videoPlayerDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, editorDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, gameCenterDetails),
                             ],
                           ),
                         )),

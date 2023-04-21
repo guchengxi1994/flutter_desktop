@@ -29,18 +29,14 @@ class ManagementForm extends StatefulWidget {
 }
 
 class _ManagementFormState extends State<ManagementForm> {
-  final ScrollController controller = ScrollController();
-
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final d = context.watch<ApplicationController>().details;
-    final l = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [

@@ -6,7 +6,9 @@ use std::{
 use flutter_rust_bridge::StreamSink;
 use sysinfo::{ProcessExt, System, SystemExt};
 
-pub fn get_memory(process_name: Option<String>) -> u64 {
+#[deprecated = "perf"]
+#[allow(dead_code)]
+fn get_memory(process_name: Option<String>) -> u64 {
     let name: String;
     match process_name {
         Some(n) => {
@@ -26,7 +28,9 @@ pub fn get_memory(process_name: Option<String>) -> u64 {
     return 0;
 }
 
-pub fn get_cpu(process_name: Option<String>) -> f32 {
+#[deprecated = "perf"]
+#[allow(dead_code)]
+fn get_cpu(process_name: Option<String>) -> f32 {
     let name: String;
     match process_name {
         Some(n) => {
@@ -87,13 +91,33 @@ fn send_sys_info(info: NativeSysInfo) {
 }
 
 pub fn start_listen(process_name: Option<String>) {
+    let name: String;
+    match process_name {
+        Some(n) => {
+            name = n;
+        }
+        None => {
+            name = String::from("flutter_windows_desktop");
+        }
+    }
+    let mut cpu: f32 = 0.0;
+    let mut memory: u64 = 0;
+    let mut _t: u64;
+
     loop {
-        let _t = SystemTime::now()
+        _t = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
             .as_secs();
-        let memory = get_memory(process_name.clone());
-        let cpu = get_cpu(process_name.clone());
+        let sys = System::new_all();
+        for (_pid, process) in sysinfo::SystemExt::processes(&sys) {
+            if process.name().contains(&name) {
+                cpu = process.cpu_usage();
+                memory = process.memory();
+            }
+        }
+        // let memory = get_memory(process_name.clone());
+        // let cpu = get_cpu(process_name.clone());
         send_sys_info(NativeSysInfo { cpu, memory, t: _t });
         std::thread::sleep(Duration::from_secs(2));
     }

@@ -2,6 +2,11 @@
 
 ## changelogs
 
+* **0.1.7**
+
+  * **0.1.7+2** game center; modify a minesweeper game from [here](https://github.com/Cifruktus/FlutterMinesweeper)
+  * **0.1.7+1** [text editor](https://pub.dev/packages/appflowy_editor) ***Not support Chinese yet [#24](https://github.com/AppFlowy-IO/appflowy-editor/issues/24)  [#113909](https://github.com/flutter/flutter/issues/113909#issuecomment-1311478223)*** 
+
 * **0.1.6**
 
   * **0.1.6+4** management form(WIP)
