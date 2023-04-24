@@ -17,7 +17,7 @@ Application editorApplication(String text, ApplicationDetails details) {
     name: details.name ?? details.openWith,
     resizable: false,
     onClose: () {
-      globalKey.currentState!.saveFile();
+      globalKey.currentState!.saveFile(details.name);
     },
     child: EditorForm(
       key: globalKey,
@@ -55,14 +55,20 @@ class _EditorFormState extends State<EditorForm> {
     }
   }
 
-  saveFile() {
+  saveFile(String? name) {
     if (editorState.document.isEmpty) {
       return;
     }
     final s = editorState.document.toJson();
-    File f = File(
-        "${DevUtils.cacheTxtPath}/${DateTime.now().millisecondsSinceEpoch}.json");
-    f.writeAsStringSync(json.encode(s));
+
+    if (name == null) {
+      File f = File(
+          "${DevUtils.cacheTxtPath}/${DateTime.now().millisecondsSinceEpoch}.json");
+      f.writeAsStringSync(json.encode(s));
+    } else {
+      File f = File("${DevUtils.cacheTxtPath}/$name");
+      f.writeAsStringSync(json.encode(s));
+    }
   }
 
   @override

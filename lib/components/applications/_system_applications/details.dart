@@ -37,7 +37,7 @@ ApplicationDetails editorDetails = ApplicationDetails(
   uuid: const Uuid().v1(),
   xmax: 1100,
   ymax: 500,
-  name: SystemConfig.sEditor,
+  name: null,
   needsTaskbarDisplay: true,
   needsTrayDisplay: false,
   iconUrl: "assets/images/appicons/editor.png",

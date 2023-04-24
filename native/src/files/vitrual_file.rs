@@ -117,12 +117,19 @@ impl VirtualFile {
         folder_id: Option<i64>,
     ) -> anyhow::Result<()> {
         let save_path = format!(
-            "{:?}/{:?}",
+            "{}/txts/{}",
             &*super::file_structure::CACHE_PATH.lock().unwrap(),
             filename
         );
 
+        if crate::db::init::path_exists(save_path.clone()) {
+            return Ok(());
+        } else {
+            std::fs::File::create(save_path.clone())?;
+        }
+
         let r = Self::new_file(filename, save_path.clone(), open_with)?;
+
         let current_folder_id: i64;
         match folder_id {
             Some(f) => {
@@ -148,6 +155,6 @@ impl VirtualFile {
             .unwrap()
             .to_file(super::file_structure::JSON_PATH.lock().unwrap().to_string());
 
-        anyhow::Ok(())
+        Ok(())
     }
 }
