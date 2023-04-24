@@ -36,6 +36,36 @@ pub fn wire_listen_sysinfo(port_: MessagePort, name: Option<String>) {
     wire_listen_sysinfo_impl(port_, name)
 }
 
+#[wasm_bindgen]
+pub fn wire_set_json_path(port_: MessagePort, s: String) {
+    wire_set_json_path_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_set_cache_path(port_: MessagePort, s: String) {
+    wire_set_cache_path_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_init_folder(port_: MessagePort, s: String) {
+    wire_init_folder_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_create_new_txt(
+    port_: MessagePort,
+    filename: String,
+    open_with: String,
+    folder_id: JsValue,
+) {
+    wire_create_new_txt_impl(port_, filename, open_with, folder_id)
+}
+
+#[wasm_bindgen]
+pub fn wire_get_children_by_id(port_: MessagePort, i: JsValue) {
+    wire_get_children_by_id_impl(port_, i)
+}
+
 // Section: allocate functions
 
 // Section: related functions
@@ -47,6 +77,7 @@ impl Wire2Api<String> for String {
         self
     }
 }
+
 impl Wire2Api<Option<String>> for Option<String> {
     fn wire2api(self) -> Option<String> {
         self.map(Wire2Api::wire2api)
@@ -65,8 +96,18 @@ impl Wire2Api<String> for JsValue {
         self.as_string().expect("non-UTF-8 string, or not a string")
     }
 }
+impl Wire2Api<i64> for JsValue {
+    fn wire2api(self) -> i64 {
+        ::std::convert::TryInto::try_into(self.dyn_into::<js_sys::BigInt>().unwrap()).unwrap()
+    }
+}
 impl Wire2Api<Option<String>> for JsValue {
     fn wire2api(self) -> Option<String> {
+        (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+    }
+}
+impl Wire2Api<Option<i64>> for JsValue {
+    fn wire2api(self) -> Option<i64> {
         (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
     }
 }

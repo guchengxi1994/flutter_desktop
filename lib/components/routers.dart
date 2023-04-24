@@ -5,6 +5,7 @@ import 'desktop/desktop.dart' deferred as desktop;
 
 class Routers {
   static GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+  static GlobalKey desktopKey = GlobalKey();
 
   static String loadingScreen = "/loadingScreen";
   static String desktopScreen = "/desktopScreen";

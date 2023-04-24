@@ -44,7 +44,42 @@ pub extern "C" fn wire_listen_sysinfo(port_: i64, name: *mut wire_uint_8_list) {
     wire_listen_sysinfo_impl(port_, name)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_set_json_path(port_: i64, s: *mut wire_uint_8_list) {
+    wire_set_json_path_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_set_cache_path(port_: i64, s: *mut wire_uint_8_list) {
+    wire_set_cache_path_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_init_folder(port_: i64, s: *mut wire_uint_8_list) {
+    wire_init_folder_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_create_new_txt(
+    port_: i64,
+    filename: *mut wire_uint_8_list,
+    open_with: *mut wire_uint_8_list,
+    folder_id: *mut i64,
+) {
+    wire_create_new_txt_impl(port_, filename, open_with, folder_id)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_children_by_id(port_: i64, i: *mut i64) {
+    wire_get_children_by_id_impl(port_, i)
+}
+
 // Section: allocate functions
+
+#[no_mangle]
+pub extern "C" fn new_box_autoadd_i64_0(value: i64) -> *mut i64 {
+    support::new_leak_box_ptr(value)
+}
 
 #[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
@@ -63,6 +98,11 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
     fn wire2api(self) -> String {
         let vec: Vec<u8> = self.wire2api();
         String::from_utf8_lossy(&vec).into_owned()
+    }
+}
+impl Wire2Api<i64> for *mut i64 {
+    fn wire2api(self) -> i64 {
+        unsafe { *support::box_from_leak_ptr(self) }
     }
 }
 

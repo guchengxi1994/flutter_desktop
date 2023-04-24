@@ -25,7 +25,16 @@ const CREATE_FILE_DB: &str = "CREATE TABLE IF NOT EXISTS files (
     real_path TEXT,
     file_type TEXT,
     icon TEXT,
+    open_with TEXT,
+    is_deleted integer DEFAULT 0,
     create_at integer
+)";
+
+const CREATE_FOLDER_DB: &str = "CREATE TABLE IF NOT EXISTS folders (
+    folder_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    folder_name TEXT,
+    create_at integer,
+    is_deleted integer DEFAULT 0
 )";
 
 pub fn init_when_first_time_start() -> anyhow::Result<()> {
@@ -51,7 +60,7 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
             .await?;
 
         let _ = sqlx::query(CREATE_FILE_DB).execute(pool.get_pool()).await?;
-
+        let _ = sqlx::query(CREATE_FOLDER_DB).execute(pool.get_pool()).await?;
         anyhow::Ok(())
     })
 }

@@ -2,7 +2,11 @@ use flutter_rust_bridge::StreamSink;
 
 use crate::{
     db::init::DB_PATH,
-    files::model::Files,
+    files::{
+        file_structure::{CACHE_PATH, JSON_PATH},
+        virtual_folder::{FileOrFolder, VirtualFolder},
+        vitrual_file::VirtualFile,
+    },
     native_sysinfo::{NativeSysInfo, SEND_TO_DART_NATIVESYSINFO_SINK},
     operation::model::Operation,
 };
@@ -37,7 +41,7 @@ pub fn new_log(content: String, result: Option<String>) {
 
 /// files
 pub fn new_file(virtual_path: String, real_path: String) -> i64 {
-    let r = Files::new_file(virtual_path, real_path);
+    let r = VirtualFile::new_file(virtual_path, real_path, String::new());
     match r {
         Ok(r) => r,
         Err(e) => {
@@ -56,4 +60,45 @@ pub fn sys_info_stream(s: StreamSink<NativeSysInfo>) -> anyhow::Result<()> {
 
 pub fn listen_sysinfo(name: Option<String>) {
     crate::native_sysinfo::start_listen(name)
+}
+
+// 设置 json 路径
+pub fn set_json_path(s: String) {
+    if !crate::db::init::path_exists(s.clone()) {
+        let _ = std::fs::File::create(s.clone());
+    }
+    let mut _s = JSON_PATH.lock().unwrap();
+    *_s = s;
+}
+
+// 设置 cache 路径
+pub fn set_cache_path(s: String) {
+    if !crate::db::init::path_exists(s.clone()) {
+        let _ = std::fs::create_dir(s.clone());
+    }
+    let mut _s = CACHE_PATH.lock().unwrap();
+    *_s = s;
+}
+
+// init path
+pub fn init_folder(s:String){
+    if !crate::db::init::path_exists(s.clone()) {
+        let _ = std::fs::create_dir(s.clone());
+    }
+}
+
+// 创建新的文本文件
+pub fn create_new_txt(filename: String, open_with: String, folder_id: Option<i64>) {
+    let r = VirtualFile::create_new_txt_file(filename, open_with, folder_id);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-error] : {:?}", e)
+        }
+    }
+}
+
+// 获取所有文件/夹
+pub fn get_children_by_id(i: Option<i64>) -> Vec<FileOrFolder> {
+    VirtualFolder::get_children(i)
 }

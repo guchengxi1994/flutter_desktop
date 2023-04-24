@@ -19,6 +19,7 @@ class AppStyle {
 
   static const double chartWidth = 300;
   static const double chartHeight = 150;
+  static Color appBlue2 = const Color.fromARGB(255, 34, 129, 248);
 }
 
 class SystemConfig {
