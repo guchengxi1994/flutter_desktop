@@ -11,4 +11,5 @@ ApplicationDetails mineEasyDetails = ApplicationDetails(
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/mine.png",
     deletable: false,
-    resizable: false);
+    resizable: false,
+    openWith: SystemConfig.sMinesweeper);

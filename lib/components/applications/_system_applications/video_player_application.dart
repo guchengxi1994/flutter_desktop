@@ -11,7 +11,7 @@ Application videoPlayerApplication({String? videoPath}) {
   return Application(
     background: AppStyle.dark,
     uuid: videoPlayerDetails.uuid,
-    name: videoPlayerDetails.name,
+    name: videoPlayerDetails.name ?? videoPlayerDetails.openWith,
     resizable: videoPlayerDetails.resizable,
     child: const VideoPlayerForm(),
   );

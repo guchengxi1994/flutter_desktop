@@ -19,7 +19,7 @@ Application audioPlayerApplication({String? audioPath}) {
   return Application(
     resizable: audioPlayerDetails.resizable,
     uuid: audioPlayerDetails.uuid,
-    name: audioPlayerDetails.name,
+    name: audioPlayerDetails.name ?? audioPlayerDetails.openWith,
     child: AudioPlayerForm(
       audioPath: audioPath,
     ),
@@ -230,6 +230,7 @@ class _AudioPlayerFormState extends State<AudioPlayerForm> {
                           uuid: audioPlayerDetails.uuid,
                           name: audioPlayerDetails.name,
                           icon: audioPlayerDetails.icon,
+                          openWith: audioPlayerDetails.openWith,
                           content: const Text("下一个")));
                 },
                 child: const Icon(Icons.skip_next)),

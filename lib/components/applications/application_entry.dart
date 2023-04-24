@@ -35,7 +35,7 @@ class ApplicationEntry extends StatelessWidget {
               // margin: const EdgeInsets.only(top: 20),
               message: details.name,
               child: Text(
-                details.name,
+                details.name ?? details.openWith,
                 style: const TextStyle(color: AppStyle.light2),
                 overflow: TextOverflow.ellipsis,
               ),

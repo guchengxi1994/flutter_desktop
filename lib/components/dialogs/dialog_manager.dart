@@ -21,6 +21,7 @@ class DialogManager {
     DialogDetails shutdownDialogDetails = DialogDetails(
       uuid: shutdownUuid,
       name: "警告",
+      openWith: "警告",
       xmax: 500,
       xmin: 200,
       ymax: 350,
@@ -67,6 +68,7 @@ class DialogManager {
     DialogDetails newTxtDetails = DialogDetails(
       uuid: newTxtUuid,
       name: "创建新的文本",
+      openWith: "创建新的文本",
       xmax: 550,
       xmin: 200,
       ymax: 350,

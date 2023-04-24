@@ -10,7 +10,8 @@ extension ListOperation on List<ApplicationDetails> {
 
 class ApplicationDetails {
   final String uuid;
-  final String name;
+  final String? name;
+  final String openWith;
 
   /// 是否支持多开
   final bool multiple;
@@ -35,7 +36,9 @@ class ApplicationDetails {
     if (multiple && other.multiple) {
       return uuid != other.uuid;
     } else {
-      return other.name != name && uuid != other.uuid;
+      return other.name != name &&
+          uuid != other.uuid &&
+          openWith != other.openWith;
     }
   }
 
@@ -44,7 +47,7 @@ class ApplicationDetails {
       this.iconUrl,
       required this.uuid,
       this.multiple = false,
-      required this.name,
+      this.name,
       this.xmax = 100,
       this.xmin = 0,
       this.ymax = 100,
@@ -52,7 +55,8 @@ class ApplicationDetails {
       this.deletable = true,
       this.needsTaskbarDisplay = false,
       this.needsTrayDisplay = false,
-      this.resizable = true}) {
+      this.resizable = true,
+      required this.openWith}) {
     if (icon == null && iconUrl == null) {
       icon = const Icon(
         Icons.apps,

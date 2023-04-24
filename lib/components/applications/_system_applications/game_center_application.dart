@@ -10,7 +10,7 @@ import 'system_application_builder.dart';
 Application gameCenterApplication() {
   return Application(
     uuid: gameCenterDetails.uuid,
-    name: gameCenterDetails.name,
+    name: gameCenterDetails.name ?? gameCenterDetails.openWith,
     resizable: false,
     background: AppStyle.dark,
     child: const GameCenterForm(),

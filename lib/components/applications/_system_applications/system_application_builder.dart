@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/editor_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/game_center_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
@@ -29,7 +32,8 @@ class SystemApplicationBuilder {
         needsTaskbarDisplay: true,
         needsTrayDisplay: false,
         iconUrl: "assets/images/appicons/txt.png",
-        deletable: true);
+        deletable: true,
+        openWith: SystemConfig.sEditor);
     return ApplicationEntry(
         details: txtDetails,
         onDoubleClick: () async {
@@ -37,6 +41,22 @@ class SystemApplicationBuilder {
               ctx.read<ApplicationController>().exists(txtDetails.uuid);
           if (!exists) {
             ctx.read<ApplicationController>().addDetail(txtDetails);
+            if (txtDetails.needsTaskbarDisplay) {
+              ctx
+                  .read<TaskbarController>()
+                  .addDetails(txtDetails, exists: exists);
+            }
+            File f = File(realPath);
+            if (f.existsSync()) {
+              ctx.read<DesktopController>().addApplication(
+                  editorApplication(f.readAsStringSync(), txtDetails),
+                  exists: exists);
+            } else {
+              debugPrint("file not exists");
+              ctx.read<DesktopController>().addApplication(
+                  editorApplication("", txtDetails),
+                  exists: exists);
+            }
           }
         });
   }
@@ -54,7 +74,7 @@ class SystemApplicationBuilder {
             ctx.read<TaskbarController>().addDetails(details, exists: exists);
           }
 
-          switch (details.name) {
+          switch (details.openWith) {
             case SystemConfig.sRecycle:
               ctx
                   .read<DesktopController>()
@@ -82,9 +102,9 @@ class SystemApplicationBuilder {
                   .addApplication(videoPlayerApplication(), exists: exists);
               break;
             case SystemConfig.sEditor:
-              ctx
-                  .read<DesktopController>()
-                  .addApplication(editorApplication(), exists: exists);
+              ctx.read<DesktopController>().addApplication(
+                  editorApplication("", editorDetails),
+                  exists: exists);
               break;
             case SystemConfig.sGameCenter:
               ctx

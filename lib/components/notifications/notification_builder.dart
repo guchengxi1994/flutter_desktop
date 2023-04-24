@@ -84,7 +84,7 @@ class __NotificationWidgetState extends State<_NotificationWidget> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Text(widget.details.name)
+                  Text(widget.details.name ?? widget.details.openWith)
                 ],
               ),
               widget.details.content

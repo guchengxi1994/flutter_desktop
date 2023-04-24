@@ -5,24 +5,23 @@ import 'dart:io';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/applications/_system_applications/details.dart'
-    show editorDetails;
 import 'package:flutter_desktop/components/utils.dart';
 
 import '../application.dart';
+import '../application_details.dart';
 
-Application editorApplication() {
+Application editorApplication(String text, ApplicationDetails details) {
   final GlobalKey<_EditorFormState> globalKey = GlobalKey();
   return Application(
-    uuid: editorDetails.uuid,
-    name: editorDetails.name,
+    uuid: details.uuid,
+    name: details.name ?? details.openWith,
     resizable: false,
     onClose: () {
       globalKey.currentState!.saveFile();
     },
     child: EditorForm(
       key: globalKey,
-      text: "",
+      text: text,
     ),
   );
 }
@@ -57,6 +56,9 @@ class _EditorFormState extends State<EditorForm> {
   }
 
   saveFile() {
+    if (editorState.document.isEmpty) {
+      return;
+    }
     final s = editorState.document.toJson();
     File f = File(
         "${DevUtils.cacheTxtPath}/${DateTime.now().millisecondsSinceEpoch}.json");
