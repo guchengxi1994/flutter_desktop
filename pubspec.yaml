@@ -74,6 +74,7 @@ flutter:
   assets: 
     - assets/images/
     - assets/images/appicons/
+    - assets/idiom/
 
   fonts:
     - family: 思源
