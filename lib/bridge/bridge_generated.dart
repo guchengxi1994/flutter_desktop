@@ -7,8 +7,11 @@ import 'dart:async';
 import 'package:meta/meta.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge.dart';
 import 'package:uuid/uuid.dart';
+import 'package:freezed_annotation/freezed_annotation.dart' hide protected;
 
 import 'dart:ffi' as ffi;
+
+part 'bridge_generated.freezed.dart';
 
 abstract class Native {
   Future<String> rustBridgeSayHello({dynamic hint});
@@ -41,6 +44,40 @@ abstract class Native {
   Future<void> listenSysinfo({String? name, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kListenSysinfoConstMeta;
+
+  Future<void> setJsonPath({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetJsonPathConstMeta;
+
+  Future<void> setCachePath({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetCachePathConstMeta;
+
+  Future<void> initFolder({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kInitFolderConstMeta;
+
+  Future<void> createNewTxt(
+      {required String filename,
+      required String openWith,
+      int? folderId,
+      dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kCreateNewTxtConstMeta;
+
+  Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetChildrenByIdConstMeta;
+}
+
+@freezed
+class FileOrFolder with _$FileOrFolder {
+  const factory FileOrFolder.file(
+    VirtualFile field0,
+  ) = FileOrFolder_File;
+  const factory FileOrFolder.folder(
+    VirtualFolder field0,
+  ) = FileOrFolder_Folder;
 }
 
 class NativeSysInfo {
@@ -52,6 +89,40 @@ class NativeSysInfo {
     required this.cpu,
     required this.memory,
     required this.t,
+  });
+}
+
+class VirtualFile {
+  final int fileId;
+  final String virtualPath;
+  final String realPath;
+  final String fileType;
+  final String icon;
+  final String openWith;
+  final int createAt;
+
+  const VirtualFile({
+    required this.fileId,
+    required this.virtualPath,
+    required this.realPath,
+    required this.fileType,
+    required this.icon,
+    required this.openWith,
+    required this.createAt,
+  });
+}
+
+class VirtualFolder {
+  final int folderId;
+  final int createAt;
+  final int isDeleted;
+  final String folderName;
+
+  const VirtualFolder({
+    required this.folderId,
+    required this.createAt,
+    required this.isDeleted,
+    required this.folderName,
   });
 }
 
@@ -183,6 +254,98 @@ class NativeImpl implements Native {
         argNames: ["name"],
       );
 
+  Future<void> setJsonPath({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_json_path(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetJsonPathConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetJsonPathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_json_path",
+        argNames: ["s"],
+      );
+
+  Future<void> setCachePath({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_cache_path(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetCachePathConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetCachePathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_cache_path",
+        argNames: ["s"],
+      );
+
+  Future<void> initFolder({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_init_folder(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kInitFolderConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kInitFolderConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "init_folder",
+        argNames: ["s"],
+      );
+
+  Future<void> createNewTxt(
+      {required String filename,
+      required String openWith,
+      int? folderId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_String(filename);
+    var arg1 = _platform.api2wire_String(openWith);
+    var arg2 = _platform.api2wire_opt_box_autoadd_i64(folderId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) =>
+          _platform.inner.wire_create_new_txt(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kCreateNewTxtConstMeta,
+      argValues: [filename, openWith, folderId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kCreateNewTxtConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "create_new_txt",
+        argNames: ["filename", "openWith", "folderId"],
+      );
+
+  Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint}) {
+    var arg0 = _platform.api2wire_opt_box_autoadd_i64(i);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_children_by_id(port_, arg0),
+      parseSuccessData: _wire2api_list_file_or_folder,
+      constMeta: kGetChildrenByIdConstMeta,
+      argValues: [i],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetChildrenByIdConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_children_by_id",
+        argNames: ["i"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -192,12 +355,39 @@ class NativeImpl implements Native {
     return raw as String;
   }
 
+  VirtualFile _wire2api_box_autoadd_virtual_file(dynamic raw) {
+    return _wire2api_virtual_file(raw);
+  }
+
+  VirtualFolder _wire2api_box_autoadd_virtual_folder(dynamic raw) {
+    return _wire2api_virtual_folder(raw);
+  }
+
   double _wire2api_f32(dynamic raw) {
     return raw as double;
   }
 
+  FileOrFolder _wire2api_file_or_folder(dynamic raw) {
+    switch (raw[0]) {
+      case 0:
+        return FileOrFolder_File(
+          _wire2api_box_autoadd_virtual_file(raw[1]),
+        );
+      case 1:
+        return FileOrFolder_Folder(
+          _wire2api_box_autoadd_virtual_folder(raw[1]),
+        );
+      default:
+        throw Exception("unreachable");
+    }
+  }
+
   int _wire2api_i64(dynamic raw) {
     return castInt(raw);
+  }
+
+  List<FileOrFolder> _wire2api_list_file_or_folder(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_file_or_folder).toList();
   }
 
   NativeSysInfo _wire2api_native_sys_info(dynamic raw) {
@@ -226,6 +416,33 @@ class NativeImpl implements Native {
   void _wire2api_unit(dynamic raw) {
     return;
   }
+
+  VirtualFile _wire2api_virtual_file(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 7)
+      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    return VirtualFile(
+      fileId: _wire2api_i64(arr[0]),
+      virtualPath: _wire2api_String(arr[1]),
+      realPath: _wire2api_String(arr[2]),
+      fileType: _wire2api_String(arr[3]),
+      icon: _wire2api_String(arr[4]),
+      openWith: _wire2api_String(arr[5]),
+      createAt: _wire2api_i64(arr[6]),
+    );
+  }
+
+  VirtualFolder _wire2api_virtual_folder(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return VirtualFolder(
+      folderId: _wire2api_i64(arr[0]),
+      createAt: _wire2api_i64(arr[1]),
+      isDeleted: _wire2api_i64(arr[2]),
+      folderName: _wire2api_String(arr[3]),
+    );
+  }
 }
 
 // Section: api2wire
@@ -248,8 +465,23 @@ class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
   }
 
   @protected
+  ffi.Pointer<ffi.Int64> api2wire_box_autoadd_i64(int raw) {
+    return inner.new_box_autoadd_i64_0(api2wire_i64(raw));
+  }
+
+  @protected
+  int api2wire_i64(int raw) {
+    return raw;
+  }
+
+  @protected
   ffi.Pointer<wire_uint_8_list> api2wire_opt_String(String? raw) {
     return raw == null ? ffi.nullptr : api2wire_String(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Int64> api2wire_opt_box_autoadd_i64(int? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_i64(raw);
   }
 
   @protected
@@ -471,6 +703,113 @@ class NativeWire implements FlutterRustBridgeWireBase {
               ffi.Pointer<wire_uint_8_list>)>>('wire_listen_sysinfo');
   late final _wire_listen_sysinfo = _wire_listen_sysinfoPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_set_json_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_json_path(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_json_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_set_json_path');
+  late final _wire_set_json_path = _wire_set_json_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_set_cache_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_cache_path(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_cache_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_set_cache_path');
+  late final _wire_set_cache_path = _wire_set_cache_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_init_folder(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_init_folder(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_init_folderPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<wire_uint_8_list>)>>('wire_init_folder');
+  late final _wire_init_folder = _wire_init_folderPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_create_new_txt(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> filename,
+    ffi.Pointer<wire_uint_8_list> open_with,
+    ffi.Pointer<ffi.Int64> folder_id,
+  ) {
+    return _wire_create_new_txt(
+      port_,
+      filename,
+      open_with,
+      folder_id,
+    );
+  }
+
+  late final _wire_create_new_txtPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<wire_uint_8_list>,
+              ffi.Pointer<ffi.Int64>)>>('wire_create_new_txt');
+  late final _wire_create_new_txt = _wire_create_new_txtPtr.asFunction<
+      void Function(int, ffi.Pointer<wire_uint_8_list>,
+          ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Int64>)>();
+
+  void wire_get_children_by_id(
+    int port_,
+    ffi.Pointer<ffi.Int64> i,
+  ) {
+    return _wire_get_children_by_id(
+      port_,
+      i,
+    );
+  }
+
+  late final _wire_get_children_by_idPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<ffi.Int64>)>>('wire_get_children_by_id');
+  late final _wire_get_children_by_id = _wire_get_children_by_idPtr
+      .asFunction<void Function(int, ffi.Pointer<ffi.Int64>)>();
+
+  ffi.Pointer<ffi.Int64> new_box_autoadd_i64_0(
+    int value,
+  ) {
+    return _new_box_autoadd_i64_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_i64_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Int64> Function(ffi.Int64)>>(
+          'new_box_autoadd_i64_0');
+  late final _new_box_autoadd_i64_0 = _new_box_autoadd_i64_0Ptr
+      .asFunction<ffi.Pointer<ffi.Int64> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,

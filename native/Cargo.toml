@@ -11,8 +11,10 @@ crate-type = ["lib","staticlib","cdylib",]
 [dependencies]
 anyhow = "= 1.0.66"
 flutter_rust_bridge = "= 1.74.0"
+futures = "0.3"
 infer = "0.12.0"
 lazy_static = "1.4.0"
+rs_filemanager = {path = "D:/github_repo/rs_filemanager"} # for dev
 sqlx = { version = "0.6", features = [ "runtime-tokio-native-tls" , "sqlite","chrono" ] }
 sysinfo = "0.27.7"
 tokio = { version = "1.25.0", features = ["full"] }

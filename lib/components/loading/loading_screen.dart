@@ -17,6 +17,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Future loading() async {
     await api.setDbPath(s: "${DevUtils.executableDir.path}/data.db");
     await api.initDb();
+    await api.setJsonPath(s: "${DevUtils.executableDir.path}/struct.json");
+    await api.setCachePath(s: "${DevUtils.executableDir.path}/cache");
+    await api.initFolder(s: DevUtils.cacheTxtPath);
 
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context)

@@ -19,6 +19,9 @@ use std::sync::Arc;
 
 // Section: imports
 
+use crate::files::virtual_folder::FileOrFolder;
+use crate::files::virtual_folder::VirtualFolder;
+use crate::files::vitrual_file::VirtualFile;
 use crate::native_sysinfo::NativeSysInfo;
 
 // Section: wire functions
@@ -115,6 +118,78 @@ fn wire_listen_sysinfo_impl(port_: MessagePort, name: impl Wire2Api<Option<Strin
         },
     )
 }
+fn wire_set_json_path_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_json_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_json_path(api_s))
+        },
+    )
+}
+fn wire_set_cache_path_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_cache_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_cache_path(api_s))
+        },
+    )
+}
+fn wire_init_folder_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "init_folder",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(init_folder(api_s))
+        },
+    )
+}
+fn wire_create_new_txt_impl(
+    port_: MessagePort,
+    filename: impl Wire2Api<String> + UnwindSafe,
+    open_with: impl Wire2Api<String> + UnwindSafe,
+    folder_id: impl Wire2Api<Option<i64>> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "create_new_txt",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_filename = filename.wire2api();
+            let api_open_with = open_with.wire2api();
+            let api_folder_id = folder_id.wire2api();
+            move |task_callback| Ok(create_new_txt(api_filename, api_open_with, api_folder_id))
+        },
+    )
+}
+fn wire_get_children_by_id_impl(port_: MessagePort, i: impl Wire2Api<Option<i64>> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_children_by_id",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_i = i.wire2api();
+            move |task_callback| Ok(get_children_by_id(api_i))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -138,6 +213,12 @@ where
     }
 }
 
+impl Wire2Api<i64> for i64 {
+    fn wire2api(self) -> i64 {
+        self
+    }
+}
+
 impl Wire2Api<u8> for u8 {
     fn wire2api(self) -> u8 {
         self
@@ -145,6 +226,17 @@ impl Wire2Api<u8> for u8 {
 }
 
 // Section: impl IntoDart
+
+impl support::IntoDart for FileOrFolder {
+    fn into_dart(self) -> support::DartAbi {
+        match self {
+            Self::File(field0) => vec![0.into_dart(), field0.into_dart()],
+            Self::Folder(field0) => vec![1.into_dart(), field0.into_dart()],
+        }
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for FileOrFolder {}
 
 impl support::IntoDart for NativeSysInfo {
     fn into_dart(self) -> support::DartAbi {
@@ -158,11 +250,47 @@ impl support::IntoDart for NativeSysInfo {
 }
 impl support::IntoDartExceptPrimitive for NativeSysInfo {}
 
+impl support::IntoDart for VirtualFile {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.file_id.into_dart(),
+            self.virtual_path.into_dart(),
+            self.real_path.into_dart(),
+            self.file_type.into_dart(),
+            self.icon.into_dart(),
+            self.open_with.into_dart(),
+            self.create_at.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for VirtualFile {}
+
+impl support::IntoDart for VirtualFolder {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.folder_id.into_dart(),
+            self.create_at.into_dart(),
+            self.is_deleted.into_dart(),
+            self.folder_name.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for VirtualFolder {}
+
 // Section: executor
 
 support::lazy_static! {
     pub static ref FLUTTER_RUST_BRIDGE_HANDLER: support::DefaultHandler = Default::default();
 }
+
+/// cbindgen:ignore
+#[cfg(target_family = "wasm")]
+#[path = "bridge_generated.web.rs"]
+mod web;
+#[cfg(target_family = "wasm")]
+pub use web::*;
 
 #[cfg(not(target_family = "wasm"))]
 #[path = "bridge_generated.io.rs"]

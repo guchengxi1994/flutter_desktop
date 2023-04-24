@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/applications/application_controller.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_desktop/components/context_menu/desktop_context_menu.dar
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
 import 'package:flutter_desktop/components/notifications/notification_builder.dart';
+import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_builder.dart';
 import 'package:flutter_desktop/components/shortcuts/widgets/key_widget.dart';
 import 'package:flutter_desktop/components/taskbar/tray.dart';
@@ -58,7 +60,9 @@ class _DesktopScreenState extends State<DesktopScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final l = context.watch<DesktopController>().l;
     return Scaffold(
+      key: Routers.desktopKey,
       floatingActionButton: Container(
         margin: const EdgeInsets.only(bottom: 50),
         child: Row(
@@ -118,6 +122,21 @@ class _DesktopScreenState extends State<DesktopScreen>
                                   ctx, editorDetails),
                               SystemApplicationBuilder.build(
                                   ctx, gameCenterDetails),
+                              ...l.map((e) {
+                                return e.map(file: (f) {
+                                  switch (f.field0.openWith) {
+                                    case SystemConfig.sEditor:
+                                      return SystemApplicationBuilder
+                                          .txtAppBuild(ctx, f.field0.realPath,
+                                              f.field0.virtualPath);
+
+                                    default:
+                                      return Container();
+                                  }
+                                }, folder: (f) {
+                                  return Container();
+                                });
+                              }).toList()
                             ],
                           ),
                         )),

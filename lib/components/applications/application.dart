@@ -20,8 +20,10 @@ class Application extends StatelessWidget {
       required this.uuid,
       this.name = "窗口",
       this.resizable = true,
-      this.background = AppStyle.light2});
+      this.background = AppStyle.light2,
+      this.onClose});
   final Widget child;
+  final VoidCallback? onClose;
 
   final String uuid;
   final String name;
@@ -181,6 +183,10 @@ class Application extends StatelessWidget {
                 )),
                 InkWell(
                   onTap: () async {
+                    if (onClose != null) {
+                      onClose!();
+                    }
+
                     if (name == SystemConfig.sAudioPlayer) {
                       await AudioPlayerController.stop();
                     }

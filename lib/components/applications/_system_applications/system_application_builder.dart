@@ -12,12 +12,34 @@ import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/minesweeper/mine_application.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 import '../application_controller.dart';
 import '../application_details.dart';
 
 class SystemApplicationBuilder {
   SystemApplicationBuilder._();
+
+  static Widget txtAppBuild(BuildContext ctx, String realPath, String name) {
+    ApplicationDetails txtDetails = ApplicationDetails(
+        uuid: const Uuid().v1(),
+        xmax: 1100,
+        ymax: 500,
+        name: name,
+        needsTaskbarDisplay: true,
+        needsTrayDisplay: false,
+        iconUrl: "assets/images/appicons/txt.png",
+        deletable: true);
+    return ApplicationEntry(
+        details: txtDetails,
+        onDoubleClick: () async {
+          final exists =
+              ctx.read<ApplicationController>().exists(txtDetails.uuid);
+          if (!exists) {
+            ctx.read<ApplicationController>().addDetail(txtDetails);
+          }
+        });
+  }
 
   static Widget build(BuildContext ctx, ApplicationDetails details) {
     return ApplicationEntry(

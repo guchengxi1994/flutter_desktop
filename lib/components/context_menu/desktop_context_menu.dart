@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
+import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
 
 mixin DesktopContextMenuMixin {
   final ContextMenuController _contextMenuController = ContextMenuController();
@@ -8,8 +9,8 @@ mixin DesktopContextMenuMixin {
       anchors: TextSelectionToolbarAnchors(
         primaryAnchor: offset,
       ),
-      children:
-          _buildDesktopContextMenuItem(offset, MediaQuery.of(context).size),
+      children: _buildDesktopContextMenuItem(
+          offset, MediaQuery.of(context).size, context),
     );
   }
 
@@ -26,7 +27,8 @@ mixin DesktopContextMenuMixin {
 
   final double _types = 1;
 
-  List<Widget> _buildDesktopContextMenuItem(Offset position, Size size) {
+  List<Widget> _buildDesktopContextMenuItem(
+      Offset position, Size size, BuildContext ctx) {
     double dx = 0;
     double dy = 0;
     if ((position.dx - size.width).abs() < 250) {
@@ -84,6 +86,17 @@ mixin DesktopContextMenuMixin {
             child: const Text("新建代码文件"),
             onPressed: () {
               dismiss();
+            },
+          ),
+          MenuItemButton(
+            leadingIcon: const Icon(
+              Icons.file_present,
+              color: AppStyle.dark,
+            ),
+            child: const Text("新建文本文档"),
+            onPressed: () async {
+              dismiss();
+              DialogManager.showCreateNewTxtFileDialog(ctx);
             },
           )
         ],

@@ -27,7 +27,8 @@ class _DesktopState extends State<Desktop> with AutomaticKeepAliveClientMixin {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ApplicationController()),
-        ChangeNotifierProvider(create: (_) => DesktopController()),
+        ChangeNotifierProvider(
+            create: (_) => DesktopController()..getEntries()),
         ChangeNotifierProvider(create: (_) => TaskbarController()),
         ChangeNotifierProvider(create: (_) => NotificationController()),
         ChangeNotifierProvider(create: (_) => ShortcutPreviewController()),

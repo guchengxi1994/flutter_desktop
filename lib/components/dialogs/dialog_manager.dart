@@ -7,12 +7,15 @@ import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
+import '../routers.dart';
 import 'dialog_details.dart';
+import 'new_txt_filedialog.dart';
 import 'shutdown_dialog.dart';
 
 class DialogManager {
   DialogManager._();
   static const shutdownUuid = "shutdown-system-unique-uuid";
+  static const newTxtUuid = "new-txt-system-unique-uuid";
 
   static showShutdownDialog(BuildContext ctx) {
     DialogDetails shutdownDialogDetails = DialogDetails(
@@ -57,6 +60,32 @@ class DialogManager {
       ctx
           .read<DesktopController>()
           .addApplication(shutdownDialog(shutdownDialogDetails));
+    }
+  }
+
+  static showCreateNewTxtFileDialog(BuildContext ctx) {
+    DialogDetails newTxtDetails = DialogDetails(
+      uuid: newTxtUuid,
+      name: "创建新的文本",
+      xmax: 550,
+      xmin: 200,
+      ymax: 350,
+      ymin: 200,
+      multiple: false,
+      icon: const Icon(
+        Icons.file_present,
+        color: Colors.yellow,
+      ),
+      onSubmit: () async {},
+      onCancel: () async {},
+    );
+    var c = Routers.desktopKey.currentContext ?? ctx;
+    final exists = c.read<ApplicationController>().exists(newTxtDetails.uuid);
+    if (!exists) {
+      c.read<ApplicationController>().addDetail(newTxtDetails);
+      c
+          .read<DesktopController>()
+          .addApplication(newTxtFileDialog(newTxtDetails));
     }
   }
 }
