@@ -4,6 +4,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/det
     show gameCenterDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 import 'package:flutter_desktop/components/minesweeper/minesweeper_details.dart';
+import 'package:flutter_desktop/components/typing_game/typing_game_details.dart';
 
 import 'system_application_builder.dart';
 
@@ -30,6 +31,7 @@ class _GameCenterFormState extends State<GameCenterForm> {
     return Wrap(
       children: [
         SystemApplicationBuilder.build(context, mineEasyDetails),
+        SystemApplicationBuilder.build(context, typingGameDetails)
       ],
     );
   }

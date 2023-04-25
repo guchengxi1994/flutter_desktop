@@ -14,6 +14,7 @@ import 'package:flutter_desktop/components/applications/application_entry.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/minesweeper/mine_application.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
+import 'package:flutter_desktop/components/typing_game/typing_game_board.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -115,6 +116,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(minesweeperApplication(), exists: exists);
+              break;
+            case SystemConfig.sTypingGame:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(typingGameApplication(), exists: exists);
               break;
             default:
               break;

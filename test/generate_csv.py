@@ -1,32 +1,34 @@
-import numpy as np
 from pypinyin import lazy_pinyin
 import csv
 
+
 class IdiomPinyinMeaning(object):
-    def __init__(self,idiom,pinyin,meaning,start,end):
+    def __init__(self, idiom, pinyin, simplePinyin, meaning, start, end):
         self.idiom = idiom
         self.pinyin = pinyin
+        self.simplePinyin = simplePinyin
         self.meaning = meaning
         self.start = start
         self.end = end
-    
+
     def __str__(self):
-        return self.idiom+self.pinyin+self.meaning
-    
+        return self.idiom + self.pinyin + self.meaning
+
     def __hash__(self):
-        return hash(self.idiom)+hash(self.meaning) + hash(self.pinyin)
-    
+        return hash(self.idiom) + hash(self.meaning) + hash(self.pinyin)
+
     def __eq__(self, other):
-        if isinstance(other,self.__class__):
+        if isinstance(other, self.__class__):
             return False
         else:
-            return self.idiom == other.idiom 
+            return self.idiom == other.idiom
+
 
 if __name__ == "__main__":
     #test
     f = r"C:\Users\xiaoshuyui\Downloads\ids.txt"
-    
-    fil = open(f,'r',encoding='gbk',errors='ignore')
+
+    fil = open(f, 'r', encoding='gbk', errors='ignore')
     lis = fil.readlines()
     ll = set()
 
@@ -43,31 +45,32 @@ if __name__ == "__main__":
             # print(i)
             tmp = i.split("拼音：")
             # print(tmp)
-            if len(tmp)==2:
+            if len(tmp) == 2:
                 ttmp = tmp[1]
                 tttmp = ttmp.split("释义：")
 
-                ii = lazy_pinyin(tmp[0].strip())
+                ii = lazy_pinyin(tmp[0].strip(), v_to_u=True)
+
+                _ii = " ".join(ii)
                 start = ii[0]
                 end = ii[-1]
 
-
-                aa = IdiomPinyinMeaning(tmp[0],tttmp[0],tttmp[1],start,end)
+                aa = IdiomPinyinMeaning(tmp[0], tttmp[0], _ii, tttmp[1], start,
+                                        end)
                 ll.add(aa)
 
     # print(len(list(ll)))
-        
-    
+
     # print(list(ll))
     # for i in list(ll):
     #     print(i)
 
-    with open("practice.csv","w",encoding="utf-8") as f:
+    with open("practice.csv", "w", encoding="utf-8") as f:
         writer = csv.writer(f)
 
         for i in list(ll):
             if i.idiom != "":
-                writer.writerow([i.idiom,i.pinyin,i.meaning])
+                writer.writerow([i.idiom, i.simplePinyin, i.pinyin, i.meaning])
 
     # ar = np.array(list(ll))
 

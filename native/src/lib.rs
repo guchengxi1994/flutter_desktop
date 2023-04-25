@@ -5,3 +5,4 @@ mod tests;
 mod operation;
 mod files;
 mod native_sysinfo;
+mod idiom;

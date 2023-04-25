@@ -53,6 +53,14 @@ abstract class Native {
 
   FlutterRustBridgeTaskConstMeta get kSetCachePathConstMeta;
 
+  Future<void> setIdiomPath({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kSetIdiomPathConstMeta;
+
+  Future<List<Idiom>> getIdioms({int? count, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetIdiomsConstMeta;
+
   Future<void> initFolder({required String s, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kInitFolderConstMeta;
@@ -78,6 +86,20 @@ class FileOrFolder with _$FileOrFolder {
   const factory FileOrFolder.folder(
     VirtualFolder field0,
   ) = FileOrFolder_Folder;
+}
+
+class Idiom {
+  final String idiom;
+  final String pinyin;
+  final String pinyinTone;
+  final String meaning;
+
+  const Idiom({
+    required this.idiom,
+    required this.pinyin,
+    required this.pinyinTone,
+    required this.meaning,
+  });
 }
 
 class NativeSysInfo {
@@ -288,6 +310,40 @@ class NativeImpl implements Native {
         argNames: ["s"],
       );
 
+  Future<void> setIdiomPath({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_set_idiom_path(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kSetIdiomPathConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kSetIdiomPathConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "set_idiom_path",
+        argNames: ["s"],
+      );
+
+  Future<List<Idiom>> getIdioms({int? count, dynamic hint}) {
+    var arg0 = _platform.api2wire_opt_box_autoadd_u64(count);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_idioms(port_, arg0),
+      parseSuccessData: _wire2api_list_idiom,
+      constMeta: kGetIdiomsConstMeta,
+      argValues: [count],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetIdiomsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_idioms",
+        argNames: ["count"],
+      );
+
   Future<void> initFolder({required String s, dynamic hint}) {
     var arg0 = _platform.api2wire_String(s);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -386,8 +442,24 @@ class NativeImpl implements Native {
     return castInt(raw);
   }
 
+  Idiom _wire2api_idiom(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return Idiom(
+      idiom: _wire2api_String(arr[0]),
+      pinyin: _wire2api_String(arr[1]),
+      pinyinTone: _wire2api_String(arr[2]),
+      meaning: _wire2api_String(arr[3]),
+    );
+  }
+
   List<FileOrFolder> _wire2api_list_file_or_folder(dynamic raw) {
     return (raw as List<dynamic>).map(_wire2api_file_or_folder).toList();
+  }
+
+  List<Idiom> _wire2api_list_idiom(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_idiom).toList();
   }
 
   NativeSysInfo _wire2api_native_sys_info(dynamic raw) {
@@ -470,6 +542,11 @@ class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
   }
 
   @protected
+  ffi.Pointer<ffi.Uint64> api2wire_box_autoadd_u64(int raw) {
+    return inner.new_box_autoadd_u64_0(api2wire_u64(raw));
+  }
+
+  @protected
   int api2wire_i64(int raw) {
     return raw;
   }
@@ -482,6 +559,16 @@ class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
   @protected
   ffi.Pointer<ffi.Int64> api2wire_opt_box_autoadd_i64(int? raw) {
     return raw == null ? ffi.nullptr : api2wire_box_autoadd_i64(raw);
+  }
+
+  @protected
+  ffi.Pointer<ffi.Uint64> api2wire_opt_box_autoadd_u64(int? raw) {
+    return raw == null ? ffi.nullptr : api2wire_box_autoadd_u64(raw);
+  }
+
+  @protected
+  int api2wire_u64(int raw) {
+    return raw;
   }
 
   @protected
@@ -738,6 +825,40 @@ class NativeWire implements FlutterRustBridgeWireBase {
   late final _wire_set_cache_path = _wire_set_cache_pathPtr
       .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
 
+  void wire_set_idiom_path(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_set_idiom_path(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_set_idiom_pathPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_set_idiom_path');
+  late final _wire_set_idiom_path = _wire_set_idiom_pathPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_get_idioms(
+    int port_,
+    ffi.Pointer<ffi.Uint64> count,
+  ) {
+    return _wire_get_idioms(
+      port_,
+      count,
+    );
+  }
+
+  late final _wire_get_idiomsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Int64, ffi.Pointer<ffi.Uint64>)>>('wire_get_idioms');
+  late final _wire_get_idioms = _wire_get_idiomsPtr
+      .asFunction<void Function(int, ffi.Pointer<ffi.Uint64>)>();
+
   void wire_init_folder(
     int port_,
     ffi.Pointer<wire_uint_8_list> s,
@@ -810,6 +931,20 @@ class NativeWire implements FlutterRustBridgeWireBase {
           'new_box_autoadd_i64_0');
   late final _new_box_autoadd_i64_0 = _new_box_autoadd_i64_0Ptr
       .asFunction<ffi.Pointer<ffi.Int64> Function(int)>();
+
+  ffi.Pointer<ffi.Uint64> new_box_autoadd_u64_0(
+    int value,
+  ) {
+    return _new_box_autoadd_u64_0(
+      value,
+    );
+  }
+
+  late final _new_box_autoadd_u64_0Ptr =
+      _lookup<ffi.NativeFunction<ffi.Pointer<ffi.Uint64> Function(ffi.Uint64)>>(
+          'new_box_autoadd_u64_0');
+  late final _new_box_autoadd_u64_0 = _new_box_autoadd_u64_0Ptr
+      .asFunction<ffi.Pointer<ffi.Uint64> Function(int)>();
 
   ffi.Pointer<wire_uint_8_list> new_uint_8_list_0(
     int len,

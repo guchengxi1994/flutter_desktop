@@ -20,6 +20,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
     await api.setJsonPath(s: "${DevUtils.executableDir.path}/struct.json");
     await api.setCachePath(s: "${DevUtils.executableDir.path}/cache");
     await api.initFolder(s: DevUtils.cacheTxtPath);
+    await api.setIdiomPath(s: DevUtils.idiomPath);
 
     await Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context)

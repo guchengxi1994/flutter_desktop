@@ -7,6 +7,7 @@ use crate::{
         virtual_folder::{FileOrFolder, VirtualFolder},
         vitrual_file::VirtualFile,
     },
+    idiom::model::{Idiom, IDIOM_PATH},
     native_sysinfo::{NativeSysInfo, SEND_TO_DART_NATIVESYSINFO_SINK},
     operation::model::Operation,
 };
@@ -80,8 +81,19 @@ pub fn set_cache_path(s: String) {
     *_s = s;
 }
 
+// 设置字典位置
+pub fn set_idiom_path(s: String) {
+    let mut _s = IDIOM_PATH.lock().unwrap();
+    *_s = s;
+}
+
+// sample
+pub fn get_idioms(count: Option<u64>) -> Vec<Idiom> {
+    Idiom::sample(count)
+}
+
 // init path
-pub fn init_folder(s:String){
+pub fn init_folder(s: String) {
     if !crate::db::init::path_exists(s.clone()) {
         let _ = std::fs::create_dir(s.clone());
     }

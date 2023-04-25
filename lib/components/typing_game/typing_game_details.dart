@@ -2,7 +2,7 @@ import 'package:flutter_desktop/components/applications/application_details.dart
 
 import '../app_style.dart';
 
-ApplicationDetails mineEasyDetails = ApplicationDetails(
+ApplicationDetails typingGameDetails = ApplicationDetails(
     uuid: "system-typing-game",
     xmax: 1000,
     ymax: 500,
