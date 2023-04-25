@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 Application managementApplication() {
   return Application(
     uuid: appManagementDetails.uuid,
-    name: appManagementDetails.name,
+    name: appManagementDetails.name ?? appManagementDetails.openWith,
     resizable: false,
     child: const ManagementForm(),
   );
@@ -93,7 +93,7 @@ class _ManagementWidget extends StatelessWidget {
               SizedBox(
                 width: 50,
                 child: Text(
-                  details.name,
+                  details.name ?? details.openWith,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -150,7 +150,7 @@ class _ManagementWidget extends StatelessWidget {
               SizedBox(
                 width: 100,
                 child: Text(
-                  details.name,
+                  details.name ?? details.openWith,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
                 ),

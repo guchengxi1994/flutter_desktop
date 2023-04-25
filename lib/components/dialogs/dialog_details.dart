@@ -15,7 +15,8 @@ class DialogDetails extends ApplicationDetails {
       required super.icon,
       required super.xmax,
       required super.ymax,
-      required super.multiple});
+      required super.multiple,
+      required super.openWith});
   final OnSubmit? onSubmit;
   final OnCancel? onCancel;
 }

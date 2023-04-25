@@ -33,9 +33,9 @@ class ApplicationEntry extends StatelessWidget {
             ),
             Tooltip(
               // margin: const EdgeInsets.only(top: 20),
-              message: details.name,
+              message: details.name ?? details.openWith,
               child: Text(
-                details.name,
+                details.name ?? details.openWith,
                 style: const TextStyle(color: AppStyle.light2),
                 overflow: TextOverflow.ellipsis,
               ),

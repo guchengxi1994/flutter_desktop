@@ -55,6 +55,16 @@ pub extern "C" fn wire_set_cache_path(port_: i64, s: *mut wire_uint_8_list) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_set_idiom_path(port_: i64, s: *mut wire_uint_8_list) {
+    wire_set_idiom_path_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_idioms(port_: i64, count: *mut u64) {
+    wire_get_idioms_impl(port_, count)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_init_folder(port_: i64, s: *mut wire_uint_8_list) {
     wire_init_folder_impl(port_, s)
 }
@@ -82,6 +92,11 @@ pub extern "C" fn new_box_autoadd_i64_0(value: i64) -> *mut i64 {
 }
 
 #[no_mangle]
+pub extern "C" fn new_box_autoadd_u64_0(value: u64) -> *mut u64 {
+    support::new_leak_box_ptr(value)
+}
+
+#[no_mangle]
 pub extern "C" fn new_uint_8_list_0(len: i32) -> *mut wire_uint_8_list {
     let ans = wire_uint_8_list {
         ptr: support::new_leak_vec_ptr(Default::default(), len),
@@ -102,6 +117,11 @@ impl Wire2Api<String> for *mut wire_uint_8_list {
 }
 impl Wire2Api<i64> for *mut i64 {
     fn wire2api(self) -> i64 {
+        unsafe { *support::box_from_leak_ptr(self) }
+    }
+}
+impl Wire2Api<u64> for *mut u64 {
+    fn wire2api(self) -> u64 {
         unsafe { *support::box_from_leak_ptr(self) }
     }
 }

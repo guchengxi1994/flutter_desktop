@@ -6,7 +6,7 @@ import 'package:flutter_desktop/components/applications/application.dart';
 Application recycleApplication() {
   return Application(
     uuid: recycleDetails.uuid,
-    name: recycleDetails.name,
+    name: recycleDetails.name ?? recycleDetails.openWith,
     child: const RecycleForm(),
   );
 }

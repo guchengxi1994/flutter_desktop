@@ -7,7 +7,8 @@ class NotificationDetails extends ApplicationDetails {
       required super.name,
       required super.icon,
       required this.content,
-      required this.subject});
+      required this.subject,
+      required super.openWith});
   final Widget content;
   final String subject;
 

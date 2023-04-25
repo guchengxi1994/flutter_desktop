@@ -266,6 +266,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.0"
+  confetti:
+    dependency: "direct main"
+    description:
+      name: confetti
+      sha256: "979aafde2428c53947892c95eb244466c109c129b7eee9011f0a66caaca52267"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.7.0"
   convert:
     dependency: transitive
     description:
@@ -314,6 +322,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.8"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      sha256: "07a5c5e8d4e6e992279e190e0352be8faa5b8f96d81c77a78b2d42f060279840"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0+3"
   equatable:
     dependency: transitive
     description:

@@ -14,7 +14,7 @@ import 'dialog_details.dart';
 CustomDialog newTxtFileDialog(DialogDetails details) {
   return CustomDialog(
     uuid: details.uuid,
-    name: details.name,
+    name: details.name ?? details.openWith,
     child: NewTxtFileDialog(
       uuid: details.uuid,
     ),

@@ -9,7 +9,8 @@ ApplicationDetails myComputerDetails = ApplicationDetails(
     name: SystemConfig.sMyComputer,
     iconUrl: "assets/images/appicons/computer.png",
     needsTaskbarDisplay: true,
-    deletable: false);
+    deletable: false,
+    openWith: SystemConfig.sMyComputer);
 
 ApplicationDetails recycleDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
@@ -18,7 +19,8 @@ ApplicationDetails recycleDetails = ApplicationDetails(
     name: SystemConfig.sRecycle,
     needsTaskbarDisplay: true,
     iconUrl: "assets/images/appicons/recycle.png",
-    deletable: false);
+    deletable: false,
+    openWith: SystemConfig.sRecycle);
 
 ApplicationDetails appManagementDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
@@ -28,17 +30,20 @@ ApplicationDetails appManagementDetails = ApplicationDetails(
     needsTaskbarDisplay: false,
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/management.png",
-    deletable: false);
+    deletable: false,
+    openWith: SystemConfig.sAppManagement);
 
 ApplicationDetails editorDetails = ApplicationDetails(
-    uuid: const Uuid().v1(),
-    xmax: 1100,
-    ymax: 500,
-    name: SystemConfig.sEditor,
-    needsTaskbarDisplay: true,
-    needsTrayDisplay: false,
-    iconUrl: "assets/images/appicons/editor.png",
-    deletable: false);
+  uuid: const Uuid().v1(),
+  xmax: 1100,
+  ymax: 500,
+  name: null,
+  needsTaskbarDisplay: true,
+  needsTrayDisplay: false,
+  iconUrl: "assets/images/appicons/editor.png",
+  deletable: false,
+  openWith: SystemConfig.sEditor,
+);
 
 ApplicationDetails audioPlayerDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
@@ -49,7 +54,8 @@ ApplicationDetails audioPlayerDetails = ApplicationDetails(
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/player.png",
     deletable: false,
-    resizable: false);
+    resizable: false,
+    openWith: SystemConfig.sAudioPlayer);
 
 ApplicationDetails videoPlayerDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
@@ -60,7 +66,8 @@ ApplicationDetails videoPlayerDetails = ApplicationDetails(
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/video_player.png",
     deletable: false,
-    resizable: false);
+    resizable: false,
+    openWith: SystemConfig.sVideoPlayer);
 
 ApplicationDetails gameCenterDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
@@ -71,4 +78,5 @@ ApplicationDetails gameCenterDetails = ApplicationDetails(
     needsTrayDisplay: true,
     iconUrl: "assets/images/appicons/game.png",
     deletable: false,
-    resizable: false);
+    resizable: false,
+    openWith: SystemConfig.sGameCenter);

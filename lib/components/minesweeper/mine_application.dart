@@ -7,7 +7,7 @@ import 'package:minesweeper/lib.dart';
 Application minesweeperApplication() {
   return Application(
     uuid: mineEasyDetails.uuid,
-    name: mineEasyDetails.name,
+    name: mineEasyDetails.name ?? mineEasyDetails.openWith,
     resizable: false,
     background: AppStyle.light,
     child: const MinesweeperForm(),

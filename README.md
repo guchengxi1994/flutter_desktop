@@ -4,8 +4,14 @@
 
 * **0.1.7**
 
+  * **0.1.7+4** add a typing game (WIP)
+
+    ![image-20230425172059067](./screenshots/image-20230425172059067.png)
+
   * **0.1.7+3** editor auto save
+
   * **0.1.7+2** game center; modify a minesweeper game from [here](https://github.com/Cifruktus/FlutterMinesweeper)
+
   * **0.1.7+1** [text editor](https://pub.dev/packages/appflowy_editor) ***Not support Chinese yet [#24](https://github.com/AppFlowy-IO/appflowy-editor/issues/24)  [#113909](https://github.com/flutter/flutter/issues/113909#issuecomment-1311478223)*** 
 
 * **0.1.6**

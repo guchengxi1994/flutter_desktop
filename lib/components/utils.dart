@@ -7,6 +7,9 @@ class DevUtils {
       File(Platform.resolvedExecutable).parent;
 
   static String cacheTxtPath = "${DevUtils.executableDir.path}/cache/txts/";
+
+  static String idiomPath =
+      "${DevUtils.executableDir.path}/data/flutter_assets/assets/idiom/practice.csv";
 }
 
 class PageNavigateController {

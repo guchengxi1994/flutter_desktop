@@ -6,7 +6,7 @@ import 'package:flutter_desktop/components/applications/application.dart';
 Application myComputerApplication() {
   return Application(
     uuid: myComputerDetails.uuid,
-    name: myComputerDetails.name,
+    name: myComputerDetails.name ?? myComputerDetails.openWith,
     child: const MyComputerForm(),
   );
 }

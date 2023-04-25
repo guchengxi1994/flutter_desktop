@@ -25,6 +25,7 @@ class CustomDialog extends Application {
         DialogDetails(
             uuid: uuid,
             name: name,
+            openWith: dialogDetails.openWith,
             icon: null,
             xmax: 500,
             xmin: 200,
@@ -83,7 +84,7 @@ class CustomDialog extends Application {
                 ),
                 Expanded(
                     child: Text(
-                  dialogDetails.name,
+                  dialogDetails.name ?? dialogDetails.openWith,
                   softWrap: true,
                   maxLines: 1,
                   overflow: TextOverflow.clip,

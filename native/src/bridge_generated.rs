@@ -22,6 +22,7 @@ use std::sync::Arc;
 use crate::files::virtual_folder::FileOrFolder;
 use crate::files::virtual_folder::VirtualFolder;
 use crate::files::vitrual_file::VirtualFile;
+use crate::idiom::model::Idiom;
 use crate::native_sysinfo::NativeSysInfo;
 
 // Section: wire functions
@@ -144,6 +145,32 @@ fn wire_set_cache_path_impl(port_: MessagePort, s: impl Wire2Api<String> + Unwin
         },
     )
 }
+fn wire_set_idiom_path_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "set_idiom_path",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(set_idiom_path(api_s))
+        },
+    )
+}
+fn wire_get_idioms_impl(port_: MessagePort, count: impl Wire2Api<Option<u64>> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_idioms",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_count = count.wire2api();
+            move |task_callback| Ok(get_idioms(api_count))
+        },
+    )
+}
 fn wire_init_folder_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -219,6 +246,11 @@ impl Wire2Api<i64> for i64 {
     }
 }
 
+impl Wire2Api<u64> for u64 {
+    fn wire2api(self) -> u64 {
+        self
+    }
+}
 impl Wire2Api<u8> for u8 {
     fn wire2api(self) -> u8 {
         self
@@ -237,6 +269,19 @@ impl support::IntoDart for FileOrFolder {
     }
 }
 impl support::IntoDartExceptPrimitive for FileOrFolder {}
+
+impl support::IntoDart for Idiom {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.idiom.into_dart(),
+            self.pinyin.into_dart(),
+            self.pinyin_tone.into_dart(),
+            self.meaning.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for Idiom {}
 
 impl support::IntoDart for NativeSysInfo {
     fn into_dart(self) -> support::DartAbi {

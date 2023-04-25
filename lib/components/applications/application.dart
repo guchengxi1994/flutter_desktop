@@ -35,7 +35,7 @@ class Application extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     appDetails = context.watch<ApplicationController>().getDetailsById(uuid) ??
-        ApplicationDetails(uuid: uuid, name: name);
+        ApplicationDetails(uuid: uuid, name: name, openWith: name);
 
     return Positioned(
         left: appDetails.xmin,
@@ -176,7 +176,7 @@ class Application extends StatelessWidget {
                 ),
                 Expanded(
                     child: Text(
-                  appDetails.name,
+                  appDetails.name ?? appDetails.openWith,
                   softWrap: true,
                   maxLines: 1,
                   overflow: TextOverflow.clip,

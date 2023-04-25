@@ -47,6 +47,16 @@ pub fn wire_set_cache_path(port_: MessagePort, s: String) {
 }
 
 #[wasm_bindgen]
+pub fn wire_set_idiom_path(port_: MessagePort, s: String) {
+    wire_set_idiom_path_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_get_idioms(port_: MessagePort, count: JsValue) {
+    wire_get_idioms_impl(port_, count)
+}
+
+#[wasm_bindgen]
 pub fn wire_init_folder(port_: MessagePort, s: String) {
     wire_init_folder_impl(port_, s)
 }
@@ -109,6 +119,16 @@ impl Wire2Api<Option<String>> for JsValue {
 impl Wire2Api<Option<i64>> for JsValue {
     fn wire2api(self) -> Option<i64> {
         (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+    }
+}
+impl Wire2Api<Option<u64>> for JsValue {
+    fn wire2api(self) -> Option<u64> {
+        (!self.is_undefined() && !self.is_null()).then(|| self.wire2api())
+    }
+}
+impl Wire2Api<u64> for JsValue {
+    fn wire2api(self) -> u64 {
+        ::std::convert::TryInto::try_into(self.dyn_into::<js_sys::BigInt>().unwrap()).unwrap()
     }
 }
 impl Wire2Api<u8> for JsValue {
