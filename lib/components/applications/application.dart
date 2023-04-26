@@ -6,6 +6,7 @@ import 'package:flutter_desktop/components/applications/_system_applications/aud
 import 'package:flutter_desktop/components/applications/application_controller.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/notifications/notification_controller.dart';
+import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
 import 'package:provider/provider.dart';
 
@@ -194,6 +195,7 @@ class Application extends StatelessWidget {
                     ctx.read<ApplicationController>().removeDetail(uuid);
                     ctx.read<DesktopController>().removeWidget(uuid);
                     ctx.read<TaskbarController>().removeDetails(uuid);
+                    ctx.read<ShortcutPreviewController>().clear();
                     ctx
                         .read<NotificationController>()
                         .removeNotificationByUuid(uuid);

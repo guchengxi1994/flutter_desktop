@@ -37,6 +37,13 @@ const CREATE_FOLDER_DB: &str = "CREATE TABLE IF NOT EXISTS folders (
     is_deleted integer DEFAULT 0
 )";
 
+const CREATE_PRACTICE_DB: &str = "CREATE TABLE IF NOT EXISTS practice (
+    practice_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    hit integer,
+    current integer,
+    create_at integer
+)";
+
 pub fn init_when_first_time_start() -> anyhow::Result<()> {
     let rt = Runtime::new().unwrap();
     rt.block_on(async {
@@ -61,6 +68,7 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
 
         let _ = sqlx::query(CREATE_FILE_DB).execute(pool.get_pool()).await?;
         let _ = sqlx::query(CREATE_FOLDER_DB).execute(pool.get_pool()).await?;
+        let _ = sqlx::query(CREATE_PRACTICE_DB).execute(pool.get_pool()).await?;
         anyhow::Ok(())
     })
 }

@@ -57,6 +57,11 @@ pub fn wire_get_idioms(port_: MessagePort, count: JsValue) {
 }
 
 #[wasm_bindgen]
+pub fn wire_get_one_idiom(port_: MessagePort, index: usize) {
+    wire_get_one_idiom_impl(port_, index)
+}
+
+#[wasm_bindgen]
 pub fn wire_init_folder(port_: MessagePort, s: String) {
     wire_init_folder_impl(port_, s)
 }
@@ -74,6 +79,21 @@ pub fn wire_create_new_txt(
 #[wasm_bindgen]
 pub fn wire_get_children_by_id(port_: MessagePort, i: JsValue) {
     wire_get_children_by_id_impl(port_, i)
+}
+
+#[wasm_bindgen]
+pub fn wire_new_practice(port_: MessagePort) {
+    wire_new_practice_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_update_practice(port_: MessagePort, hit: i64, index: i64, row_id: i64) {
+    wire_update_practice_impl(port_, hit, index, row_id)
+}
+
+#[wasm_bindgen]
+pub fn wire_get_last_practice(port_: MessagePort) {
+    wire_get_last_practice_impl(port_)
 }
 
 // Section: allocate functions
@@ -99,6 +119,7 @@ impl Wire2Api<Vec<u8>> for Box<[u8]> {
         self.into_vec()
     }
 }
+
 // Section: impl Wire2Api for JsValue
 
 impl Wire2Api<String> for JsValue {
@@ -139,5 +160,10 @@ impl Wire2Api<u8> for JsValue {
 impl Wire2Api<Vec<u8>> for JsValue {
     fn wire2api(self) -> Vec<u8> {
         self.unchecked_into::<js_sys::Uint8Array>().to_vec().into()
+    }
+}
+impl Wire2Api<usize> for JsValue {
+    fn wire2api(self) -> usize {
+        self.unchecked_into_f64() as _
     }
 }

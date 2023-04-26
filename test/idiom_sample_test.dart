@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/typing_game/typing_game_board.dart';
-import 'package:flutter_desktop/components/typing_game/typing_game_controller.dart';
+import 'package:flutter_desktop/components/typing_game/base/typing_game_board.dart';
+import 'package:flutter_desktop/components/typing_game/base/typing_game_controller.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(const App());

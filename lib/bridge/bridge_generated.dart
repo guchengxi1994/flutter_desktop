@@ -61,6 +61,10 @@ abstract class Native {
 
   FlutterRustBridgeTaskConstMeta get kGetIdiomsConstMeta;
 
+  Future<Idiom?> getOneIdiom({required int index, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetOneIdiomConstMeta;
+
   Future<void> initFolder({required String s, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kInitFolderConstMeta;
@@ -76,6 +80,19 @@ abstract class Native {
   Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetChildrenByIdConstMeta;
+
+  Future<int> newPractice({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNewPracticeConstMeta;
+
+  Future<void> updatePractice(
+      {required int hit, required int index, required int rowId, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kUpdatePracticeConstMeta;
+
+  Future<PracticeStatus?> getLastPractice({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetLastPracticeConstMeta;
 }
 
 @freezed
@@ -111,6 +128,20 @@ class NativeSysInfo {
     required this.cpu,
     required this.memory,
     required this.t,
+  });
+}
+
+class PracticeStatus {
+  final int hit;
+  final int current;
+  final int practiceId;
+  final int createAt;
+
+  const PracticeStatus({
+    required this.hit,
+    required this.current,
+    required this.practiceId,
+    required this.createAt,
   });
 }
 
@@ -344,6 +375,23 @@ class NativeImpl implements Native {
         argNames: ["count"],
       );
 
+  Future<Idiom?> getOneIdiom({required int index, dynamic hint}) {
+    var arg0 = api2wire_usize(index);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_one_idiom(port_, arg0),
+      parseSuccessData: _wire2api_opt_box_autoadd_idiom,
+      constMeta: kGetOneIdiomConstMeta,
+      argValues: [index],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetOneIdiomConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_one_idiom",
+        argNames: ["index"],
+      );
+
   Future<void> initFolder({required String s, dynamic hint}) {
     var arg0 = _platform.api2wire_String(s);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -402,6 +450,62 @@ class NativeImpl implements Native {
         argNames: ["i"],
       );
 
+  Future<int> newPractice({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_new_practice(port_),
+      parseSuccessData: _wire2api_i64,
+      constMeta: kNewPracticeConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNewPracticeConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "new_practice",
+        argNames: [],
+      );
+
+  Future<void> updatePractice(
+      {required int hit,
+      required int index,
+      required int rowId,
+      dynamic hint}) {
+    var arg0 = _platform.api2wire_i64(hit);
+    var arg1 = _platform.api2wire_i64(index);
+    var arg2 = _platform.api2wire_i64(rowId);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) =>
+          _platform.inner.wire_update_practice(port_, arg0, arg1, arg2),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kUpdatePracticeConstMeta,
+      argValues: [hit, index, rowId],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kUpdatePracticeConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "update_practice",
+        argNames: ["hit", "index", "rowId"],
+      );
+
+  Future<PracticeStatus?> getLastPractice({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_last_practice(port_),
+      parseSuccessData: _wire2api_opt_box_autoadd_practice_status,
+      constMeta: kGetLastPracticeConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetLastPracticeConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_last_practice",
+        argNames: [],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -409,6 +513,14 @@ class NativeImpl implements Native {
 
   String _wire2api_String(dynamic raw) {
     return raw as String;
+  }
+
+  Idiom _wire2api_box_autoadd_idiom(dynamic raw) {
+    return _wire2api_idiom(raw);
+  }
+
+  PracticeStatus _wire2api_box_autoadd_practice_status(dynamic raw) {
+    return _wire2api_practice_status(raw);
   }
 
   VirtualFile _wire2api_box_autoadd_virtual_file(dynamic raw) {
@@ -473,6 +585,26 @@ class NativeImpl implements Native {
     );
   }
 
+  Idiom? _wire2api_opt_box_autoadd_idiom(dynamic raw) {
+    return raw == null ? null : _wire2api_box_autoadd_idiom(raw);
+  }
+
+  PracticeStatus? _wire2api_opt_box_autoadd_practice_status(dynamic raw) {
+    return raw == null ? null : _wire2api_box_autoadd_practice_status(raw);
+  }
+
+  PracticeStatus _wire2api_practice_status(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return PracticeStatus(
+      hit: _wire2api_i64(arr[0]),
+      current: _wire2api_i64(arr[1]),
+      practiceId: _wire2api_i64(arr[2]),
+      createAt: _wire2api_i64(arr[3]),
+    );
+  }
+
   int _wire2api_u64(dynamic raw) {
     return castInt(raw);
   }
@@ -524,6 +656,10 @@ int api2wire_u8(int raw) {
   return raw;
 }
 
+@protected
+int api2wire_usize(int raw) {
+  return raw;
+}
 // Section: finalizer
 
 class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
@@ -577,6 +713,7 @@ class NativePlatform extends FlutterRustBridgeBase<NativeWire> {
     ans.ref.ptr.asTypedList(raw.length).setAll(0, raw);
     return ans;
   }
+
 // Section: finalizer
 
 // Section: api_fill_to_wire
@@ -859,6 +996,22 @@ class NativeWire implements FlutterRustBridgeWireBase {
   late final _wire_get_idioms = _wire_get_idiomsPtr
       .asFunction<void Function(int, ffi.Pointer<ffi.Uint64>)>();
 
+  void wire_get_one_idiom(
+    int port_,
+    int index,
+  ) {
+    return _wire_get_one_idiom(
+      port_,
+      index,
+    );
+  }
+
+  late final _wire_get_one_idiomPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, uintptr_t)>>(
+          'wire_get_one_idiom');
+  late final _wire_get_one_idiom =
+      _wire_get_one_idiomPtr.asFunction<void Function(int, int)>();
+
   void wire_init_folder(
     int port_,
     ffi.Pointer<wire_uint_8_list> s,
@@ -917,6 +1070,55 @@ class NativeWire implements FlutterRustBridgeWireBase {
               ffi.Int64, ffi.Pointer<ffi.Int64>)>>('wire_get_children_by_id');
   late final _wire_get_children_by_id = _wire_get_children_by_idPtr
       .asFunction<void Function(int, ffi.Pointer<ffi.Int64>)>();
+
+  void wire_new_practice(
+    int port_,
+  ) {
+    return _wire_new_practice(
+      port_,
+    );
+  }
+
+  late final _wire_new_practicePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_new_practice');
+  late final _wire_new_practice =
+      _wire_new_practicePtr.asFunction<void Function(int)>();
+
+  void wire_update_practice(
+    int port_,
+    int hit,
+    int index,
+    int row_id,
+  ) {
+    return _wire_update_practice(
+      port_,
+      hit,
+      index,
+      row_id,
+    );
+  }
+
+  late final _wire_update_practicePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64, ffi.Int64, ffi.Int64,
+              ffi.Int64)>>('wire_update_practice');
+  late final _wire_update_practice =
+      _wire_update_practicePtr.asFunction<void Function(int, int, int, int)>();
+
+  void wire_get_last_practice(
+    int port_,
+  ) {
+    return _wire_get_last_practice(
+      port_,
+    );
+  }
+
+  late final _wire_get_last_practicePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_last_practice');
+  late final _wire_get_last_practice =
+      _wire_get_last_practicePtr.asFunction<void Function(int)>();
 
   ffi.Pointer<ffi.Int64> new_box_autoadd_i64_0(
     int value,

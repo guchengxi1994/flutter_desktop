@@ -7,7 +7,10 @@ use crate::{
         virtual_folder::{FileOrFolder, VirtualFolder},
         vitrual_file::VirtualFile,
     },
-    idiom::model::{Idiom, IDIOM_PATH},
+    idiom::{
+        model::{Idiom, IDIOM_PATH},
+        practice::PracticeStatus,
+    },
     native_sysinfo::{NativeSysInfo, SEND_TO_DART_NATIVESYSINFO_SINK},
     operation::model::Operation,
 };
@@ -92,6 +95,11 @@ pub fn get_idioms(count: Option<u64>) -> Vec<Idiom> {
     Idiom::sample(count)
 }
 
+// get one
+pub fn get_one_idiom(index: usize) -> Option<Idiom> {
+    Idiom::get_idiom_by_id(index)
+}
+
 // init path
 pub fn init_folder(s: String) {
     if !crate::db::init::path_exists(s.clone()) {
@@ -113,4 +121,33 @@ pub fn create_new_txt(filename: String, open_with: String, folder_id: Option<i64
 // 获取所有文件/夹
 pub fn get_children_by_id(i: Option<i64>) -> Vec<FileOrFolder> {
     VirtualFolder::get_children(i)
+}
+
+// 创建新的 practice row
+pub fn new_practice() -> i64 {
+    let r = PracticeStatus::new_log();
+    match r {
+        Ok(r0) => {
+            return r0;
+        }
+        Err(e) => {
+            println!("[rust-practice-error] :{:?}", e);
+            return -1;
+        }
+    }
+}
+
+pub fn update_practice(hit: i64, index: i64, row_id: i64) {
+    let r = PracticeStatus::save_practice_status(hit, index, row_id);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-practice-error] :{:?}", e);
+        }
+    }
+}
+
+// 获取最新的practice
+pub fn get_last_practice() -> Option<PracticeStatus> {
+    PracticeStatus::get_last()
 }
