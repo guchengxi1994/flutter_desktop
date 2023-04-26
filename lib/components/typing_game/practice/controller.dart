@@ -10,6 +10,18 @@ class PracticeController extends ChangeNotifier {
     notifyListeners();
   }
 
+  setLast() async {
+    final last = await api.getLastPractice();
+    debugPrint("[last] ${last?.current}");
+    if (last != null) {
+      current = last.current;
+      hitCount = last.hit;
+      notifyListeners();
+      return last.practiceId;
+    }
+    return 0;
+  }
+
   Future<Idiom?> getNext() async {
     current += 1;
     notifyListeners();

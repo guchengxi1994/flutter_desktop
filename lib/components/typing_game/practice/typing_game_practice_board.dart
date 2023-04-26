@@ -49,32 +49,49 @@ class _TypingGamePracticeFormState extends State<TypingGamePracticeForm>
   final TextEditingController controller = TextEditingController();
   final GlobalKey<MatchWidgetState> globalKey = GlobalKey();
   late int currentPracticeId = 0;
-  late final PracticeController typeGameController;
+  late PracticeController? typeGameController = null;
 
   @override
   void initState() {
     super.initState();
-    typeGameController = context.read<PracticeController>();
   }
 
   saveStatus() async {
     if (currentPracticeId == 0) {
       return;
     }
-    await updatePractice(typeGameController.hitCount,
-        typeGameController.current, currentPracticeId);
+    await updatePractice(typeGameController!.hitCount,
+        typeGameController!.current, currentPracticeId);
   }
 
   @override
   Widget build(BuildContext context) {
+    typeGameController = context.watch<PracticeController>();
     return Stack(
       children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Expanded(
+                  child: MenuBar(
+                    style: MenuStyle(
+                      backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => AppStyle.light2),
+                    ),
+                    children: [
+                      SubmenuButton(
+                          menuChildren: _meunList(), child: const Text("系统"))
+                    ],
+                  ),
+                ),
+              ],
+            ),
             Container(
-              margin: const EdgeInsets.only(top: 20),
+              margin: const EdgeInsets.only(top: 60),
               child: current == null || currentMatch == null
                   ? const Text(
                       "点击开始",
@@ -182,10 +199,28 @@ class _TypingGamePracticeFormState extends State<TypingGamePracticeForm>
         ),
         Positioned(
             right: 10,
-            top: 10,
+            top: 50,
             child: Text(
-                "${typeGameController.hitCount}/${typeGameController.current}"))
+                "${typeGameController!.hitCount}/${typeGameController!.current}")),
       ],
     );
+  }
+
+  List<Widget> _meunList() {
+    return [
+      MenuItemButton(
+        child: const Text("继续"),
+        onPressed: () async {
+          currentPracticeId = await typeGameController!.setLast();
+          current = await context.read<PracticeController>().getNext();
+          currentMatch = TypingMatching(
+              text: current!.idiom.split(""),
+              pinyin: current!.pinyin.split(" "),
+              pinyinTone: current!.pinyinTone.split(" "));
+
+          setState(() {});
+        },
+      ),
+    ];
   }
 }

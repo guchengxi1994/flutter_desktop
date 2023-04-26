@@ -62,13 +62,14 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
         let pool = POOL.clone();
         let mut pool = pool.write().await;
         *pool = MyPool::new(&url).await;
+        let _p = pool.get_pool();
         let _ = sqlx::query(CREATE_OPERATION_DB)
-            .execute(pool.get_pool())
+            .execute(_p)
             .await?;
 
-        let _ = sqlx::query(CREATE_FILE_DB).execute(pool.get_pool()).await?;
-        let _ = sqlx::query(CREATE_FOLDER_DB).execute(pool.get_pool()).await?;
-        let _ = sqlx::query(CREATE_PRACTICE_DB).execute(pool.get_pool()).await?;
+        let _ = sqlx::query(CREATE_FILE_DB).execute(_p).await?;
+        let _ = sqlx::query(CREATE_FOLDER_DB).execute(_p).await?;
+        let _ = sqlx::query(CREATE_PRACTICE_DB).execute(_p).await?;
         anyhow::Ok(())
     })
 }

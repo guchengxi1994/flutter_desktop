@@ -72,7 +72,7 @@ impl Idiom {
     }
 
     pub fn get_idiom_by_id(i: usize) -> Option<Idiom> {
-        if i > IDIOMS.len() {
+        if i >= IDIOMS.len() - 1 {
             return None;
         } else {
             return Some(IDIOMS[i].clone());

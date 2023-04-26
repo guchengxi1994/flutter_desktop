@@ -5,7 +5,7 @@ import '../../app_style.dart';
 ApplicationDetails typingGamePracticeDetails = ApplicationDetails(
     uuid: "system-typing-game-practice",
     xmax: 800,
-    ymax: 400,
+    ymax: 500,
     name: SystemConfig.sTypingGameLearning,
     needsTaskbarDisplay: true,
     needsTrayDisplay: false,
