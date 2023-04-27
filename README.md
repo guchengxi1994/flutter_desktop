@@ -2,13 +2,21 @@
 
 ## changelogs
 
+* **0.1.8**
+
+  * **0.1.8+1** browser ( windows only )
+
+    ![image-20230427155759122](./screenshots/image-20230427155759122.png)
+
 * **0.1.7**
 
   * **0.1.7+5** update typing game
 
   * **0.1.7+4** add a typing game (WIP)
 
-    ![image-20230425172059067](./screenshots/image-20230425172059067.png)
+    ![image-20230427155919970](./screenshots/image-20230427155919970.png)
+
+    **ü/u/v  bug is not fixed**
 
   * **0.1.7+3** editor auto save
 

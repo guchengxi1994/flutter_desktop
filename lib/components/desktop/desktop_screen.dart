@@ -121,6 +121,8 @@ class _DesktopScreenState extends State<DesktopScreen>
                               SystemApplicationBuilder.build(
                                   ctx, editorDetails),
                               SystemApplicationBuilder.build(
+                                  ctx, browserDetails),
+                              SystemApplicationBuilder.build(
                                   ctx, gameCenterDetails),
                               ...l.map((e) {
                                 return e.map(file: (f) {
