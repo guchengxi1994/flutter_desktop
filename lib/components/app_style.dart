@@ -33,4 +33,5 @@ class SystemConfig {
   static const String sGameCenter = "游戏中心";
   static const String sMinesweeper = "扫雷";
   static const String sTypingGame = "拼写练习";
+  static const String sTypingGameLearning = "拼写练习(学习版)";
 }

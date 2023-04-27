@@ -14,7 +14,8 @@ import 'package:flutter_desktop/components/applications/application_entry.dart';
 import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/minesweeper/mine_application.dart';
 import 'package:flutter_desktop/components/taskbar/taskbar_controller.dart';
-import 'package:flutter_desktop/components/typing_game/typing_game_board.dart';
+import 'package:flutter_desktop/components/typing_game/base/typing_game_board.dart';
+import 'package:flutter_desktop/components/typing_game/practice/typing_game_practice_board.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -121,6 +122,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(typingGameApplication(), exists: exists);
+              break;
+            case SystemConfig.sTypingGameLearning:
+              ctx.read<DesktopController>().addApplication(
+                  typingGamePracticeApplication(),
+                  exists: exists);
               break;
             default:
               break;

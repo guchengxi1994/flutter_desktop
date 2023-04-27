@@ -23,6 +23,7 @@ use crate::files::virtual_folder::FileOrFolder;
 use crate::files::virtual_folder::VirtualFolder;
 use crate::files::vitrual_file::VirtualFile;
 use crate::idiom::model::Idiom;
+use crate::idiom::practice::PracticeStatus;
 use crate::native_sysinfo::NativeSysInfo;
 
 // Section: wire functions
@@ -171,6 +172,19 @@ fn wire_get_idioms_impl(port_: MessagePort, count: impl Wire2Api<Option<u64>> + 
         },
     )
 }
+fn wire_get_one_idiom_impl(port_: MessagePort, index: impl Wire2Api<usize> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_one_idiom",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_index = index.wire2api();
+            move |task_callback| Ok(get_one_idiom(api_index))
+        },
+    )
+}
 fn wire_init_folder_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -217,6 +231,46 @@ fn wire_get_children_by_id_impl(port_: MessagePort, i: impl Wire2Api<Option<i64>
         },
     )
 }
+fn wire_new_practice_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "new_practice",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(new_practice()),
+    )
+}
+fn wire_update_practice_impl(
+    port_: MessagePort,
+    hit: impl Wire2Api<i64> + UnwindSafe,
+    index: impl Wire2Api<i64> + UnwindSafe,
+    row_id: impl Wire2Api<i64> + UnwindSafe,
+) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "update_practice",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_hit = hit.wire2api();
+            let api_index = index.wire2api();
+            let api_row_id = row_id.wire2api();
+            move |task_callback| Ok(update_practice(api_hit, api_index, api_row_id))
+        },
+    )
+}
+fn wire_get_last_practice_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_last_practice",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_last_practice()),
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -257,6 +311,11 @@ impl Wire2Api<u8> for u8 {
     }
 }
 
+impl Wire2Api<usize> for usize {
+    fn wire2api(self) -> usize {
+        self
+    }
+}
 // Section: impl IntoDart
 
 impl support::IntoDart for FileOrFolder {
@@ -294,6 +353,19 @@ impl support::IntoDart for NativeSysInfo {
     }
 }
 impl support::IntoDartExceptPrimitive for NativeSysInfo {}
+
+impl support::IntoDart for PracticeStatus {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.hit.into_dart(),
+            self.current.into_dart(),
+            self.practice_id.into_dart(),
+            self.create_at.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for PracticeStatus {}
 
 impl support::IntoDart for VirtualFile {
     fn into_dart(self) -> support::DartAbi {

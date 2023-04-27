@@ -4,6 +4,8 @@
 
 * **0.1.7**
 
+  * **0.1.7+5** update typing game
+
   * **0.1.7+4** add a typing game (WIP)
 
     ![image-20230425172059067](./screenshots/image-20230425172059067.png)

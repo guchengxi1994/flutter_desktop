@@ -50,6 +50,8 @@ void wire_set_idiom_path(int64_t port_, struct wire_uint_8_list *s);
 
 void wire_get_idioms(int64_t port_, uint64_t *count);
 
+void wire_get_one_idiom(int64_t port_, uintptr_t index);
+
 void wire_init_folder(int64_t port_, struct wire_uint_8_list *s);
 
 void wire_create_new_txt(int64_t port_,
@@ -58,6 +60,12 @@ void wire_create_new_txt(int64_t port_,
                          int64_t *folder_id);
 
 void wire_get_children_by_id(int64_t port_, int64_t *i);
+
+void wire_new_practice(int64_t port_);
+
+void wire_update_practice(int64_t port_, int64_t hit, int64_t index, int64_t row_id);
+
+void wire_get_last_practice(int64_t port_);
 
 int64_t *new_box_autoadd_i64_0(int64_t value);
 
@@ -80,9 +88,13 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_set_cache_path);
     dummy_var ^= ((int64_t) (void*) wire_set_idiom_path);
     dummy_var ^= ((int64_t) (void*) wire_get_idioms);
+    dummy_var ^= ((int64_t) (void*) wire_get_one_idiom);
     dummy_var ^= ((int64_t) (void*) wire_init_folder);
     dummy_var ^= ((int64_t) (void*) wire_create_new_txt);
     dummy_var ^= ((int64_t) (void*) wire_get_children_by_id);
+    dummy_var ^= ((int64_t) (void*) wire_new_practice);
+    dummy_var ^= ((int64_t) (void*) wire_update_practice);
+    dummy_var ^= ((int64_t) (void*) wire_get_last_practice);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_i64_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u64_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);

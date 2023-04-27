@@ -70,4 +70,12 @@ impl Idiom {
             return v[0..count.try_into().unwrap()].to_vec();
         }
     }
+
+    pub fn get_idiom_by_id(i: usize) -> Option<Idiom> {
+        if i >= IDIOMS.len() - 1 {
+            return None;
+        } else {
+            return Some(IDIOMS[i].clone());
+        }
+    }
 }

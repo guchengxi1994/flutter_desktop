@@ -65,6 +65,11 @@ pub extern "C" fn wire_get_idioms(port_: i64, count: *mut u64) {
 }
 
 #[no_mangle]
+pub extern "C" fn wire_get_one_idiom(port_: i64, index: usize) {
+    wire_get_one_idiom_impl(port_, index)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_init_folder(port_: i64, s: *mut wire_uint_8_list) {
     wire_init_folder_impl(port_, s)
 }
@@ -82,6 +87,21 @@ pub extern "C" fn wire_create_new_txt(
 #[no_mangle]
 pub extern "C" fn wire_get_children_by_id(port_: i64, i: *mut i64) {
     wire_get_children_by_id_impl(port_, i)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_new_practice(port_: i64) {
+    wire_new_practice_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_update_practice(port_: i64, hit: i64, index: i64, row_id: i64) {
+    wire_update_practice_impl(port_, hit, index, row_id)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_get_last_practice(port_: i64) {
+    wire_get_last_practice_impl(port_)
 }
 
 // Section: allocate functions
@@ -134,6 +154,7 @@ impl Wire2Api<Vec<u8>> for *mut wire_uint_8_list {
         }
     }
 }
+
 // Section: wire structs
 
 #[repr(C)]

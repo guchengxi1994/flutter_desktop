@@ -10,6 +10,11 @@ import 'window_shortcut.dart';
 class ShortcutPreviewController extends ChangeNotifier {
   List<RawKeyEvent> events = [];
 
+  clear() {
+    events.clear();
+    notifyListeners();
+  }
+
   operateEvent(RawKeyEvent e) {
     if (e is RawKeyDownEvent) {
       if (e.repeat) {
