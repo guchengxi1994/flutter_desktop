@@ -138,6 +138,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.1"
+  browser:
+    dependency: "direct main"
+    description:
+      path: browser
+      relative: true
+    source: path
+    version: "0.1.1+1"
   build:
     dependency: transitive
     description:
@@ -1258,6 +1265,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.3.0"
+  webview_windows:
+    dependency: transitive
+    description:
+      name: webview_windows
+      sha256: a6d76f9f020e638c2e5417f473e2907c097d1fe3eac8bd4be7517bc3a0df6b86
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.2.2"
   win32:
     dependency: transitive
     description:

@@ -42,10 +42,16 @@ class Application extends StatelessWidget {
         left: appDetails.xmin,
         top: appDetails.ymin,
         child: GestureDetector(
+          onSecondaryTap: () {},
           onTapUp: (details) {
             context.read<DesktopController>().setFocusedUuid(uuid);
           },
           onPanUpdate: (details) {
+            // print(details.localPosition);
+            if (details.localPosition.dy > 30) {
+              return;
+            }
+
             context
                 .read<ApplicationController>()
                 .changeApplicationPosition(uuid, details);
@@ -213,7 +219,7 @@ class Application extends StatelessWidget {
           ),
           Expanded(
               child: SingleChildScrollView(
-            padding: const EdgeInsets.all(5),
+            // padding: const EdgeInsets.all(5),
             child: child,
           ))
         ],

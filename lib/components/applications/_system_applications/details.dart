@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/application_details.dart';
 import 'package:uuid/uuid.dart';
@@ -80,3 +81,19 @@ ApplicationDetails gameCenterDetails = ApplicationDetails(
     deletable: false,
     resizable: false,
     openWith: SystemConfig.sGameCenter);
+
+ApplicationDetails browserDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 1100,
+    ymax: 600,
+    name: SystemConfig.sBrowser,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: false,
+    // iconUrl: "assets/images/appicons/game.png",
+    icon: Image.asset(
+      "assets/browser.png",
+      package: "browser",
+    ),
+    deletable: false,
+    resizable: false,
+    openWith: SystemConfig.sBrowser);

@@ -93,6 +93,32 @@ abstract class Native {
   Future<PracticeStatus?> getLastPractice({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetLastPracticeConstMeta;
+
+  Future<void> delete3DaysAgoHistory({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDelete3DaysAgoHistoryConstMeta;
+
+  Future<void> newBrowserHistory({required String s, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kNewBrowserHistoryConstMeta;
+
+  Future<List<BrowserHistory>> fetchHistory({required int page, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kFetchHistoryConstMeta;
+}
+
+class BrowserHistory {
+  final int visitId;
+  final String url;
+  final int createAt;
+  final int isDeleted;
+
+  const BrowserHistory({
+    required this.visitId,
+    required this.url,
+    required this.createAt,
+    required this.isDeleted,
+  });
 }
 
 @freezed
@@ -506,6 +532,56 @@ class NativeImpl implements Native {
         argNames: [],
       );
 
+  Future<void> delete3DaysAgoHistory({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_delete_3_days_ago_history(port_),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kDelete3DaysAgoHistoryConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kDelete3DaysAgoHistoryConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "delete_3_days_ago_history",
+        argNames: [],
+      );
+
+  Future<void> newBrowserHistory({required String s, dynamic hint}) {
+    var arg0 = _platform.api2wire_String(s);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_new_browser_history(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kNewBrowserHistoryConstMeta,
+      argValues: [s],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kNewBrowserHistoryConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "new_browser_history",
+        argNames: ["s"],
+      );
+
+  Future<List<BrowserHistory>> fetchHistory({required int page, dynamic hint}) {
+    var arg0 = _platform.api2wire_i64(page);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_fetch_history(port_, arg0),
+      parseSuccessData: _wire2api_list_browser_history,
+      constMeta: kFetchHistoryConstMeta,
+      argValues: [page],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kFetchHistoryConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "fetch_history",
+        argNames: ["page"],
+      );
+
   void dispose() {
     _platform.dispose();
   }
@@ -529,6 +605,18 @@ class NativeImpl implements Native {
 
   VirtualFolder _wire2api_box_autoadd_virtual_folder(dynamic raw) {
     return _wire2api_virtual_folder(raw);
+  }
+
+  BrowserHistory _wire2api_browser_history(dynamic raw) {
+    final arr = raw as List<dynamic>;
+    if (arr.length != 4)
+      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
+    return BrowserHistory(
+      visitId: _wire2api_i64(arr[0]),
+      url: _wire2api_String(arr[1]),
+      createAt: _wire2api_i64(arr[2]),
+      isDeleted: _wire2api_i64(arr[3]),
+    );
   }
 
   double _wire2api_f32(dynamic raw) {
@@ -564,6 +652,10 @@ class NativeImpl implements Native {
       pinyinTone: _wire2api_String(arr[2]),
       meaning: _wire2api_String(arr[3]),
     );
+  }
+
+  List<BrowserHistory> _wire2api_list_browser_history(dynamic raw) {
+    return (raw as List<dynamic>).map(_wire2api_browser_history).toList();
   }
 
   List<FileOrFolder> _wire2api_list_file_or_folder(dynamic raw) {
@@ -1119,6 +1211,53 @@ class NativeWire implements FlutterRustBridgeWireBase {
           'wire_get_last_practice');
   late final _wire_get_last_practice =
       _wire_get_last_practicePtr.asFunction<void Function(int)>();
+
+  void wire_delete_3_days_ago_history(
+    int port_,
+  ) {
+    return _wire_delete_3_days_ago_history(
+      port_,
+    );
+  }
+
+  late final _wire_delete_3_days_ago_historyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_delete_3_days_ago_history');
+  late final _wire_delete_3_days_ago_history =
+      _wire_delete_3_days_ago_historyPtr.asFunction<void Function(int)>();
+
+  void wire_new_browser_history(
+    int port_,
+    ffi.Pointer<wire_uint_8_list> s,
+  ) {
+    return _wire_new_browser_history(
+      port_,
+      s,
+    );
+  }
+
+  late final _wire_new_browser_historyPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Int64,
+              ffi.Pointer<wire_uint_8_list>)>>('wire_new_browser_history');
+  late final _wire_new_browser_history = _wire_new_browser_historyPtr
+      .asFunction<void Function(int, ffi.Pointer<wire_uint_8_list>)>();
+
+  void wire_fetch_history(
+    int port_,
+    int page,
+  ) {
+    return _wire_fetch_history(
+      port_,
+      page,
+    );
+  }
+
+  late final _wire_fetch_historyPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int64)>>(
+          'wire_fetch_history');
+  late final _wire_fetch_history =
+      _wire_fetch_historyPtr.asFunction<void Function(int, int)>();
 
   ffi.Pointer<ffi.Int64> new_box_autoadd_i64_0(
     int value,

@@ -1,6 +1,7 @@
 use flutter_rust_bridge::StreamSink;
 
 use crate::{
+    browser::history::BrowserHistory,
     db::init::DB_PATH,
     files::{
         file_structure::{CACHE_PATH, JSON_PATH},
@@ -150,4 +151,30 @@ pub fn update_practice(hit: i64, index: i64, row_id: i64) {
 // 获取最新的practice
 pub fn get_last_practice() -> Option<PracticeStatus> {
     PracticeStatus::get_last()
+}
+
+// 删除三天前的记录
+pub fn delete_3_days_ago_history() {
+    let r = BrowserHistory::delete_history_from_db(3);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-error] {:?}", e);
+        }
+    }
+}
+// 新加一个浏览记录
+pub fn new_browser_history(s: String) {
+    let r = BrowserHistory::new(s);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-error] {:?}", e);
+        }
+    }
+}
+
+// 按页码获取分页历史记录
+pub fn fetch_history(page: i64) -> Vec<BrowserHistory> {
+    BrowserHistory::fetch(page)
 }

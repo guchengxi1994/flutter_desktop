@@ -44,6 +44,14 @@ const CREATE_PRACTICE_DB: &str = "CREATE TABLE IF NOT EXISTS practice (
     create_at integer
 )";
 
+
+const CREATE_BROWSER_HISTORY: &str = "CREATE TABLE IF NOT EXISTS browser_history (
+    visit_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    url TEXT,
+    is_deleted integer DEFAULT 0,
+    create_at integer
+)";
+
 pub fn init_when_first_time_start() -> anyhow::Result<()> {
     let rt = Runtime::new().unwrap();
     rt.block_on(async {
@@ -70,6 +78,7 @@ pub fn init_when_first_time_start() -> anyhow::Result<()> {
         let _ = sqlx::query(CREATE_FILE_DB).execute(_p).await?;
         let _ = sqlx::query(CREATE_FOLDER_DB).execute(_p).await?;
         let _ = sqlx::query(CREATE_PRACTICE_DB).execute(_p).await?;
+        let _ = sqlx::query(CREATE_BROWSER_HISTORY).execute(_p).await?;
         anyhow::Ok(())
     })
 }

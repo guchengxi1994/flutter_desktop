@@ -21,6 +21,7 @@ import 'package:uuid/uuid.dart';
 
 import '../application_controller.dart';
 import '../application_details.dart';
+import 'browser_application.dart';
 
 class SystemApplicationBuilder {
   SystemApplicationBuilder._();
@@ -112,6 +113,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(gameCenterApplication(), exists: exists);
+              break;
+            case SystemConfig.sBrowser:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(browserApplication(), exists: exists);
               break;
             case SystemConfig.sMinesweeper:
               ctx
