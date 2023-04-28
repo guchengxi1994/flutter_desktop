@@ -37,29 +37,32 @@ class _ManagementFormState extends State<ManagementForm> {
   @override
   Widget build(BuildContext context) {
     final d = context.watch<ApplicationController>().details;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        const SizedBox(
-          height: AppStyle.chartHeight + 60,
-          child: SysInfoWidget(),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        SizedBox(
-          width: 700,
-          child: Wrap(
-            spacing: 10,
-            runSpacing: 10,
-            children: d
-                .map((e) => _ManagementWidget(
-                      details: e,
-                    ))
-                .toList(),
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const SizedBox(
+            height: AppStyle.chartHeight + 60,
+            child: SysInfoWidget(),
           ),
-        )
-      ],
+          const SizedBox(
+            height: 5,
+          ),
+          SizedBox(
+            width: 700,
+            child: Wrap(
+              spacing: 10,
+              runSpacing: 10,
+              children: d
+                  .map((e) => _ManagementWidget(
+                        details: e,
+                      ))
+                  .toList(),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

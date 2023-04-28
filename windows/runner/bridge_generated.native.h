@@ -67,6 +67,12 @@ void wire_update_practice(int64_t port_, int64_t hit, int64_t index, int64_t row
 
 void wire_get_last_practice(int64_t port_);
 
+void wire_delete_3_days_ago_history(int64_t port_);
+
+void wire_new_browser_history(int64_t port_, struct wire_uint_8_list *s);
+
+void wire_fetch_history(int64_t port_, int64_t page);
+
 int64_t *new_box_autoadd_i64_0(int64_t value);
 
 uint64_t *new_box_autoadd_u64_0(uint64_t value);
@@ -95,6 +101,9 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_new_practice);
     dummy_var ^= ((int64_t) (void*) wire_update_practice);
     dummy_var ^= ((int64_t) (void*) wire_get_last_practice);
+    dummy_var ^= ((int64_t) (void*) wire_delete_3_days_ago_history);
+    dummy_var ^= ((int64_t) (void*) wire_new_browser_history);
+    dummy_var ^= ((int64_t) (void*) wire_fetch_history);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_i64_0);
     dummy_var ^= ((int64_t) (void*) new_box_autoadd_u64_0);
     dummy_var ^= ((int64_t) (void*) new_uint_8_list_0);

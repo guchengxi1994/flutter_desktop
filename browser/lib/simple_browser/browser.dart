@@ -9,9 +9,22 @@ import 'package:webview_windows/webview_windows.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
+typedef LoadIsFav = Future<bool> Function(String);
+typedef SetAsFav = Function(String);
+
 class BrowserWidget extends StatefulWidget {
-  const BrowserWidget({super.key, this.onError});
+  const BrowserWidget(
+      {super.key,
+      this.onError,
+      this.loadIsFav,
+      this.setAsFav,
+      this.onUrlChanged,
+      required this.onHistoryClicked});
   final VoidCallback? onError;
+  final LoadIsFav? loadIsFav;
+  final SetAsFav? setAsFav;
+  final OnUrlChanged? onUrlChanged;
+  final VoidCallback onHistoryClicked;
 
   @override
   State<BrowserWidget> createState() => _BrowserWidget();
@@ -20,13 +33,22 @@ class BrowserWidget extends StatefulWidget {
 class _BrowserWidget extends State<BrowserWidget> {
   late final BrowserController bc;
   final _textController = TextEditingController();
+  late bool isFav = false;
 
   @override
   void initState() {
     super.initState();
     bc = BrowserController(
-      onUrlChanged: (p0) {
+      onUrlChanged: (p0) async {
         _textController.text = p0;
+        if (widget.onUrlChanged != null) {
+          widget.onUrlChanged!(p0);
+        }
+
+        if (widget.loadIsFav != null) {
+          isFav = await widget.loadIsFav!(p0);
+          setState(() {});
+        }
       },
     );
     initPlatformState();
@@ -128,6 +150,25 @@ class _BrowserWidget extends State<BrowserWidget> {
                         splashRadius: 20,
                         onPressed: () {
                           bc.controller.reload();
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(
+                          Icons.favorite_border,
+                          color: isFav ? Colors.redAccent : Colors.black,
+                        ),
+                        splashRadius: 20,
+                        onPressed: () {
+                          // bc.controller.reload();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.history,
+                        ),
+                        splashRadius: 20,
+                        onPressed: () {
+                          widget.onHistoryClicked();
                         },
                       ),
                     ]),

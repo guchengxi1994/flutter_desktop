@@ -19,6 +19,7 @@ use std::sync::Arc;
 
 // Section: imports
 
+use crate::browser::history::BrowserHistory;
 use crate::files::virtual_folder::FileOrFolder;
 use crate::files::virtual_folder::VirtualFolder;
 use crate::files::vitrual_file::VirtualFile;
@@ -271,6 +272,42 @@ fn wire_get_last_practice_impl(port_: MessagePort) {
         move || move |task_callback| Ok(get_last_practice()),
     )
 }
+fn wire_delete_3_days_ago_history_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "delete_3_days_ago_history",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(delete_3_days_ago_history()),
+    )
+}
+fn wire_new_browser_history_impl(port_: MessagePort, s: impl Wire2Api<String> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "new_browser_history",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_s = s.wire2api();
+            move |task_callback| Ok(new_browser_history(api_s))
+        },
+    )
+}
+fn wire_fetch_history_impl(port_: MessagePort, page: impl Wire2Api<i64> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "fetch_history",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_page = page.wire2api();
+            move |task_callback| Ok(fetch_history(api_page))
+        },
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
@@ -317,6 +354,19 @@ impl Wire2Api<usize> for usize {
     }
 }
 // Section: impl IntoDart
+
+impl support::IntoDart for BrowserHistory {
+    fn into_dart(self) -> support::DartAbi {
+        vec![
+            self.visit_id.into_dart(),
+            self.url.into_dart(),
+            self.create_at.into_dart(),
+            self.is_deleted.into_dart(),
+        ]
+        .into_dart()
+    }
+}
+impl support::IntoDartExceptPrimitive for BrowserHistory {}
 
 impl support::IntoDart for FileOrFolder {
     fn into_dart(self) -> support::DartAbi {

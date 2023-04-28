@@ -104,6 +104,21 @@ pub extern "C" fn wire_get_last_practice(port_: i64) {
     wire_get_last_practice_impl(port_)
 }
 
+#[no_mangle]
+pub extern "C" fn wire_delete_3_days_ago_history(port_: i64) {
+    wire_delete_3_days_ago_history_impl(port_)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_new_browser_history(port_: i64, s: *mut wire_uint_8_list) {
+    wire_new_browser_history_impl(port_, s)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_fetch_history(port_: i64, page: i64) {
+    wire_fetch_history_impl(port_, page)
+}
+
 // Section: allocate functions
 
 #[no_mangle]

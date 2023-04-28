@@ -144,7 +144,7 @@ packages:
       path: browser
       relative: true
     source: path
-    version: "0.1.0"
+    version: "0.1.1+1"
   build:
     dependency: transitive
     description:

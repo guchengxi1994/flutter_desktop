@@ -4,6 +4,8 @@
 
 * **0.1.8**
 
+  * **0.1.8+2** browser history management (rust)
+
   * **0.1.8+1** browser ( windows only )
 
     ![image-20230427155759122](./screenshots/image-20230427155759122.png)
@@ -16,7 +18,7 @@
 
     ![image-20230427155919970](./screenshots/image-20230427155919970.png)
 
-    **ü/u/v  bug is not fixed**
+    > **ü/u/v  bug is not fixed**
 
   * **0.1.7+3** editor auto save
 

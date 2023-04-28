@@ -96,6 +96,21 @@ pub fn wire_get_last_practice(port_: MessagePort) {
     wire_get_last_practice_impl(port_)
 }
 
+#[wasm_bindgen]
+pub fn wire_delete_3_days_ago_history(port_: MessagePort) {
+    wire_delete_3_days_ago_history_impl(port_)
+}
+
+#[wasm_bindgen]
+pub fn wire_new_browser_history(port_: MessagePort, s: String) {
+    wire_new_browser_history_impl(port_, s)
+}
+
+#[wasm_bindgen]
+pub fn wire_fetch_history(port_: MessagePort, page: i64) {
+    wire_fetch_history_impl(port_, page)
+}
+
 // Section: allocate functions
 
 // Section: related functions
