@@ -97,3 +97,15 @@ ApplicationDetails browserDetails = ApplicationDetails(
     deletable: false,
     resizable: false,
     openWith: SystemConfig.sBrowser);
+
+ApplicationDetails replDetails = ApplicationDetails(
+    uuid: "system-repl",
+    xmax: 600,
+    ymax: 400,
+    name: SystemConfig.sRepl,
+    needsTaskbarDisplay: false,
+    needsTrayDisplay: false,
+    iconUrl: "assets/images/appicons/console.png",
+    deletable: false,
+    resizable: false,
+    openWith: SystemConfig.sRepl);

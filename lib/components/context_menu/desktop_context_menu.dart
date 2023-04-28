@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/repl_console_application.dart';
+import 'package:flutter_desktop/components/desktop/desktop_controller.dart';
 import 'package:flutter_desktop/components/dialogs/dialog_manager.dart';
+import 'package:provider/provider.dart';
 
 mixin DesktopContextMenuMixin {
   final ContextMenuController _contextMenuController = ContextMenuController();
@@ -17,7 +20,7 @@ mixin DesktopContextMenuMixin {
   void showContextMenu(Offset position, BuildContext context) {
     _contextMenuController.show(
       context: context,
-      contextMenuBuilder: (ctx) => _buildContent(ctx, position),
+      contextMenuBuilder: (ctx) => _buildContent(context, position),
     );
   }
 
@@ -67,6 +70,18 @@ mixin DesktopContextMenuMixin {
           onPressed: () {
             dismiss();
           }),
+      MenuItemButton(
+        leadingIcon: const Icon(
+          Icons.ac_unit,
+          color: AppStyle.dark,
+        ),
+        child: const Text("打开终端"),
+        onPressed: () async {
+          dismiss();
+          // DialogManager.showCreateNewTxtFileDialog(ctx);
+          ctx.read<DesktopController>().addApplication(replApplication());
+        },
+      ),
       SubmenuButton(
         alignmentOffset: Offset(dx, dy),
         leadingIcon: const Icon(
@@ -98,7 +113,7 @@ mixin DesktopContextMenuMixin {
               dismiss();
               DialogManager.showCreateNewTxtFileDialog(ctx);
             },
-          )
+          ),
         ],
         child: const Text("新建"),
       ),

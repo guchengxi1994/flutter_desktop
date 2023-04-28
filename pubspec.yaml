@@ -22,6 +22,7 @@ dependencies:
   filesize: ^2.0.1
   flutter:
     sdk: flutter
+  flutter_flow_chart: ^1.0.0+1  # 流程图
   flutter_rust_bridge: 1.74.0
   flutter_volume_controller: ^1.2.5
   graphic: ^2.0.3
@@ -37,6 +38,10 @@ dependencies:
     path: ./minesweeper
   network_info_plus: ^3.0.3
   provider: ^6.0.3
+  debug_repl:
+    git:
+      url: file://D:/github_repo/debug_repl
+      ref: desktop
   siri_wave: ^0.3.0
   uuid: ^3.0.7
   window_manager: ^0.3.2

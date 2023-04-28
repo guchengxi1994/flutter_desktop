@@ -329,6 +329,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.8"
+  debug_repl:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: desktop
+      resolved-ref: "15f8369d6c408bbbaff3f739b48b43c5dcc719d4"
+      url: "file://D:/github_repo/debug_repl"
+    source: git
+    version: "0.1.0"
   dotted_border:
     dependency: "direct main"
     description:
@@ -406,6 +415,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "8.1.2"
+  flutter_flow_chart:
+    dependency: "direct main"
+    description:
+      name: flutter_flow_chart
+      sha256: f89aec2ebfb54336d125e329d7fd8b8eb7cc03ea982ccf98455fee6a5cb3f780
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0+1"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

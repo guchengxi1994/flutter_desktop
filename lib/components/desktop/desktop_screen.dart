@@ -85,7 +85,7 @@ class _DesktopScreenState extends State<DesktopScreen>
         builder: (ctx) {
           return GestureDetector(
               onSecondaryTapUp: (details) {
-                showContextMenu(details.globalPosition, context);
+                showContextMenu(details.globalPosition, ctx);
               },
               onTapUp: (details) {
                 ctx.read<ApplicationController>().changeTrayVisible(b: false);

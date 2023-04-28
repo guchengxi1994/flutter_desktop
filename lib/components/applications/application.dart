@@ -48,7 +48,8 @@ class Application extends StatelessWidget {
           },
           onPanUpdate: (details) {
             // print(details.localPosition);
-            if (details.localPosition.dy > 30) {
+            if (name == SystemConfig.sBrowser &&
+                details.localPosition.dy > 30) {
               return;
             }
 
