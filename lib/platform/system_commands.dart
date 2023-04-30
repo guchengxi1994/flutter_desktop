@@ -4,7 +4,7 @@ class SystemCommands {
   SystemCommands._();
 
   static void init() {
-    CommandController.registerCommand("this --show-auther", (s) async {
+    CommandController.registerCommand("this --show-author", (s) async {
       return "xiaoshuyui";
     });
   }
