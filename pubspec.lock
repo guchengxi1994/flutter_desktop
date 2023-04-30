@@ -332,12 +332,10 @@ packages:
   debug_repl:
     dependency: "direct main"
     description:
-      path: "."
-      ref: desktop
-      resolved-ref: "15f8369d6c408bbbaff3f739b48b43c5dcc719d4"
-      url: "file://D:/github_repo/debug_repl"
-    source: git
-    version: "0.1.0"
+      path: "D:/github_repo/debug_repl"
+      relative: false
+    source: path
+    version: "0.1.1+1"
   dotted_border:
     dependency: "direct main"
     description:

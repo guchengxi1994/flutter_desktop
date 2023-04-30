@@ -103,7 +103,7 @@ ApplicationDetails replDetails = ApplicationDetails(
     xmax: 600,
     ymax: 400,
     name: SystemConfig.sRepl,
-    needsTaskbarDisplay: false,
+    needsTaskbarDisplay: true,
     needsTrayDisplay: false,
     iconUrl: "assets/images/appicons/console.png",
     deletable: false,

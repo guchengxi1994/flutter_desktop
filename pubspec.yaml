@@ -40,7 +40,7 @@ dependencies:
   provider: ^6.0.3
   debug_repl:
     git:
-      url: file://D:/github_repo/debug_repl
+      url: https://github.com/guchengxi1994/debug_repl
       ref: desktop
   siri_wave: ^0.3.0
   uuid: ^3.0.7
@@ -59,7 +59,9 @@ dev_dependencies:
 dependency_overrides: 
   cli_util: ^0.4.0
   intl: ^0.18.0
-
+  debug_repl:
+    path: D:/github_repo/debug_repl
+  
 deferred-components:
   - name: flutter_desktop
     libraries:
