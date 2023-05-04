@@ -2,7 +2,7 @@ name: flutter_desktop
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.8+2
+version: 0.1.8+3
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -23,6 +23,9 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_flow_chart: ^1.0.0+1  # 流程图
+  flutter_hanoi:
+    git:
+      url: https://github.com/guchengxi1994/flutter_hanoi
   flutter_rust_bridge: 1.74.0
   flutter_volume_controller: ^1.2.5
   graphic: ^2.0.3
@@ -61,6 +64,8 @@ dependency_overrides:
   intl: ^0.18.0
   debug_repl:
     path: D:/github_repo/debug_repl
+  flutter_hanoi:
+    path: D:/github_repo/flutter_hanoi
   
 deferred-components:
   - name: flutter_desktop

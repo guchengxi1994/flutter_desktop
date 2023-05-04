@@ -4,6 +4,8 @@
 
 * **0.1.8**
 
+  * **0.1.8+3** hanoi
+
   * **0.1.8+2** browser history management (rust)
 
   * **0.1.8+1** browser ( windows only )

@@ -21,24 +21,29 @@ class ApplicationOnTaskbar extends StatelessWidget {
           ? false
           : value.applications.last.uuid == details.uuid,
     );
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          color: isHighlighted
-              ? AppStyle.light2.withOpacity(0.75)
-              : Colors.transparent),
-      height: min(
-          MediaQuery.of(context).size.width *
-              AppStyle.taskbarFactor /
-              currentAppCount,
-          40),
-      width: min(
-          MediaQuery.of(context).size.width *
-              AppStyle.taskbarFactor /
-              currentAppCount,
-          40),
-      padding: const EdgeInsets.all(5),
-      child: details.icon,
+    return InkWell(
+      onTap: () {
+        context.read<DesktopController>().setFocusedUuid(details.uuid);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            color: isHighlighted
+                ? AppStyle.light2.withOpacity(0.75)
+                : Colors.transparent),
+        height: min(
+            MediaQuery.of(context).size.width *
+                AppStyle.taskbarFactor /
+                currentAppCount,
+            40),
+        width: min(
+            MediaQuery.of(context).size.width *
+                AppStyle.taskbarFactor /
+                currentAppCount,
+            40),
+        padding: const EdgeInsets.all(5),
+        child: details.icon,
+      ),
     );
   }
 }

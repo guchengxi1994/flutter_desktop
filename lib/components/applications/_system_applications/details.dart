@@ -109,3 +109,17 @@ ApplicationDetails replDetails = ApplicationDetails(
     deletable: false,
     resizable: false,
     openWith: SystemConfig.sRepl);
+
+ApplicationDetails hanoiDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 710,
+    ymax: 600,
+    xmin: 200,
+    ymin: 100,
+    name: SystemConfig.sHanoi3,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: false,
+    iconUrl: "assets/images/appicons/tower.png",
+    deletable: false,
+    resizable: false,
+    openWith: SystemConfig.sHanoi3);

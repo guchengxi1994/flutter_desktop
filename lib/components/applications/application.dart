@@ -47,8 +47,11 @@ class Application extends StatelessWidget {
             context.read<DesktopController>().setFocusedUuid(uuid);
           },
           onPanUpdate: (details) {
+            if (name == SystemConfig.sHanoi3) {
+              return;
+            }
             // print(details.localPosition);
-            if (name == SystemConfig.sBrowser &&
+            if ((name == SystemConfig.sBrowser) &&
                 details.localPosition.dy > 30) {
               return;
             }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart'
-    show gameCenterDetails;
+    show gameCenterDetails, hanoiDetails;
 import 'package:flutter_desktop/components/applications/application.dart';
 import 'package:flutter_desktop/components/minesweeper/minesweeper_details.dart';
 import 'package:flutter_desktop/components/typing_game/base/typing_game_details.dart';
@@ -34,6 +34,7 @@ class _GameCenterFormState extends State<GameCenterForm> {
         SystemApplicationBuilder.build(context, mineEasyDetails),
         SystemApplicationBuilder.build(context, typingGameDetails),
         SystemApplicationBuilder.build(context, typingGamePracticeDetails),
+        SystemApplicationBuilder.build(context, hanoiDetails),
       ],
     );
   }
