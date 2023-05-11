@@ -11,7 +11,6 @@ Application replApplication() {
     child: const ReplWindow(
       height: 400,
       width: 600,
-      prevCommands: [],
     ),
   );
 }

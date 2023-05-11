@@ -3,6 +3,7 @@
 ## changelogs
 
 * **0.1.8**
+  * **0.1.8+4** move application forms (only) by dragging  menubars
 
   * **0.1.8+3** hanoi
 
