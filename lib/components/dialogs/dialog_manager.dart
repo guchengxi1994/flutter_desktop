@@ -12,20 +12,128 @@ import 'dialog_details.dart';
 import 'new_txt_filedialog.dart';
 import 'shutdown_dialog.dart';
 
+enum DialogPosition {
+  topLeft,
+  topRight,
+  topCenter,
+  center,
+  medianLeft,
+  medianRight,
+  bottomLeft,
+  bottomCenter,
+  bottomRight
+}
+
+extension DialogPositionExtension on DialogPosition {
+  (double xmax, double xmin, double ymax, double min) getPosition(
+      BuildContext ctx,
+      {required Size defaultSize,
+      Offset? custom}) {
+    if (custom != null) {
+      return (
+        custom.dx + defaultSize.width,
+        custom.dx,
+        custom.dy + defaultSize.height,
+        custom.dy
+      );
+    }
+
+    RenderBox? box = ctx.findRenderObject() as RenderBox?;
+    final Size size;
+
+    if (box != null) {
+      size = box.size;
+    } else {
+      size = const Size(1280, 720);
+    }
+
+    switch (this) {
+      case DialogPosition.topLeft:
+        return (defaultSize.width, 0, defaultSize.height, 0);
+      case DialogPosition.topRight:
+        return (
+          size.width,
+          size.width - defaultSize.width,
+          defaultSize.height,
+          0
+        );
+      case DialogPosition.topCenter:
+        final center = 0.5 * (size.width + defaultSize.width);
+
+        return (center, center - defaultSize.width, defaultSize.height, 0);
+      case DialogPosition.center:
+        final centerH = 0.5 * (size.width + defaultSize.width);
+        final centerV = 0.5 * (size.height + defaultSize.height);
+        return (
+          centerH,
+          centerH - defaultSize.width,
+          centerV,
+          centerV - defaultSize.height
+        );
+      case DialogPosition.medianLeft:
+        final centerV = 0.5 * (size.height + defaultSize.height);
+        return (defaultSize.width, 0, centerV, centerV - defaultSize.height);
+      case DialogPosition.medianRight:
+        final centerV = 0.5 * (size.height + defaultSize.height);
+        return (
+          size.width,
+          size.width - defaultSize.width,
+          centerV,
+          centerV - defaultSize.height
+        );
+      case DialogPosition.bottomLeft:
+        return (
+          defaultSize.width,
+          0,
+          size.height,
+          size.height - defaultSize.height
+        );
+      case DialogPosition.bottomCenter:
+        final centerH = 0.5 * (size.width + defaultSize.width);
+        return (
+          centerH,
+          centerH - defaultSize.width,
+          size.height,
+          size.height - defaultSize.height
+        );
+      case DialogPosition.bottomRight:
+        return (
+          size.width,
+          size.width - defaultSize.width,
+          size.height,
+          size.height - defaultSize.height
+        );
+      default:
+        return (defaultSize.width, 0, defaultSize.height, 0);
+    }
+  }
+}
+
 class DialogManager {
   DialogManager._();
   static const shutdownUuid = "shutdown-system-unique-uuid";
   static const newTxtUuid = "new-txt-system-unique-uuid";
 
-  static showShutdownDialog(BuildContext ctx) {
+  static showShutdownDialog(
+    BuildContext ctx,
+  ) {
+    const p = DialogPosition.topRight;
+
+    final r = p.getPosition(ctx, defaultSize: const Size(300, 150));
+
+    double xmax = r.$1;
+    double xmin = r.$2;
+    double ymax = r.$3;
+    double ymin = r.$4;
+
     DialogDetails shutdownDialogDetails = DialogDetails(
       uuid: shutdownUuid,
       name: "警告",
       openWith: "警告",
-      xmax: 500,
-      xmin: 200,
-      ymax: 350,
-      ymin: 200,
+      xmax: xmax,
+      xmin: xmin,
+      ymax: ymax,
+      ymin: ymin,
       multiple: false,
       icon: const Icon(
         Icons.warning,
@@ -65,14 +173,17 @@ class DialogManager {
   }
 
   static showCreateNewTxtFileDialog(BuildContext ctx) {
+    const p = DialogPosition.center;
+    final r = p.getPosition(ctx, defaultSize: const Size(350, 150));
+
     DialogDetails newTxtDetails = DialogDetails(
       uuid: newTxtUuid,
       name: "创建新的文本",
       openWith: "创建新的文本",
-      xmax: 550,
-      xmin: 200,
-      ymax: 350,
-      ymin: 200,
+      xmax: r.$1,
+      xmin: r.$2,
+      ymax: r.$3,
+      ymin: r.$4,
       multiple: false,
       icon: const Icon(
         Icons.file_present,

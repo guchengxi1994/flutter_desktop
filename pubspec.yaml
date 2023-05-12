@@ -2,16 +2,13 @@ name: flutter_desktop
 description: A new Flutter project.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 0.1.8+4
+version: 0.1.9
 
 environment:
-  sdk: '>=2.19.6 <3.0.0'
+  sdk: '>=3.0.0'
 
 dependencies:
-  appflowy_editor: 
-    git:
-      url: https://github.com/AppFlowy-IO/appflowy-editor
-      ref: "0.1.8"
+  appflowy_editor: 0.1.12
   audioplayers: ^4.0.1
   battery_plus: ^3.0.4
   browser:
@@ -26,7 +23,7 @@ dependencies:
   flutter_hanoi:
     git:
       url: https://github.com/guchengxi1994/flutter_hanoi
-  flutter_rust_bridge: 1.74.0
+  flutter_rust_bridge: 1.75.2
   flutter_volume_controller: ^1.2.5
   graphic: ^2.0.3
   hovering: ^1.0.4
@@ -58,6 +55,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0
+  msix: ^3.11.1
 
 dependency_overrides: 
   cli_util: ^0.4.0
@@ -66,6 +64,8 @@ dependency_overrides:
     path: D:/github_repo/debug_repl
   flutter_hanoi:
     path: D:/github_repo/flutter_hanoi
+  appflowy_editor:
+    path: D:/github_repo/appflowy-editor-main
   
 deferred-components:
   - name: flutter_desktop
