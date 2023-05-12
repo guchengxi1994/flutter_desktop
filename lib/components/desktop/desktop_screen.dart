@@ -85,7 +85,7 @@ class _DesktopScreenState extends State<DesktopScreen>
         builder: (ctx) {
           return GestureDetector(
               onSecondaryTapUp: (details) {
-                showContextMenu(details.globalPosition, context);
+                showContextMenu(details.globalPosition, ctx);
               },
               onTapUp: (details) {
                 ctx.read<ApplicationController>().changeTrayVisible(b: false);
@@ -111,19 +111,19 @@ class _DesktopScreenState extends State<DesktopScreen>
                               SystemApplicationBuilder.build(
                                   ctx, myComputerDetails),
                               SystemApplicationBuilder.build(
+                                  ctx, browserDetails),
+                              SystemApplicationBuilder.build(
                                   ctx, recycleDetails),
                               SystemApplicationBuilder.build(
                                   ctx, appManagementDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, gameCenterDetails),
                               SystemApplicationBuilder.build(
                                   ctx, audioPlayerDetails),
                               SystemApplicationBuilder.build(
                                   ctx, videoPlayerDetails),
                               SystemApplicationBuilder.build(
                                   ctx, editorDetails),
-                              SystemApplicationBuilder.build(
-                                  ctx, browserDetails),
-                              SystemApplicationBuilder.build(
-                                  ctx, gameCenterDetails),
                               ...l.map((e) {
                                 return e.map(file: (f) {
                                   switch (f.field0.openWith) {

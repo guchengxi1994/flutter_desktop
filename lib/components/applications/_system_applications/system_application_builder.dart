@@ -22,6 +22,7 @@ import 'package:uuid/uuid.dart';
 import '../application_controller.dart';
 import '../application_details.dart';
 import 'browser_application.dart';
+import 'hanoi_application.dart';
 
 class SystemApplicationBuilder {
   SystemApplicationBuilder._();
@@ -133,6 +134,11 @@ class SystemApplicationBuilder {
               ctx.read<DesktopController>().addApplication(
                   typingGamePracticeApplication(),
                   exists: exists);
+              break;
+            case SystemConfig.sHanoi3:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(myHanoiApplication(), exists: exists);
               break;
             default:
               break;
