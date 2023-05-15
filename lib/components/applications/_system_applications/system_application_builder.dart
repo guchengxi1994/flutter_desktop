@@ -5,6 +5,7 @@ import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/editor_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/file_management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/game_center_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/my_computer_application.dart';
@@ -37,7 +38,8 @@ class SystemApplicationBuilder {
         needsTrayDisplay: false,
         iconUrl: "assets/images/appicons/txt.png",
         deletable: true,
-        openWith: SystemConfig.sEditor);
+        openWith: SystemConfig.sEditor,
+        nameColor: AppStyle.dark);
     return ApplicationEntry(
         details: txtDetails,
         onDoubleClick: () async {
@@ -139,6 +141,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(myHanoiApplication(), exists: exists);
+              break;
+            case SystemConfig.sFileMagagement:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(fileManagementApplication(), exists: exists);
               break;
             default:
               break;

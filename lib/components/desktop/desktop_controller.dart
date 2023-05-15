@@ -1,25 +1,18 @@
 // ignore_for_file: unnecessary_type_check
 
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/bridge/native.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
 
 import '../utils.dart' show DesktopFocusNodeController;
 
 class DesktopController<T extends Application> extends ChangeNotifier {
   List<T> applications = [];
-  List<FileOrFolder> l = [];
 
   String focusedApplicationUuid = "";
 
   setFocusedUuid(String u) {
     focusedApplicationUuid = u;
     sortByUuid();
-    notifyListeners();
-  }
-
-  getEntries() async {
-    l = await api.getChildrenById(i: 0);
     notifyListeners();
   }
 

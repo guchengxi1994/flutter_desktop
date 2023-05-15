@@ -2,6 +2,11 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
+pub extern "C" fn wire_get_changelogs(port_: i64) {
+    wire_get_changelogs_impl(port_)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_rust_bridge_say_hello(port_: i64) {
     wire_rust_bridge_say_hello_impl(port_)
 }

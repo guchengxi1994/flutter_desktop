@@ -29,6 +29,16 @@ use crate::native_sysinfo::NativeSysInfo;
 
 // Section: wire functions
 
+fn wire_get_changelogs_impl(port_: MessagePort) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "get_changelogs",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || move |task_callback| Ok(get_changelogs()),
+    )
+}
 fn wire_rust_bridge_say_hello_impl(port_: MessagePort) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {

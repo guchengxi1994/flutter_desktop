@@ -300,10 +300,12 @@ class Application extends StatelessWidget {
             onTapUp: (details) {
               ctx.read<DesktopController>().setFocusedUuid(uuid);
             },
-            child: SingleChildScrollView(
-              // padding: const EdgeInsets.all(5),
-              child: child,
-            ),
+            child: appDetails.needScroll
+                ? SingleChildScrollView(
+                    // padding: const EdgeInsets.all(5),
+                    child: child,
+                  )
+                : child,
           ))
         ],
       ),

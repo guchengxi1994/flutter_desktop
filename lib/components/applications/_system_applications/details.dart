@@ -11,6 +11,8 @@ ApplicationDetails myComputerDetails = ApplicationDetails(
     iconUrl: "assets/images/appicons/computer.png",
     needsTaskbarDisplay: true,
     deletable: false,
+    resizable: false,
+    needScroll: false,
     openWith: SystemConfig.sMyComputer);
 
 ApplicationDetails recycleDetails = ApplicationDetails(
@@ -123,3 +125,17 @@ ApplicationDetails hanoiDetails = ApplicationDetails(
     deletable: false,
     resizable: false,
     openWith: SystemConfig.sHanoi3);
+
+ApplicationDetails fileManagementDetails = ApplicationDetails(
+    uuid: const Uuid().v1(),
+    xmax: 710,
+    ymax: 600,
+    xmin: 200,
+    ymin: 100,
+    name: SystemConfig.sFileMagagement,
+    needsTaskbarDisplay: true,
+    needsTrayDisplay: false,
+    iconUrl: "assets/images/appicons/file_management.png",
+    deletable: false,
+    resizable: true,
+    openWith: SystemConfig.sFileMagagement);

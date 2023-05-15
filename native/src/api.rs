@@ -16,6 +16,11 @@ use crate::{
     operation::model::Operation,
 };
 
+pub fn get_changelogs()->String{
+    return String::from_utf8_lossy(&crate::system::CHANGELOG).to_string();
+}
+
+
 pub fn rust_bridge_say_hello() -> String {
     String::from("hello from rust")
 }

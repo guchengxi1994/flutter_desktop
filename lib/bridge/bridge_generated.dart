@@ -14,6 +14,10 @@ import 'dart:ffi' as ffi;
 part 'bridge_generated.freezed.dart';
 
 abstract class Native {
+  Future<String> getChangelogs({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kGetChangelogsConstMeta;
+
   Future<String> rustBridgeSayHello({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kRustBridgeSayHelloConstMeta;
@@ -214,6 +218,22 @@ class NativeImpl implements Native {
   factory NativeImpl.wasm(FutureOr<WasmModule> module) =>
       NativeImpl(module as ExternalLibrary);
   NativeImpl.raw(this._platform);
+  Future<String> getChangelogs({dynamic hint}) {
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_get_changelogs(port_),
+      parseSuccessData: _wire2api_String,
+      constMeta: kGetChangelogsConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kGetChangelogsConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "get_changelogs",
+        argNames: [],
+      );
+
   Future<String> rustBridgeSayHello({dynamic hint}) {
     return _platform.executeNormal(FlutterRustBridgeTask(
       callFfi: (port_) => _platform.inner.wire_rust_bridge_say_hello(port_),
@@ -905,6 +925,20 @@ class NativeWire implements FlutterRustBridgeWireBase {
           'init_frb_dart_api_dl');
   late final _init_frb_dart_api_dl = _init_frb_dart_api_dlPtr
       .asFunction<int Function(ffi.Pointer<ffi.Void>)>();
+
+  void wire_get_changelogs(
+    int port_,
+  ) {
+    return _wire_get_changelogs(
+      port_,
+    );
+  }
+
+  late final _wire_get_changelogsPtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64)>>(
+          'wire_get_changelogs');
+  late final _wire_get_changelogs =
+      _wire_get_changelogsPtr.asFunction<void Function(int)>();
 
   void wire_rust_bridge_say_hello(
     int port_,

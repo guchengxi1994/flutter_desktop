@@ -36,7 +36,7 @@ class ApplicationEntry extends StatelessWidget {
               message: details.name ?? details.openWith,
               child: Text(
                 details.name ?? details.openWith,
-                style: const TextStyle(color: AppStyle.light2),
+                style: TextStyle(color: details.nameColor),
                 overflow: TextOverflow.ellipsis,
               ),
             )

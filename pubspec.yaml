@@ -14,6 +14,10 @@ dependencies:
   browser:
     path: ./browser
   confetti: ^0.7.0
+  debug_repl:
+    git:
+      url: https://github.com/guchengxi1994/debug_repl
+      ref: desktop
   dotted_border: ^2.0.0+3
   ffi: ^2.0.1
   filesize: ^2.0.1
@@ -37,11 +41,8 @@ dependencies:
   minesweeper: 
     path: ./minesweeper
   network_info_plus: ^3.0.3
+  package_info_plus: ^4.0.0
   provider: ^6.0.3
-  debug_repl:
-    git:
-      url: https://github.com/guchengxi1994/debug_repl
-      ref: desktop
   siri_wave: ^0.3.0
   uuid: ^3.0.7
   window_manager: ^0.3.2
@@ -91,6 +92,7 @@ flutter:
     - assets/images/
     - assets/images/appicons/
     - assets/idiom/
+    - assets/changelog/changelog.png
 
   fonts:
     - family: 思源

@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/applications/application_controller.dart';
@@ -60,7 +59,6 @@ class _DesktopScreenState extends State<DesktopScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    final l = context.watch<DesktopController>().l;
     return Scaffold(
       key: Routers.desktopKey,
       floatingActionButton: Container(
@@ -111,6 +109,8 @@ class _DesktopScreenState extends State<DesktopScreen>
                               SystemApplicationBuilder.build(
                                   ctx, myComputerDetails),
                               SystemApplicationBuilder.build(
+                                  ctx, fileManagementDetails),
+                              SystemApplicationBuilder.build(
                                   ctx, browserDetails),
                               SystemApplicationBuilder.build(
                                   ctx, recycleDetails),
@@ -124,21 +124,6 @@ class _DesktopScreenState extends State<DesktopScreen>
                                   ctx, videoPlayerDetails),
                               SystemApplicationBuilder.build(
                                   ctx, editorDetails),
-                              ...l.map((e) {
-                                return e.map(file: (f) {
-                                  switch (f.field0.openWith) {
-                                    case SystemConfig.sEditor:
-                                      return SystemApplicationBuilder
-                                          .txtAppBuild(ctx, f.field0.realPath,
-                                              f.field0.virtualPath);
-
-                                    default:
-                                      return Container();
-                                  }
-                                }, folder: (f) {
-                                  return Container();
-                                });
-                              }).toList()
                             ],
                           ),
                         )),

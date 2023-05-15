@@ -2,6 +2,11 @@ use super::*;
 // Section: wire functions
 
 #[wasm_bindgen]
+pub fn wire_get_changelogs(port_: MessagePort) {
+    wire_get_changelogs_impl(port_)
+}
+
+#[wasm_bindgen]
 pub fn wire_rust_bridge_say_hello(port_: MessagePort) {
     wire_rust_bridge_say_hello_impl(port_)
 }
