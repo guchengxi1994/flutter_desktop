@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../applications/_system_applications/details.dart' show replDetails;
 import '../applications/application_controller.dart';
+import '../applications/file_management_controller.dart';
 import '../future_builder.dart';
 import '../taskbar/taskbar_controller.dart';
 import '../utils.dart';
@@ -29,11 +30,12 @@ class _DesktopState extends State<Desktop> with AutomaticKeepAliveClientMixin {
       providers: [
         ChangeNotifierProvider(
             create: (_) => ApplicationController()..addDetail(replDetails)),
-        ChangeNotifierProvider(
-            create: (_) => DesktopController()..getEntries()),
+        ChangeNotifierProvider(create: (_) => DesktopController()),
         ChangeNotifierProvider(create: (_) => TaskbarController()),
         ChangeNotifierProvider(create: (_) => NotificationController()),
         ChangeNotifierProvider(create: (_) => ShortcutPreviewController()),
+        ChangeNotifierProvider(
+            create: (_) => FileManagementController()..getEntries())
       ],
       child: FutureLoaderWidget(
           builder: (context) => desktop.DesktopScreen(),

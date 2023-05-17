@@ -102,7 +102,6 @@ class NewTxtFileDialog extends StatelessWidget with OperationLoggerMixin {
                       openWith: SystemConfig.sEditor,
                       folderId: 0);
                   await log(content: "创建新文本");
-                  await context.read<DesktopController>().getEntries();
                   context.read<DesktopController>().removeWidget(uuid);
                   context.read<ApplicationController>().removeDetail(uuid);
                 },

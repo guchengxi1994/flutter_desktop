@@ -25,7 +25,7 @@ impl VirtualFolder {
     pub async fn from_folder(folder: Folder, pool: &Pool<Sqlite>) -> Option<VirtualFolder> {
         // let pool = crate::db::connection::POOL.read().await;
         let _sql = sqlx::query_as::<sqlx::Sqlite, VirtualFolder>(
-            r#"SELECT * from folders where is_deleted = 0 and folder_id = ?"#,
+            r#"SELECT * from folders where  folder_id = ?"#,
         )
         .bind(folder.folder_id)
         .fetch_one(pool)

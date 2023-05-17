@@ -5,6 +5,7 @@ import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/audio_player_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/editor_application.dart';
+import 'package:flutter_desktop/components/applications/_system_applications/file_management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/game_center_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/management_application.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/my_computer_application.dart';
@@ -27,7 +28,9 @@ import 'hanoi_application.dart';
 class SystemApplicationBuilder {
   SystemApplicationBuilder._();
 
-  static Widget txtAppBuild(BuildContext ctx, String realPath, String name) {
+  static Widget txtAppBuild(BuildContext ctx, String realPath, String name,
+      Function(TapUpDetails)? onSecondaryTapUp,
+      {bool enabled = true}) {
     ApplicationDetails txtDetails = ApplicationDetails(
         uuid: const Uuid().v1(),
         xmax: 1100,
@@ -37,32 +40,40 @@ class SystemApplicationBuilder {
         needsTrayDisplay: false,
         iconUrl: "assets/images/appicons/txt.png",
         deletable: true,
-        openWith: SystemConfig.sEditor);
+        openWith: SystemConfig.sEditor,
+        nameColor: AppStyle.dark);
     return ApplicationEntry(
-        details: txtDetails,
-        onDoubleClick: () async {
-          final exists =
-              ctx.read<ApplicationController>().exists(txtDetails.uuid);
-          if (!exists) {
-            ctx.read<ApplicationController>().addDetail(txtDetails);
-            if (txtDetails.needsTaskbarDisplay) {
-              ctx
-                  .read<TaskbarController>()
-                  .addDetails(txtDetails, exists: exists);
-            }
-            File f = File(realPath);
-            if (f.existsSync()) {
-              ctx.read<DesktopController>().addApplication(
-                  editorApplication(f.readAsStringSync(), txtDetails),
-                  exists: exists);
-            } else {
-              debugPrint("file not exists");
-              ctx.read<DesktopController>().addApplication(
-                  editorApplication("", txtDetails),
-                  exists: exists);
-            }
+        onSecondaryTapUp: (p0) {
+          if (onSecondaryTapUp != null) {
+            onSecondaryTapUp(p0);
           }
-        });
+        },
+        details: txtDetails,
+        onDoubleClick: enabled
+            ? () async {
+                final exists =
+                    ctx.read<ApplicationController>().exists(txtDetails.uuid);
+                if (!exists) {
+                  ctx.read<ApplicationController>().addDetail(txtDetails);
+                  if (txtDetails.needsTaskbarDisplay) {
+                    ctx
+                        .read<TaskbarController>()
+                        .addDetails(txtDetails, exists: exists);
+                  }
+                  File f = File(realPath);
+                  if (f.existsSync()) {
+                    ctx.read<DesktopController>().addApplication(
+                        editorApplication(f.readAsStringSync(), txtDetails),
+                        exists: exists);
+                  } else {
+                    debugPrint("file not exists");
+                    ctx.read<DesktopController>().addApplication(
+                        editorApplication("", txtDetails),
+                        exists: exists);
+                  }
+                }
+              }
+            : () {});
   }
 
   static Widget build(BuildContext ctx, ApplicationDetails details) {
@@ -139,6 +150,11 @@ class SystemApplicationBuilder {
               ctx
                   .read<DesktopController>()
                   .addApplication(myHanoiApplication(), exists: exists);
+              break;
+            case SystemConfig.sFileMagagement:
+              ctx
+                  .read<DesktopController>()
+                  .addApplication(fileManagementApplication(), exists: exists);
               break;
             default:
               break;

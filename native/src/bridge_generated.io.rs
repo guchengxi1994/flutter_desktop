@@ -2,6 +2,11 @@ use super::*;
 // Section: wire functions
 
 #[no_mangle]
+pub extern "C" fn wire_get_changelogs(port_: i64) {
+    wire_get_changelogs_impl(port_)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_rust_bridge_say_hello(port_: i64) {
     wire_rust_bridge_say_hello_impl(port_)
 }
@@ -82,6 +87,16 @@ pub extern "C" fn wire_create_new_txt(
     folder_id: *mut i64,
 ) {
     wire_create_new_txt_impl(port_, filename, open_with, folder_id)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_delete_file(port_: i64, id: i64) {
+    wire_delete_file_impl(port_, id)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_restore_file(port_: i64, id: i64) {
+    wire_restore_file_impl(port_, id)
 }
 
 #[no_mangle]

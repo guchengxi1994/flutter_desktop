@@ -2,6 +2,11 @@
 
 ## changelogs
 
+* **0.1.9**
+  * recycle 
+  * upgrade flutter & flutter-rust-bridge
+  * update dialogs
+
 * **0.1.8**
   * **0.1.8+4** move application forms (only) by dragging  menubars
 

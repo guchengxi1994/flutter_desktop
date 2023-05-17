@@ -5,8 +5,12 @@ import 'application_details.dart';
 
 class ApplicationEntry extends StatelessWidget {
   const ApplicationEntry(
-      {super.key, required this.details, required this.onDoubleClick});
+      {super.key,
+      required this.details,
+      required this.onDoubleClick,
+      this.onSecondaryTapUp});
   final VoidCallback onDoubleClick;
+  final Function(TapUpDetails)? onSecondaryTapUp;
   final ApplicationDetails details;
 
   @override
@@ -16,7 +20,10 @@ class ApplicationEntry extends StatelessWidget {
         onDoubleClick();
       },
       onSecondaryTapUp: (details) {
-        debugPrint("右键点击事件");
+        if (onSecondaryTapUp == null) {
+          return;
+        }
+        onSecondaryTapUp!(details);
       },
       // ignore: sized_box_for_whitespace
       child: Container(
@@ -36,7 +43,7 @@ class ApplicationEntry extends StatelessWidget {
               message: details.name ?? details.openWith,
               child: Text(
                 details.name ?? details.openWith,
-                style: const TextStyle(color: AppStyle.light2),
+                style: TextStyle(color: details.nameColor),
                 overflow: TextOverflow.ellipsis,
               ),
             )

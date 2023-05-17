@@ -2,6 +2,11 @@ use super::*;
 // Section: wire functions
 
 #[wasm_bindgen]
+pub fn wire_get_changelogs(port_: MessagePort) {
+    wire_get_changelogs_impl(port_)
+}
+
+#[wasm_bindgen]
 pub fn wire_rust_bridge_say_hello(port_: MessagePort) {
     wire_rust_bridge_say_hello_impl(port_)
 }
@@ -74,6 +79,16 @@ pub fn wire_create_new_txt(
     folder_id: JsValue,
 ) {
     wire_create_new_txt_impl(port_, filename, open_with, folder_id)
+}
+
+#[wasm_bindgen]
+pub fn wire_delete_file(port_: MessagePort, id: i64) {
+    wire_delete_file_impl(port_, id)
+}
+
+#[wasm_bindgen]
+pub fn wire_restore_file(port_: MessagePort, id: i64) {
+    wire_restore_file_impl(port_, id)
 }
 
 #[wasm_bindgen]

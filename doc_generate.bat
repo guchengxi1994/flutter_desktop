@@ -1,0 +1,1 @@
+pandoc .\README.md -s -o  .\assets\changelog\changelog.pdf --pdf-engine  wkhtmltopdf && python convert.py 

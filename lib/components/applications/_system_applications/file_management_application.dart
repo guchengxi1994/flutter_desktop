@@ -1,40 +1,41 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart'
-    show recycleDetails;
+    show fileManagementDetails;
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
-import 'package:flutter_desktop/components/context_menu/recycle_context_menu.dart';
+import 'package:flutter_desktop/components/context_menu/file_context_menu.dart';
 import 'package:provider/provider.dart';
 
 import '../../../bridge/native.dart';
+import '../../app_style.dart';
 import '../file_management_controller.dart';
 
-Application recycleApplication() {
+Application fileManagementApplication() {
   return Application(
-    uuid: recycleDetails.uuid,
-    name: recycleDetails.name ?? recycleDetails.openWith,
-    child: const RecycleForm(),
+    uuid: fileManagementDetails.uuid,
+    name: fileManagementDetails.name ?? fileManagementDetails.openWith,
+    child: const FileManagementForm(),
   );
 }
 
-class RecycleForm extends StatefulWidget {
-  const RecycleForm({super.key});
+class FileManagementForm extends StatefulWidget {
+  const FileManagementForm({super.key});
 
   @override
-  State<RecycleForm> createState() => _RecycleFormState();
+  State<FileManagementForm> createState() => _FileManagementFormState();
 }
 
-class _RecycleFormState extends State<RecycleForm>
-    with RecycleContextMenuMixin {
+class _FileManagementFormState extends State<FileManagementForm>
+    with FileContextMenuMixin {
   @override
   Widget build(BuildContext context) {
     final l = context.watch<FileManagementController>().l;
+
     return SizedBox(
-      width: recycleDetails.xmax - recycleDetails.xmin,
-      height: recycleDetails.ymax - recycleDetails.ymin,
+      width: fileManagementDetails.xmax - fileManagementDetails.xmin,
+      height: fileManagementDetails.ymax - fileManagementDetails.ymin,
       child: Wrap(
         runSpacing: 20,
         spacing: 20,
@@ -47,20 +48,20 @@ class _RecycleFormState extends State<RecycleForm>
     List<Widget> w = [];
     for (final i in l) {
       final r = i.map(file: (f) {
-        if (f.field0.isDeleted == 1) {
+        if (f.field0.isDeleted == 0) {
           switch (f.field0.openWith) {
             case SystemConfig.sEditor:
               return SystemApplicationBuilder.txtAppBuild(
                   context, f.field0.realPath, f.field0.virtualPath, (d) {
-                showRecycleContextMenu(
+                showFileContextMenu(
                   d.globalPosition,
                   context,
-                  onRestore: () async {
-                    await api.restoreFile(id: f.field0.fileId);
+                  onDelete: () async {
+                    await api.deleteFile(id: f.field0.fileId);
                     await context.read<FileManagementController>().getEntries();
                   },
                 );
-              }, enabled: false);
+              });
 
             default:
               return Container();
