@@ -90,7 +90,6 @@ class _DesktopScreenState extends State<DesktopScreen>
                 dismiss();
               },
               child: Container(
-                // color: AppStyle.light2,
                 decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/images/desktop.jpg"),
@@ -111,9 +110,9 @@ class _DesktopScreenState extends State<DesktopScreen>
                               SystemApplicationBuilder.build(
                                   ctx, fileManagementDetails),
                               SystemApplicationBuilder.build(
-                                  ctx, browserDetails),
-                              SystemApplicationBuilder.build(
                                   ctx, recycleDetails),
+                              SystemApplicationBuilder.build(
+                                  ctx, browserDetails),
                               SystemApplicationBuilder.build(
                                   ctx, appManagementDetails),
                               SystemApplicationBuilder.build(

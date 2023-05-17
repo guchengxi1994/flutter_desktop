@@ -229,6 +229,32 @@ fn wire_create_new_txt_impl(
         },
     )
 }
+fn wire_delete_file_impl(port_: MessagePort, id: impl Wire2Api<i64> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "delete_file",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_id = id.wire2api();
+            move |task_callback| Ok(delete_file(api_id))
+        },
+    )
+}
+fn wire_restore_file_impl(port_: MessagePort, id: impl Wire2Api<i64> + UnwindSafe) {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap(
+        WrapInfo {
+            debug_name: "restore_file",
+            port: Some(port_),
+            mode: FfiCallMode::Normal,
+        },
+        move || {
+            let api_id = id.wire2api();
+            move |task_callback| Ok(restore_file(api_id))
+        },
+    )
+}
 fn wire_get_children_by_id_impl(port_: MessagePort, i: impl Wire2Api<Option<i64>> + UnwindSafe) {
     FLUTTER_RUST_BRIDGE_HANDLER.wrap(
         WrapInfo {
@@ -437,6 +463,7 @@ impl support::IntoDart for VirtualFile {
             self.icon.into_dart(),
             self.open_with.into_dart(),
             self.create_at.into_dart(),
+            self.is_deleted.into_dart(),
         ]
         .into_dart()
     }

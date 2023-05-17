@@ -5,8 +5,8 @@ import 'package:uuid/uuid.dart';
 
 ApplicationDetails myComputerDetails = ApplicationDetails(
     uuid: const Uuid().v1(),
-    xmax: 600,
-    ymax: 400,
+    xmax: 1200,
+    ymax: 600,
     name: SystemConfig.sMyComputer,
     iconUrl: "assets/images/appicons/computer.png",
     needsTaskbarDisplay: true,

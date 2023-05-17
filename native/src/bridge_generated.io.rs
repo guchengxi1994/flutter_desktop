@@ -90,6 +90,16 @@ pub extern "C" fn wire_create_new_txt(
 }
 
 #[no_mangle]
+pub extern "C" fn wire_delete_file(port_: i64, id: i64) {
+    wire_delete_file_impl(port_, id)
+}
+
+#[no_mangle]
+pub extern "C" fn wire_restore_file(port_: i64, id: i64) {
+    wire_restore_file_impl(port_, id)
+}
+
+#[no_mangle]
 pub extern "C" fn wire_get_children_by_id(port_: i64, i: *mut i64) {
     wire_get_children_by_id_impl(port_, i)
 }

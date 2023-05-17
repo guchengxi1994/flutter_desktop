@@ -61,6 +61,10 @@ void wire_create_new_txt(int64_t port_,
                          struct wire_uint_8_list *open_with,
                          int64_t *folder_id);
 
+void wire_delete_file(int64_t port_, int64_t id);
+
+void wire_restore_file(int64_t port_, int64_t id);
+
 void wire_get_children_by_id(int64_t port_, int64_t *i);
 
 void wire_new_practice(int64_t port_);
@@ -100,6 +104,8 @@ static int64_t dummy_method_to_enforce_bundling(void) {
     dummy_var ^= ((int64_t) (void*) wire_get_one_idiom);
     dummy_var ^= ((int64_t) (void*) wire_init_folder);
     dummy_var ^= ((int64_t) (void*) wire_create_new_txt);
+    dummy_var ^= ((int64_t) (void*) wire_delete_file);
+    dummy_var ^= ((int64_t) (void*) wire_restore_file);
     dummy_var ^= ((int64_t) (void*) wire_get_children_by_id);
     dummy_var ^= ((int64_t) (void*) wire_new_practice);
     dummy_var ^= ((int64_t) (void*) wire_update_practice);

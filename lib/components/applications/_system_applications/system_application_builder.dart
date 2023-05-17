@@ -28,7 +28,9 @@ import 'hanoi_application.dart';
 class SystemApplicationBuilder {
   SystemApplicationBuilder._();
 
-  static Widget txtAppBuild(BuildContext ctx, String realPath, String name) {
+  static Widget txtAppBuild(BuildContext ctx, String realPath, String name,
+      Function(TapUpDetails)? onSecondaryTapUp,
+      {bool enabled = true}) {
     ApplicationDetails txtDetails = ApplicationDetails(
         uuid: const Uuid().v1(),
         xmax: 1100,
@@ -41,30 +43,37 @@ class SystemApplicationBuilder {
         openWith: SystemConfig.sEditor,
         nameColor: AppStyle.dark);
     return ApplicationEntry(
-        details: txtDetails,
-        onDoubleClick: () async {
-          final exists =
-              ctx.read<ApplicationController>().exists(txtDetails.uuid);
-          if (!exists) {
-            ctx.read<ApplicationController>().addDetail(txtDetails);
-            if (txtDetails.needsTaskbarDisplay) {
-              ctx
-                  .read<TaskbarController>()
-                  .addDetails(txtDetails, exists: exists);
-            }
-            File f = File(realPath);
-            if (f.existsSync()) {
-              ctx.read<DesktopController>().addApplication(
-                  editorApplication(f.readAsStringSync(), txtDetails),
-                  exists: exists);
-            } else {
-              debugPrint("file not exists");
-              ctx.read<DesktopController>().addApplication(
-                  editorApplication("", txtDetails),
-                  exists: exists);
-            }
+        onSecondaryTapUp: (p0) {
+          if (onSecondaryTapUp != null) {
+            onSecondaryTapUp(p0);
           }
-        });
+        },
+        details: txtDetails,
+        onDoubleClick: enabled
+            ? () async {
+                final exists =
+                    ctx.read<ApplicationController>().exists(txtDetails.uuid);
+                if (!exists) {
+                  ctx.read<ApplicationController>().addDetail(txtDetails);
+                  if (txtDetails.needsTaskbarDisplay) {
+                    ctx
+                        .read<TaskbarController>()
+                        .addDetails(txtDetails, exists: exists);
+                  }
+                  File f = File(realPath);
+                  if (f.existsSync()) {
+                    ctx.read<DesktopController>().addApplication(
+                        editorApplication(f.readAsStringSync(), txtDetails),
+                        exists: exists);
+                  } else {
+                    debugPrint("file not exists");
+                    ctx.read<DesktopController>().addApplication(
+                        editorApplication("", txtDetails),
+                        exists: exists);
+                  }
+                }
+              }
+            : () {});
   }
 
   static Widget build(BuildContext ctx, ApplicationDetails details) {

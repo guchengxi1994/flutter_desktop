@@ -82,6 +82,16 @@ pub fn wire_create_new_txt(
 }
 
 #[wasm_bindgen]
+pub fn wire_delete_file(port_: MessagePort, id: i64) {
+    wire_delete_file_impl(port_, id)
+}
+
+#[wasm_bindgen]
+pub fn wire_restore_file(port_: MessagePort, id: i64) {
+    wire_restore_file_impl(port_, id)
+}
+
+#[wasm_bindgen]
 pub fn wire_get_children_by_id(port_: MessagePort, i: JsValue) {
     wire_get_children_by_id_impl(port_, i)
 }

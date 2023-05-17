@@ -10,6 +10,7 @@ pub struct VirtualFile {
     pub icon: String,
     pub open_with: String,
     pub create_at: i64,
+    pub is_deleted: i64,
 }
 
 lazy_static! {
@@ -89,12 +90,38 @@ impl VirtualFile {
         })
     }
 
+    pub fn delete_file(id: i64) -> anyhow::Result<()> {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(async {
+            let pool = crate::db::connection::POOL.read().await;
+            let _p = pool.get_pool();
+            let _ = sqlx::query(r#"UPDATE files SET is_deleted=1 where file_id = ?"#)
+                .bind(id)
+                .execute(_p)
+                .await?;
+            anyhow::Ok(())
+        })
+    }
+
+    pub fn restore_file(id: i64) -> anyhow::Result<()> {
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(async {
+            let pool = crate::db::connection::POOL.read().await;
+            let _p = pool.get_pool();
+            let _ = sqlx::query(r#"UPDATE files SET is_deleted=0 where file_id = ?"#)
+                .bind(id)
+                .execute(_p)
+                .await?;
+            anyhow::Ok(())
+        })
+    }
+
     pub async fn from_file(
         f: rs_filemanager::model::file::File,
         pool: &Pool<Sqlite>,
     ) -> Option<VirtualFile> {
         let _sql = sqlx::query_as::<sqlx::Sqlite, VirtualFile>(
-            r#"SELECT * FROM files where is_deleted = 0 and file_id = ?"#,
+            r#"SELECT * FROM files where  file_id = ?"#,
         )
         .bind(f.file_id)
         .fetch_one(pool)

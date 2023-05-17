@@ -16,10 +16,9 @@ use crate::{
     operation::model::Operation,
 };
 
-pub fn get_changelogs()->String{
+pub fn get_changelogs() -> String {
     return String::from_utf8_lossy(&crate::system::CHANGELOG).to_string();
 }
-
 
 pub fn rust_bridge_say_hello() -> String {
     String::from("hello from rust")
@@ -116,6 +115,26 @@ pub fn init_folder(s: String) {
 // 创建新的文本文件
 pub fn create_new_txt(filename: String, open_with: String, folder_id: Option<i64>) {
     let r = VirtualFile::create_new_txt_file(filename, open_with, folder_id);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-error] : {:?}", e)
+        }
+    }
+}
+
+pub fn delete_file(id: i64) {
+    let r = VirtualFile::delete_file(id);
+    match r {
+        Ok(_) => {}
+        Err(e) => {
+            println!("[rust-error] : {:?}", e)
+        }
+    }
+}
+
+pub fn restore_file(id: i64) {
+    let r = VirtualFile::restore_file(id);
     match r {
         Ok(_) => {}
         Err(e) => {

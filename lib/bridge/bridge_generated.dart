@@ -81,6 +81,14 @@ abstract class Native {
 
   FlutterRustBridgeTaskConstMeta get kCreateNewTxtConstMeta;
 
+  Future<void> deleteFile({required int id, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDeleteFileConstMeta;
+
+  Future<void> restoreFile({required int id, dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kRestoreFileConstMeta;
+
   Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kGetChildrenByIdConstMeta;
@@ -183,6 +191,7 @@ class VirtualFile {
   final String icon;
   final String openWith;
   final int createAt;
+  final int isDeleted;
 
   const VirtualFile({
     required this.fileId,
@@ -192,6 +201,7 @@ class VirtualFile {
     required this.icon,
     required this.openWith,
     required this.createAt,
+    required this.isDeleted,
   });
 }
 
@@ -479,6 +489,40 @@ class NativeImpl implements Native {
         argNames: ["filename", "openWith", "folderId"],
       );
 
+  Future<void> deleteFile({required int id, dynamic hint}) {
+    var arg0 = _platform.api2wire_i64(id);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_delete_file(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kDeleteFileConstMeta,
+      argValues: [id],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kDeleteFileConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "delete_file",
+        argNames: ["id"],
+      );
+
+  Future<void> restoreFile({required int id, dynamic hint}) {
+    var arg0 = _platform.api2wire_i64(id);
+    return _platform.executeNormal(FlutterRustBridgeTask(
+      callFfi: (port_) => _platform.inner.wire_restore_file(port_, arg0),
+      parseSuccessData: _wire2api_unit,
+      constMeta: kRestoreFileConstMeta,
+      argValues: [id],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kRestoreFileConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "restore_file",
+        argNames: ["id"],
+      );
+
   Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint}) {
     var arg0 = _platform.api2wire_opt_box_autoadd_i64(i);
     return _platform.executeNormal(FlutterRustBridgeTask(
@@ -735,8 +779,8 @@ class NativeImpl implements Native {
 
   VirtualFile _wire2api_virtual_file(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 7)
-      throw Exception('unexpected arr length: expect 7 but see ${arr.length}');
+    if (arr.length != 8)
+      throw Exception('unexpected arr length: expect 8 but see ${arr.length}');
     return VirtualFile(
       fileId: _wire2api_i64(arr[0]),
       virtualPath: _wire2api_String(arr[1]),
@@ -745,6 +789,7 @@ class NativeImpl implements Native {
       icon: _wire2api_String(arr[4]),
       openWith: _wire2api_String(arr[5]),
       createAt: _wire2api_i64(arr[6]),
+      isDeleted: _wire2api_i64(arr[7]),
     );
   }
 
@@ -1179,6 +1224,38 @@ class NativeWire implements FlutterRustBridgeWireBase {
   late final _wire_create_new_txt = _wire_create_new_txtPtr.asFunction<
       void Function(int, ffi.Pointer<wire_uint_8_list>,
           ffi.Pointer<wire_uint_8_list>, ffi.Pointer<ffi.Int64>)>();
+
+  void wire_delete_file(
+    int port_,
+    int id,
+  ) {
+    return _wire_delete_file(
+      port_,
+      id,
+    );
+  }
+
+  late final _wire_delete_filePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int64)>>(
+          'wire_delete_file');
+  late final _wire_delete_file =
+      _wire_delete_filePtr.asFunction<void Function(int, int)>();
+
+  void wire_restore_file(
+    int port_,
+    int id,
+  ) {
+    return _wire_restore_file(
+      port_,
+      id,
+    );
+  }
+
+  late final _wire_restore_filePtr =
+      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Int64, ffi.Int64)>>(
+          'wire_restore_file');
+  late final _wire_restore_file =
+      _wire_restore_filePtr.asFunction<void Function(int, int)>();
 
   void wire_get_children_by_id(
     int port_,

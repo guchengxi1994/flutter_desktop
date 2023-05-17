@@ -1,31 +1,22 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/applications/_system_applications/details.dart'
     show fileManagementDetails;
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
+import 'package:flutter_desktop/components/context_menu/file_context_menu.dart';
 import 'package:provider/provider.dart';
 
 import '../../../bridge/native.dart';
 import '../../app_style.dart';
-
-class FileManagementController extends ChangeNotifier {
-  List<FileOrFolder> l = [];
-  getEntries() async {
-    l = await api.getChildrenById(i: 0);
-    notifyListeners();
-  }
-}
+import '../file_management_controller.dart';
 
 Application fileManagementApplication() {
   return Application(
     uuid: fileManagementDetails.uuid,
     name: fileManagementDetails.name ?? fileManagementDetails.openWith,
-    child: ChangeNotifierProvider(
-      create: (_) => FileManagementController()..getEntries(),
-      builder: (context, child) {
-        return const FileManagementForm();
-      },
-    ),
+    child: const FileManagementForm(),
   );
 }
 
@@ -36,28 +27,57 @@ class FileManagementForm extends StatefulWidget {
   State<FileManagementForm> createState() => _FileManagementFormState();
 }
 
-class _FileManagementFormState extends State<FileManagementForm> {
+class _FileManagementFormState extends State<FileManagementForm>
+    with FileContextMenuMixin {
   @override
   Widget build(BuildContext context) {
     final l = context.watch<FileManagementController>().l;
 
-    return Wrap(
-      runSpacing: 20,
-      spacing: 20,
-      children: l.map((e) {
-        return e.map(file: (f) {
+    return SizedBox(
+      width: fileManagementDetails.xmax - fileManagementDetails.xmin,
+      height: fileManagementDetails.ymax - fileManagementDetails.ymin,
+      child: Wrap(
+        runSpacing: 20,
+        spacing: 20,
+        children: _buildChildren(l),
+      ),
+    );
+  }
+
+  List<Widget> _buildChildren(List<FileOrFolder> l) {
+    List<Widget> w = [];
+    for (final i in l) {
+      final r = i.map(file: (f) {
+        if (f.field0.isDeleted == 0) {
           switch (f.field0.openWith) {
             case SystemConfig.sEditor:
               return SystemApplicationBuilder.txtAppBuild(
-                  context, f.field0.realPath, f.field0.virtualPath);
+                  context, f.field0.realPath, f.field0.virtualPath, (d) {
+                showFileContextMenu(
+                  d.globalPosition,
+                  context,
+                  onDelete: () async {
+                    await api.deleteFile(id: f.field0.fileId);
+                    await context.read<FileManagementController>().getEntries();
+                  },
+                );
+              });
 
             default:
               return Container();
           }
-        }, folder: (f) {
-          return Container();
-        });
-      }).toList(),
-    );
+        }
+      }, folder: (f) {
+        /// TODO
+        ///
+        /// complete `Folder`
+        return Container();
+      });
+      if (r != null) {
+        w.add(r);
+      }
+    }
+
+    return w;
   }
 }

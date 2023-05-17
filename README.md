@@ -3,6 +3,7 @@
 ## changelogs
 
 * **0.1.9**
+  * recycle 
   * upgrade flutter & flutter-rust-bridge
   * update dialogs
 
