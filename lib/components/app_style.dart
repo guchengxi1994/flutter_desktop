@@ -37,5 +37,5 @@ class SystemConfig {
   static const String sTypingGame = "拼写练习";
   static const String sTypingGameLearning = "拼写练习(学习版)";
   static const String sHanoi3 = "三柱汉诺塔";
-  static const String sFileMagagement = "文档管理";
+  static const String sFileMagagement = "文件管理";
 }
