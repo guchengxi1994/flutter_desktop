@@ -48,6 +48,11 @@ class ApplicationController<T extends ApplicationDetails>
       return;
     }
 
+    details[index].lastXmax = details[index].xmax;
+    details[index].lastXmin = details[index].xmin;
+    details[index].lastYmax = details[index].ymax;
+    details[index].lastYmin = details[index].ymin;
+
     details[index].xmin += d.delta.dx;
     details[index].ymin += d.delta.dy;
     details[index].xmax += d.delta.dx;
@@ -61,7 +66,9 @@ class ApplicationController<T extends ApplicationDetails>
     if (index == -1) {
       return;
     }
+    details[index].lastXmax = details[index].xmax;
     details[index].xmax += d.delta.dx;
+    details[index].lastYmax = details[index].ymax;
     details[index].ymax += d.delta.dy;
     notifyListeners();
   }
@@ -71,7 +78,9 @@ class ApplicationController<T extends ApplicationDetails>
     if (index == -1) {
       return;
     }
+    details[index].lastXmin = details[index].xmin;
     details[index].xmin += d.delta.dx;
+    details[index].lastYmin = details[index].ymin;
     details[index].ymin += d.delta.dy;
 
     if (details[index].xmin < 0) {
@@ -89,7 +98,9 @@ class ApplicationController<T extends ApplicationDetails>
     if (index == -1) {
       return;
     }
+    details[index].lastXmax = details[index].xmax;
     details[index].xmax += d.delta.dx;
+    details[index].lastYmin = details[index].ymin;
     details[index].ymin += d.delta.dy;
 
     if (details[index].ymin < 0) {
@@ -103,7 +114,9 @@ class ApplicationController<T extends ApplicationDetails>
     if (index == -1) {
       return;
     }
+    details[index].lastXmin = details[index].xmin;
     details[index].xmin += d.delta.dx;
+    details[index].lastYmax = details[index].ymax;
     details[index].ymax += d.delta.dy;
 
     if (details[index].xmin < 0) {
@@ -139,6 +152,26 @@ class ApplicationController<T extends ApplicationDetails>
       return;
     }
     details.removeAt(index);
+    notifyListeners();
+  }
+
+  /// double click window to maximize and minimize
+  changeWindowSizeOnDoubleClick(String uuid, int flag, Size windowSize) {
+    final index = details.findIndex(uuid);
+    if (index == -1) {
+      return;
+    }
+    if (flag == 1) {
+      details[index].xmin = 0;
+      details[index].ymin = 0;
+      details[index].xmax = windowSize.width;
+      details[index].ymax = windowSize.height - 50;
+    } else {
+      details[index].xmin = details[index].lastXmin;
+      details[index].ymin = details[index].lastYmin;
+      details[index].xmax = details[index].lastXmax;
+      details[index].ymax = details[index].lastYmax;
+    }
     notifyListeners();
   }
 }

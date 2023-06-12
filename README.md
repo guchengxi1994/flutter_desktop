@@ -2,6 +2,10 @@
 
 ## changelogs
 
+* **0.1.10**
+  * upgrade `flutter_rust_bridge` version
+  * `double click` title bar to  maximize/minimize window
+
 * **0.1.9**
   * recycle 
   * upgrade flutter & flutter-rust-bridge

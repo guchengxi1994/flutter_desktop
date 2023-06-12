@@ -231,6 +231,25 @@ class Application extends StatelessWidget {
             onTapUp: (details) {
               ctx.read<DesktopController>().setFocusedUuid(uuid);
             },
+            onDoubleTap: () {
+              if (appDetails.resizable) {
+                final windowsSize = MediaQuery.of(ctx).size;
+
+                /// loose size
+                if (appDetails.xmin <= 3 &&
+                    appDetails.ymin <= 3 &&
+                    appDetails.xmax >= windowsSize.width - 3 &&
+                    appDetails.ymax >= windowsSize.height - 53) {
+                  ctx
+                      .read<ApplicationController>()
+                      .changeWindowSizeOnDoubleClick(uuid, 0, windowsSize);
+                } else {
+                  ctx
+                      .read<ApplicationController>()
+                      .changeWindowSizeOnDoubleClick(uuid, 1, windowsSize);
+                }
+              }
+            },
             onPanUpdate: (details) {
               ctx
                   .read<ApplicationController>()
