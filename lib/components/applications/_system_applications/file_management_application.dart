@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import '../../../bridge/native.dart';
 import '../../app_style.dart';
 import '../file_management_controller.dart';
+import 'widgets/menu_entry.dart';
 
 Application fileManagementApplication() {
   return Application(
@@ -36,10 +37,30 @@ class _FileManagementFormState extends State<FileManagementForm>
     return SizedBox(
       width: fileManagementDetails.xmax - fileManagementDetails.xmin,
       height: fileManagementDetails.ymax - fileManagementDetails.ymin,
-      child: Wrap(
-        runSpacing: 20,
-        spacing: 20,
-        children: _buildChildren(l),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 30,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                    child: MenuBar(
+                  children: MenuEntry.build(_getMenus()),
+                ))
+              ],
+            ),
+          ),
+          const Divider(
+            thickness: 3,
+          ),
+          Expanded(
+              child: Wrap(
+            runSpacing: 20,
+            spacing: 20,
+            children: _buildChildren(l),
+          ))
+        ],
       ),
     );
   }
@@ -79,5 +100,25 @@ class _FileManagementFormState extends State<FileManagementForm>
     }
 
     return w;
+  }
+
+  List<MenuEntry> _getMenus() {
+    final List<MenuEntry> result = [
+      MenuEntry(
+        label: '导入...',
+        menuChildren: <MenuEntry>[
+          MenuEntry(
+            label: '从外部系统导入...',
+            onPressed: () {},
+          ),
+          MenuEntry(
+            label: '从URL导入...',
+            onPressed: () {},
+          ),
+        ],
+      ),
+    ];
+
+    return result;
   }
 }

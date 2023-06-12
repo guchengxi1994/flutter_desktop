@@ -31,6 +31,11 @@ class ApplicationDetails {
   double ymin;
   double ymax;
 
+  double lastXmin;
+  double lastXmax;
+  double lastYmin;
+  double lastYmax;
+
   @override
   bool operator ==(Object other) {
     if (other is! ApplicationDetails) {
@@ -55,6 +60,10 @@ class ApplicationDetails {
       this.xmin = 0,
       this.ymax = 100,
       this.ymin = 0,
+      this.lastXmax = 100,
+      this.lastXmin = 0,
+      this.lastYmax = 100,
+      this.lastYmin = 0,
       this.deletable = true,
       this.needsTaskbarDisplay = false,
       this.needsTrayDisplay = false,
@@ -62,6 +71,11 @@ class ApplicationDetails {
       required this.openWith,
       this.nameColor = AppStyle.light2,
       this.needScroll = true}) {
+    lastXmax = xmax;
+    lastXmin = xmin;
+    lastYmax = ymax;
+    lastYmin = ymin;
+
     if (icon == null && iconUrl == null) {
       icon = const Icon(
         Icons.apps,
