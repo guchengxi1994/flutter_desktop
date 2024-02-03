@@ -14,7 +14,8 @@ class MinesweeperSettings extends Equatable {
   @override
   List<Object?> get props => [width, height, bombs];
 
-  const MinesweeperSettings({required this.width, required this.height, required this.bombs});
+  const MinesweeperSettings(
+      {required this.width, required this.height, required this.bombs});
 
   MinesweeperSettings copyWith({
     int? width,

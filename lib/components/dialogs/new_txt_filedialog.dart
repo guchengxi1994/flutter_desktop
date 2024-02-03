@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/platform/operation_logger.dart';
 import 'package:provider/provider.dart';

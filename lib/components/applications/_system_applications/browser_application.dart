@@ -2,7 +2,7 @@
 
 import 'package:browser/lib.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 
 import '../application.dart';
 import 'details.dart' show browserDetails;

@@ -1,16 +1,14 @@
-import 'package:debug_repl/components/repl_window.dart';
+import 'package:xterm/xterm.dart';
 
 import '../application.dart';
 import 'details.dart' show replDetails;
 
 Application replApplication() {
+  final terminal = Terminal();
   return Application(
     uuid: replDetails.uuid,
     name: replDetails.name ?? replDetails.openWith,
     resizable: replDetails.resizable,
-    child: const ReplWindow(
-      height: 400,
-      width: 600,
-    ),
+    child: TerminalView(terminal),
   );
 }

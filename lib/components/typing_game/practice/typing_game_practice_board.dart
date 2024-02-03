@@ -2,10 +2,11 @@
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
 import 'package:flutter_desktop/platform/typing_game_logger.dart';
+import 'package:flutter_desktop/src/rust/idiom/model.dart';
 import 'package:provider/provider.dart';
 
 import '../matching.dart';

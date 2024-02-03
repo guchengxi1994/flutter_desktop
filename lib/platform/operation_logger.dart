@@ -1,4 +1,4 @@
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 
 class OperationLogger {
   OperationLogger._();

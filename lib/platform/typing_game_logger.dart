@@ -1,4 +1,5 @@
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
+import 'package:flutter_desktop/src/rust/idiom/practice.dart';
 
 class TypingGameLogger {
   TypingGameLogger._();

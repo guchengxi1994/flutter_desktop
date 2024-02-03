@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 import 'package:flutter_desktop/components/app_style.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/screen_fit_utils.dart';

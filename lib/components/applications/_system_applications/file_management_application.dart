@@ -6,9 +6,10 @@ import 'package:flutter_desktop/components/applications/_system_applications/det
 import 'package:flutter_desktop/components/applications/_system_applications/system_application_builder.dart';
 import 'package:flutter_desktop/components/applications/application.dart';
 import 'package:flutter_desktop/components/context_menu/file_context_menu.dart';
+import 'package:flutter_desktop/src/rust/files/virtual_folder.dart';
 import 'package:provider/provider.dart';
 
-import '../../../bridge/native.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 import '../../app_style.dart';
 import '../file_management_controller.dart';
 import 'widgets/menu_entry.dart';
