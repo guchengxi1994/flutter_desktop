@@ -8,7 +8,7 @@ environment:
   sdk: '>=3.0.0'
 
 dependencies:
-  appflowy_editor: 1.0.1
+  appflowy_editor: ^1.3.0
   audioplayers: ^4.0.1
   battery_plus: ^3.0.4
   browser:
@@ -27,17 +27,16 @@ dependencies:
   flutter_hanoi:
     git:
       url: https://github.com/guchengxi1994/flutter_hanoi
-  flutter_rust_bridge: 1.77.1
+  flutter_rust_bridge: 1.78.0
   flutter_volume_controller: ^1.2.5
   graphic: ^2.0.3
   hovering: ^1.0.4
   intl: ^0.18.0
+  just_the_tooltip: ^0.0.12
   loading_indicator: ^3.1.0
-  media_kit: ^0.0.5                              # Primary package.
-  media_kit_video: ^0.0.6                        # For video rendering.
-  media_kit_native_event_loop: ^1.0.3            # Support for higher number of concurrent instances & better performance.
-  media_kit_libs_linux: ^1.0.2                   # GNU/Linux dependency package.
-  media_kit_libs_windows_video: ^1.0.2
+  media_kit: ^1.1.7                              # Primary package.
+  media_kit_video: ^1.1.8                        # For video rendering.
+  media_kit_libs_video: ^1.0.1                   # Native video dependencies.
   minesweeper: 
     path: ./minesweeper
   network_info_plus: ^3.0.3
@@ -66,6 +65,36 @@ dependency_overrides:
     path: D:/github_repo/debug_repl
   flutter_hanoi:
     path: D:/github_repo/flutter_hanoi
+  media_kit_native_event_loop:
+    git: 
+      url: https://gitee.com/guchengxi1994/media-kit
+      ref: main 
+      path: media_kit_native_event_loop
+  # media_kit_libs_android_video:
+  #   git: 
+  #     url: https://gitee.com/guchengxi1994/media-kit
+  #     ref: main 
+  #     path: libs/android/media_kit_libs_android_video
+  # media_kit_libs_ios_video:
+  #   git: 
+  #     url: https://gitee.com/guchengxi1994/media-kit
+  #     ref: main 
+  #     path: libs/ios/media_kit_libs_ios_video
+  # media_kit_libs_macos_video:
+  #   git: 
+  #     url: https://gitee.com/guchengxi1994/media-kit
+  #     ref: main 
+  #     path: libs/macos/media_kit_libs_macos_video
+  media_kit_libs_windows_video:
+    git: 
+      url: https://gitee.com/guchengxi1994/media-kit
+      ref: main 
+      path: libs/windows/media_kit_libs_windows_video
+  # media_kit_libs_linux:
+  #   git: 
+  #     url: https://gitee.com/guchengxi1994/media-kit
+  #     ref: main 
+  #     path: libs/linux/media_kit_libs_linux
   
 deferred-components:
   - name: flutter_desktop

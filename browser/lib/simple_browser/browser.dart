@@ -134,7 +134,7 @@ class _BrowserWidget extends State<BrowserWidget> {
                             decoration: const InputDecoration(
                               hintText: 'URL',
                               contentPadding: EdgeInsets.only(
-                                  left: 20, bottom: 18, right: 20),
+                                  left: 20, bottom: 16, right: 20),
                               border: InputBorder.none,
                             ),
                             textAlignVertical: TextAlignVertical.center,

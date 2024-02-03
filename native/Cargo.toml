@@ -12,7 +12,7 @@ crate-type = ["lib","staticlib","cdylib",]
 anyhow = "= 1.0.66"
 csv = "1.2.1"
 encoding_rs = "0.8.32"
-flutter_rust_bridge = "= 1.77.1"
+flutter_rust_bridge = "= 1.78.0"
 futures = "0.3"
 infer = "0.12.0"
 lazy_static = "1.4.0"
@@ -25,4 +25,4 @@ tokio = { version = "1.25.0", features = ["full"] }
 
 
 [build-dependencies]
-flutter_rust_bridge_codegen = "= 1.77.1"
+flutter_rust_bridge_codegen = "= 1.78.0"

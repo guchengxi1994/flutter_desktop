@@ -26,7 +26,8 @@ class VideoPlayerForm extends StatefulWidget {
 
 class _VideoPlayerFormState extends State<VideoPlayerForm> {
   final Player videoPlayer = Player();
-  VideoController? controller;
+  // VideoController? controller;
+  late final controller = VideoController(videoPlayer);
   late double width = 800;
   late double height = 450;
 
@@ -35,7 +36,6 @@ class _VideoPlayerFormState extends State<VideoPlayerForm> {
     super.initState();
     Future.microtask(() async {
       /// Create a [VideoController] to show video output of the [Player].
-      controller = await VideoController.create(videoPlayer);
 
       /// Play any media source.
       ///
@@ -53,8 +53,6 @@ class _VideoPlayerFormState extends State<VideoPlayerForm> {
   @override
   void dispose() {
     Future.microtask(() async {
-      /// Release allocated resources back to the system.
-      await controller?.dispose();
       await videoPlayer.dispose();
     });
     super.dispose();

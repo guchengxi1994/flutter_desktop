@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
           ],
           debugShowCheckedModeBanner: false,
           title: '桌面',
-          theme: ThemeData(fontFamily: "思源"),
+          theme: ThemeData(fontFamily: "思源", useMaterial3: true),
           routes: Routers.routers,
           scrollBehavior: CustomScrollBehavior(),
           initialRoute: Routers.loadingScreen,
