@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
   flutter_volume_controller
+  isar_flutter_libs
   media_kit_libs_linux
   media_kit_video
   rich_clipboard_linux

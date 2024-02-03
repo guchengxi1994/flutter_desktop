@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
@@ -13,6 +14,7 @@ import 'package:media_kit/media_kit.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:logging/logging.dart';
 
 import 'platform/system_commands.dart';
 import 'src/rust/frb_generated.dart';
@@ -23,6 +25,13 @@ void main() async {
   ShortcutController.init();
   SystemCommands.init();
   await RustLib.init();
+
+  Logger.root.level = Level.ALL; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    if (kDebugMode) {
+      print('${record.level.name}: ${record.time}: ${record.message}');
+    }
+  });
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await windowManager.ensureInitialized();

@@ -20,3 +20,4 @@ serde = { version = "1.0.55", features = ["derive"] }
 sqlx = { version = "0.6", features = [ "runtime-tokio-native-tls" , "sqlite","chrono" ] }
 sysinfo = "0.27.7"
 tokio = { version = "1.25.0", features = ["full"] }
+opendal = "0.44.2"

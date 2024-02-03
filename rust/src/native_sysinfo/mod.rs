@@ -3,7 +3,7 @@ use std::{
     time::{Duration, SystemTime, UNIX_EPOCH},
 };
 
-use flutter_rust_bridge::StreamSink;
+use crate::frb_generated::StreamSink;
 use sysinfo::{ProcessExt, System, SystemExt};
 
 #[deprecated = "perf"]

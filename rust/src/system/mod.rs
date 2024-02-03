@@ -5,7 +5,7 @@ lazy_static! {
         if crate::db::init::path_exists(
             r"D:\github_repo\flutter_windows_desktop\README.md".to_string(),
         ) {
-            return include_bytes!(r"D:\github_repo\flutter_windows_desktop\README.md");
+            return include_bytes!(r"D:\github_repo\flutter_desktop\README.md");
         }
         return b"Error Path\n";
     };
