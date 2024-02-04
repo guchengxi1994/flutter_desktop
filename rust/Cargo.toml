@@ -11,13 +11,10 @@ flutter_rust_bridge = "=2.0.0-dev.21"
 anyhow = "= 1.0.66"
 csv = "1.2.1"
 encoding_rs = "0.8.32"
-futures = "0.3"
 infer = "0.12.0"
 lazy_static = "1.4.0"
 rand = "0.8.4"
-rs_filemanager = {path = "D:/github_repo/rs_filemanager"} # for dev
 serde = { version = "1.0.55", features = ["derive"] }
-sqlx = { version = "0.6", features = [ "runtime-tokio-native-tls" , "sqlite","chrono" ] }
 sysinfo = "0.27.7"
 tokio = { version = "1.25.0", features = ["full"] }
 opendal = "0.44.2"

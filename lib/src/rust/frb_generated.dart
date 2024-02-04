@@ -4,14 +4,12 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/simple.dart';
-import 'browser/history.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'files/virtual_folder.dart';
 import 'files/vitrual_file.dart';
 import 'frb_generated.io.dart' if (dart.library.html) 'frb_generated.web.dart';
 import 'idiom/model.dart';
-import 'idiom/practice.dart';
 import 'native_sysinfo.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
@@ -76,11 +74,7 @@ abstract class RustLibApi extends BaseApi {
       int? folderId,
       dynamic hint});
 
-  Future<void> delete3DaysAgoHistory({dynamic hint});
-
   Future<void> deleteFile({required int id, dynamic hint});
-
-  Future<List<BrowserHistory>> fetchHistory({required int page, dynamic hint});
 
   Future<String> getChangelogs({dynamic hint});
 
@@ -88,45 +82,26 @@ abstract class RustLibApi extends BaseApi {
 
   Future<List<Idiom>> getIdioms({int? count, dynamic hint});
 
-  Future<PracticeStatus?> getLastPractice({dynamic hint});
-
   Future<Idiom?> getOneIdiom({required int index, dynamic hint});
 
   String greet({required String name, dynamic hint});
 
   Future<void> initApp({dynamic hint});
 
-  Future<void> initDb({dynamic hint});
-
-  Future<void> initFolder({required String s, dynamic hint});
+  Future<void> initSystem({required List<String> s, dynamic hint});
 
   Future<void> listenSysinfo({String? name, dynamic hint});
 
-  Future<void> newBrowserHistory({required String s, dynamic hint});
-
   Future<int> newFile(
       {required String virtualPath, required String realPath, dynamic hint});
-
-  Future<void> newLog({required String content, String? result, dynamic hint});
-
-  Future<int> newPractice({dynamic hint});
 
   Future<void> restoreFile({required int id, dynamic hint});
 
   Future<String> rustBridgeSayHello({dynamic hint});
 
-  Future<void> setCachePath({required String s, dynamic hint});
-
-  Future<void> setDbPath({required String s, dynamic hint});
-
   Future<void> setIdiomPath({required String s, dynamic hint});
 
-  Future<void> setJsonPath({required String s, dynamic hint});
-
   Stream<NativeSysInfo> sysInfoStream({dynamic hint});
-
-  Future<void> updatePractice(
-      {required int hit, required int index, required int rowId, dynamic hint});
 }
 
 class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
@@ -150,7 +125,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_String(openWith, serializer);
         sse_encode_opt_box_autoadd_i_64(folderId, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 17, port: port_);
+            funcId: 12, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -169,37 +144,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> delete3DaysAgoHistory({dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 24, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kDelete3DaysAgoHistoryConstMeta,
-      argValues: [],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kDelete3DaysAgoHistoryConstMeta => const TaskConstMeta(
-        debugName: "delete_3_days_ago_history",
-        argNames: [],
-      );
-
-  @override
   Future<void> deleteFile({required int id, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_i_64(id, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 18, port: port_);
+            funcId: 13, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -218,37 +169,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<List<BrowserHistory>> fetchHistory({required int page, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_i_64(page, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 26, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_list_browser_history,
-        decodeErrorData: null,
-      ),
-      constMeta: kFetchHistoryConstMeta,
-      argValues: [page],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kFetchHistoryConstMeta => const TaskConstMeta(
-        debugName: "fetch_history",
-        argNames: ["page"],
-      );
-
-  @override
   Future<String> getChangelogs({dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 3, port: port_);
+            funcId: 4, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -273,7 +199,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_opt_box_autoadd_i_64(i, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 20, port: port_);
+            funcId: 15, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_file_or_folder,
@@ -298,7 +224,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_opt_box_autoadd_u_64(count, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 14, port: port_);
+            funcId: 10, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_list_idiom,
@@ -317,37 +243,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<PracticeStatus?> getLastPractice({dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 23, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_opt_box_autoadd_practice_status,
-        decodeErrorData: null,
-      ),
-      constMeta: kGetLastPracticeConstMeta,
-      argValues: [],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kGetLastPracticeConstMeta => const TaskConstMeta(
-        debugName: "get_last_practice",
-        argNames: [],
-      );
-
-  @override
   Future<Idiom?> getOneIdiom({required int index, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_usize(index, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 15, port: port_);
+            funcId: 11, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_opt_box_autoadd_idiom,
@@ -414,51 +316,27 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> initDb({dynamic hint}) {
+  Future<void> initSystem({required List<String> s, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
+        sse_encode_list_String(s, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 6, port: port_);
+            funcId: 3, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
         decodeErrorData: null,
       ),
-      constMeta: kInitDbConstMeta,
-      argValues: [],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kInitDbConstMeta => const TaskConstMeta(
-        debugName: "init_db",
-        argNames: [],
-      );
-
-  @override
-  Future<void> initFolder({required String s, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(s, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 16, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kInitFolderConstMeta,
+      constMeta: kInitSystemConstMeta,
       argValues: [s],
       apiImpl: this,
       hint: hint,
     ));
   }
 
-  TaskConstMeta get kInitFolderConstMeta => const TaskConstMeta(
-        debugName: "init_folder",
+  TaskConstMeta get kInitSystemConstMeta => const TaskConstMeta(
+        debugName: "init_system",
         argNames: ["s"],
       );
 
@@ -469,7 +347,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_opt_String(name, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 10, port: port_);
+            funcId: 8, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -488,31 +366,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> newBrowserHistory({required String s, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(s, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 25, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kNewBrowserHistoryConstMeta,
-      argValues: [s],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kNewBrowserHistoryConstMeta => const TaskConstMeta(
-        debugName: "new_browser_history",
-        argNames: ["s"],
-      );
-
-  @override
   Future<int> newFile(
       {required String virtualPath, required String realPath, dynamic hint}) {
     return handler.executeNormal(NormalTask(
@@ -521,7 +374,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
         sse_encode_String(virtualPath, serializer);
         sse_encode_String(realPath, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 8, port: port_);
+            funcId: 6, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_i_64,
@@ -540,63 +393,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> newLog({required String content, String? result, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(content, serializer);
-        sse_encode_opt_String(result, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 7, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kNewLogConstMeta,
-      argValues: [content, result],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kNewLogConstMeta => const TaskConstMeta(
-        debugName: "new_log",
-        argNames: ["content", "result"],
-      );
-
-  @override
-  Future<int> newPractice({dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 21, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_i_64,
-        decodeErrorData: null,
-      ),
-      constMeta: kNewPracticeConstMeta,
-      argValues: [],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kNewPracticeConstMeta => const TaskConstMeta(
-        debugName: "new_practice",
-        argNames: [],
-      );
-
-  @override
   Future<void> restoreFile({required int id, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_i_64(id, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 19, port: port_);
+            funcId: 14, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -620,7 +423,7 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 4, port: port_);
+            funcId: 5, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_String,
@@ -639,63 +442,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> setCachePath({required String s, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(s, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 12, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kSetCachePathConstMeta,
-      argValues: [s],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kSetCachePathConstMeta => const TaskConstMeta(
-        debugName: "set_cache_path",
-        argNames: ["s"],
-      );
-
-  @override
-  Future<void> setDbPath({required String s, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(s, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 5, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kSetDbPathConstMeta,
-      argValues: [s],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kSetDbPathConstMeta => const TaskConstMeta(
-        debugName: "set_db_path",
-        argNames: ["s"],
-      );
-
-  @override
   Future<void> setIdiomPath({required String s, dynamic hint}) {
     return handler.executeNormal(NormalTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         sse_encode_String(s, serializer);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 13, port: port_);
+            funcId: 9, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_unit,
@@ -714,37 +467,12 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       );
 
   @override
-  Future<void> setJsonPath({required String s, dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_String(s, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 11, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kSetJsonPathConstMeta,
-      argValues: [s],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kSetJsonPathConstMeta => const TaskConstMeta(
-        debugName: "set_json_path",
-        argNames: ["s"],
-      );
-
-  @override
   Stream<NativeSysInfo> sysInfoStream({dynamic hint}) {
     return handler.executeStream(StreamTask(
       callFfi: (port_) {
         final serializer = SseSerializer(generalizedFrbRustBinding);
         pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 9, port: port_);
+            funcId: 7, port: port_);
       },
       codec: SseCodec(
         decodeSuccessData: sse_decode_native_sys_info,
@@ -760,37 +488,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   TaskConstMeta get kSysInfoStreamConstMeta => const TaskConstMeta(
         debugName: "sys_info_stream",
         argNames: [],
-      );
-
-  @override
-  Future<void> updatePractice(
-      {required int hit,
-      required int index,
-      required int rowId,
-      dynamic hint}) {
-    return handler.executeNormal(NormalTask(
-      callFfi: (port_) {
-        final serializer = SseSerializer(generalizedFrbRustBinding);
-        sse_encode_i_64(hit, serializer);
-        sse_encode_i_64(index, serializer);
-        sse_encode_i_64(rowId, serializer);
-        pdeCallFfi(generalizedFrbRustBinding, serializer,
-            funcId: 22, port: port_);
-      },
-      codec: SseCodec(
-        decodeSuccessData: sse_decode_unit,
-        decodeErrorData: null,
-      ),
-      constMeta: kUpdatePracticeConstMeta,
-      argValues: [hit, index, rowId],
-      apiImpl: this,
-      hint: hint,
-    ));
-  }
-
-  TaskConstMeta get kUpdatePracticeConstMeta => const TaskConstMeta(
-        debugName: "update_practice",
-        argNames: ["hit", "index", "rowId"],
       );
 
   @protected
@@ -818,12 +515,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PracticeStatus dco_decode_box_autoadd_practice_status(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return dco_decode_practice_status(raw);
-  }
-
-  @protected
   int dco_decode_box_autoadd_u_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_u_64(raw);
@@ -839,20 +530,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   VirtualFolder dco_decode_box_autoadd_virtual_folder(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return dco_decode_virtual_folder(raw);
-  }
-
-  @protected
-  BrowserHistory dco_decode_browser_history(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 4)
-      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
-    return BrowserHistory(
-      visitId: dco_decode_i_64(arr[0]),
-      url: dco_decode_String(arr[1]),
-      createAt: dco_decode_i_64(arr[2]),
-      isDeleted: dco_decode_i_64(arr[3]),
-    );
   }
 
   @protected
@@ -899,9 +576,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<BrowserHistory> dco_decode_list_browser_history(dynamic raw) {
+  List<String> dco_decode_list_String(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
-    return (raw as List<dynamic>).map(dco_decode_browser_history).toList();
+    return (raw as List<dynamic>).map(dco_decode_String).toList();
   }
 
   @protected
@@ -954,29 +631,9 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PracticeStatus? dco_decode_opt_box_autoadd_practice_status(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    return raw == null ? null : dco_decode_box_autoadd_practice_status(raw);
-  }
-
-  @protected
   int? dco_decode_opt_box_autoadd_u_64(dynamic raw) {
     // Codec=Dco (DartCObject based), see doc to use other codecs
     return raw == null ? null : dco_decode_box_autoadd_u_64(raw);
-  }
-
-  @protected
-  PracticeStatus dco_decode_practice_status(dynamic raw) {
-    // Codec=Dco (DartCObject based), see doc to use other codecs
-    final arr = raw as List<dynamic>;
-    if (arr.length != 4)
-      throw Exception('unexpected arr length: expect 4 but see ${arr.length}');
-    return PracticeStatus(
-      hit: dco_decode_i_64(arr[0]),
-      current: dco_decode_i_64(arr[1]),
-      practiceId: dco_decode_i_64(arr[2]),
-      createAt: dco_decode_i_64(arr[3]),
-    );
   }
 
   @protected
@@ -1062,13 +719,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PracticeStatus sse_decode_box_autoadd_practice_status(
-      SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    return (sse_decode_practice_status(deserializer));
-  }
-
-  @protected
   int sse_decode_box_autoadd_u_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_u_64(deserializer));
@@ -1086,20 +736,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     return (sse_decode_virtual_folder(deserializer));
-  }
-
-  @protected
-  BrowserHistory sse_decode_browser_history(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_visitId = sse_decode_i_64(deserializer);
-    var var_url = sse_decode_String(deserializer);
-    var var_createAt = sse_decode_i_64(deserializer);
-    var var_isDeleted = sse_decode_i_64(deserializer);
-    return BrowserHistory(
-        visitId: var_visitId,
-        url: var_url,
-        createAt: var_createAt,
-        isDeleted: var_isDeleted);
   }
 
   @protected
@@ -1146,14 +782,13 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  List<BrowserHistory> sse_decode_list_browser_history(
-      SseDeserializer deserializer) {
+  List<String> sse_decode_list_String(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
     var len_ = sse_decode_i_32(deserializer);
-    var ans_ = <BrowserHistory>[];
+    var ans_ = <String>[];
     for (var idx_ = 0; idx_ < len_; ++idx_) {
-      ans_.add(sse_decode_browser_history(deserializer));
+      ans_.add(sse_decode_String(deserializer));
     }
     return ans_;
   }
@@ -1233,18 +868,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  PracticeStatus? sse_decode_opt_box_autoadd_practice_status(
-      SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    if (sse_decode_bool(deserializer)) {
-      return (sse_decode_box_autoadd_practice_status(deserializer));
-    } else {
-      return null;
-    }
-  }
-
-  @protected
   int? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -1253,20 +876,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     } else {
       return null;
     }
-  }
-
-  @protected
-  PracticeStatus sse_decode_practice_status(SseDeserializer deserializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    var var_hit = sse_decode_i_64(deserializer);
-    var var_current = sse_decode_i_64(deserializer);
-    var var_practiceId = sse_decode_i_64(deserializer);
-    var var_createAt = sse_decode_i_64(deserializer);
-    return PracticeStatus(
-        hit: var_hit,
-        current: var_current,
-        practiceId: var_practiceId,
-        createAt: var_createAt);
   }
 
   @protected
@@ -1367,13 +976,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_box_autoadd_practice_status(
-      PracticeStatus self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_practice_status(self, serializer);
-  }
-
-  @protected
   void sse_encode_box_autoadd_u_64(int self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_u_64(self, serializer);
@@ -1391,16 +993,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
       VirtualFolder self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_virtual_folder(self, serializer);
-  }
-
-  @protected
-  void sse_encode_browser_history(
-      BrowserHistory self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_64(self.visitId, serializer);
-    sse_encode_String(self.url, serializer);
-    sse_encode_i_64(self.createAt, serializer);
-    sse_encode_i_64(self.isDeleted, serializer);
   }
 
   @protected
@@ -1438,12 +1030,11 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_list_browser_history(
-      List<BrowserHistory> self, SseSerializer serializer) {
+  void sse_encode_list_String(List<String> self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
     sse_encode_i_32(self.length, serializer);
     for (final item in self) {
-      sse_encode_browser_history(item, serializer);
+      sse_encode_String(item, serializer);
     }
   }
 
@@ -1514,17 +1105,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
   }
 
   @protected
-  void sse_encode_opt_box_autoadd_practice_status(
-      PracticeStatus? self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-
-    sse_encode_bool(self != null, serializer);
-    if (self != null) {
-      sse_encode_box_autoadd_practice_status(self, serializer);
-    }
-  }
-
-  @protected
   void sse_encode_opt_box_autoadd_u_64(int? self, SseSerializer serializer) {
     // Codec=Sse (Serialization based), see doc to use other codecs
 
@@ -1532,16 +1112,6 @@ class RustLibApiImpl extends RustLibApiImplPlatform implements RustLibApi {
     if (self != null) {
       sse_encode_box_autoadd_u_64(self, serializer);
     }
-  }
-
-  @protected
-  void sse_encode_practice_status(
-      PracticeStatus self, SseSerializer serializer) {
-    // Codec=Sse (Serialization based), see doc to use other codecs
-    sse_encode_i_64(self.hit, serializer);
-    sse_encode_i_64(self.current, serializer);
-    sse_encode_i_64(self.practiceId, serializer);
-    sse_encode_i_64(self.createAt, serializer);
   }
 
   @protected

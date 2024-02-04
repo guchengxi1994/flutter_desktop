@@ -1,4 +1,3 @@
-
 #[test]
 fn get_sysinfo() {
     let s = <sysinfo::System as sysinfo::SystemExt>::new();

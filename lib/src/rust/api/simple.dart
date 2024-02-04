@@ -3,32 +3,24 @@
 
 // ignore_for_file: invalid_use_of_internal_member, unused_import, unnecessary_import
 
-import '../browser/history.dart';
 import '../files/virtual_folder.dart';
 import '../files/vitrual_file.dart';
 import '../frb_generated.dart';
 import '../idiom/model.dart';
-import '../idiom/practice.dart';
 import '../native_sysinfo.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated.dart';
 
 String greet({required String name, dynamic hint}) =>
     RustLib.instance.api.greet(name: name, hint: hint);
 
+Future<void> initSystem({required List<String> s, dynamic hint}) =>
+    RustLib.instance.api.initSystem(s: s, hint: hint);
+
 Future<String> getChangelogs({dynamic hint}) =>
     RustLib.instance.api.getChangelogs(hint: hint);
 
 Future<String> rustBridgeSayHello({dynamic hint}) =>
     RustLib.instance.api.rustBridgeSayHello(hint: hint);
-
-Future<void> setDbPath({required String s, dynamic hint}) =>
-    RustLib.instance.api.setDbPath(s: s, hint: hint);
-
-Future<void> initDb({dynamic hint}) => RustLib.instance.api.initDb(hint: hint);
-
-/// operation-logger
-Future<void> newLog({required String content, String? result, dynamic hint}) =>
-    RustLib.instance.api.newLog(content: content, result: result, hint: hint);
 
 /// files
 Future<int> newFile(
@@ -44,12 +36,6 @@ Stream<NativeSysInfo> sysInfoStream({dynamic hint}) =>
 Future<void> listenSysinfo({String? name, dynamic hint}) =>
     RustLib.instance.api.listenSysinfo(name: name, hint: hint);
 
-Future<void> setJsonPath({required String s, dynamic hint}) =>
-    RustLib.instance.api.setJsonPath(s: s, hint: hint);
-
-Future<void> setCachePath({required String s, dynamic hint}) =>
-    RustLib.instance.api.setCachePath(s: s, hint: hint);
-
 Future<void> setIdiomPath({required String s, dynamic hint}) =>
     RustLib.instance.api.setIdiomPath(s: s, hint: hint);
 
@@ -58,9 +44,6 @@ Future<List<Idiom>> getIdioms({int? count, dynamic hint}) =>
 
 Future<Idiom?> getOneIdiom({required int index, dynamic hint}) =>
     RustLib.instance.api.getOneIdiom(index: index, hint: hint);
-
-Future<void> initFolder({required String s, dynamic hint}) =>
-    RustLib.instance.api.initFolder(s: s, hint: hint);
 
 Future<void> createNewTxt(
         {required String filename,
@@ -78,26 +61,3 @@ Future<void> restoreFile({required int id, dynamic hint}) =>
 
 Future<List<FileOrFolder>> getChildrenById({int? i, dynamic hint}) =>
     RustLib.instance.api.getChildrenById(i: i, hint: hint);
-
-Future<int> newPractice({dynamic hint}) =>
-    RustLib.instance.api.newPractice(hint: hint);
-
-Future<void> updatePractice(
-        {required int hit,
-        required int index,
-        required int rowId,
-        dynamic hint}) =>
-    RustLib.instance.api
-        .updatePractice(hit: hit, index: index, rowId: rowId, hint: hint);
-
-Future<PracticeStatus?> getLastPractice({dynamic hint}) =>
-    RustLib.instance.api.getLastPractice(hint: hint);
-
-Future<void> delete3DaysAgoHistory({dynamic hint}) =>
-    RustLib.instance.api.delete3DaysAgoHistory(hint: hint);
-
-Future<void> newBrowserHistory({required String s, dynamic hint}) =>
-    RustLib.instance.api.newBrowserHistory(s: s, hint: hint);
-
-Future<List<BrowserHistory>> fetchHistory({required int page, dynamic hint}) =>
-    RustLib.instance.api.fetchHistory(page: page, hint: hint);

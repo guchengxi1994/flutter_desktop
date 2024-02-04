@@ -10,6 +10,14 @@ class DevUtils {
 
   static String idiomPath =
       "${DevUtils.executableDir.path}/data/flutter_assets/assets/idiom/practice.csv";
+
+  static List<String> systemFolders = [
+    "${DevUtils.executableDir.path}/_system/recycle/",
+    "${DevUtils.executableDir.path}/_system/myComputer/"
+  ];
+
+  static String get recycle => systemFolders.first;
+  static String get myComputer => systemFolders[1];
 }
 
 class PageNavigateController {

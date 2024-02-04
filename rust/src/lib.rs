@@ -1,10 +1,7 @@
 pub mod api;
-mod frb_generated; /* AUTO INJECTED BY flutter_rust_bridge. This line may not be accurate, and you can change it according to your needs. */
-mod db;
-mod tests;
-mod operation;
 mod files;
-mod native_sysinfo;
+mod frb_generated; /* AUTO INJECTED BY flutter_rust_bridge. This line may not be accurate, and you can change it according to your needs. */
 mod idiom;
-mod browser;
+mod native_sysinfo;
 mod system;
+mod tests;

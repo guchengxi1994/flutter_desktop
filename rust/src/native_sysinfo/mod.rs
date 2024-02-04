@@ -25,7 +25,7 @@ fn get_memory(process_name: Option<String>) -> u64 {
             return process.memory();
         }
     }
-    return 0;
+    0
 }
 
 #[deprecated = "perf"]
@@ -47,7 +47,7 @@ fn get_cpu(process_name: Option<String>) -> f32 {
             return process.cpu_usage();
         }
     }
-    return 0.0;
+    0.0
 }
 
 pub struct NativeSysInfo {

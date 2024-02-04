@@ -63,19 +63,19 @@ impl Idiom {
         }
 
         if IDIOMS.len() < count.try_into().unwrap() {
-            return Vec::new();
+            Vec::new()
         } else {
             let mut v = IDIOMS.clone();
             v.shuffle(&mut thread_rng());
-            return v[0..count.try_into().unwrap()].to_vec();
+            v[0..count.try_into().unwrap()].to_vec()
         }
     }
 
     pub fn get_idiom_by_id(i: usize) -> Option<Idiom> {
         if i >= IDIOMS.len() - 1 {
-            return None;
+            None
         } else {
-            return Some(IDIOMS[i].clone());
+            Some(IDIOMS[i].clone())
         }
     }
 }

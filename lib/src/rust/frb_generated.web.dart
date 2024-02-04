@@ -4,14 +4,12 @@
 // ignore_for_file: unused_import, unused_element, unnecessary_import, duplicate_ignore, invalid_use_of_internal_member, annotate_overrides, non_constant_identifier_names, curly_braces_in_flow_control_structures, prefer_const_literals_to_create_immutables, unused_field
 
 import 'api/simple.dart';
-import 'browser/history.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'files/virtual_folder.dart';
 import 'files/vitrual_file.dart';
 import 'frb_generated.dart';
 import 'idiom/model.dart';
-import 'idiom/practice.dart';
 import 'native_sysinfo.dart';
 import 'package:flutter_rust_bridge/flutter_rust_bridge_for_generated_web.dart';
 
@@ -36,9 +34,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom dco_decode_box_autoadd_idiom(dynamic raw);
 
   @protected
-  PracticeStatus dco_decode_box_autoadd_practice_status(dynamic raw);
-
-  @protected
   int dco_decode_box_autoadd_u_64(dynamic raw);
 
   @protected
@@ -46,9 +41,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
 
   @protected
   VirtualFolder dco_decode_box_autoadd_virtual_folder(dynamic raw);
-
-  @protected
-  BrowserHistory dco_decode_browser_history(dynamic raw);
 
   @protected
   double dco_decode_f_32(dynamic raw);
@@ -63,7 +55,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom dco_decode_idiom(dynamic raw);
 
   @protected
-  List<BrowserHistory> dco_decode_list_browser_history(dynamic raw);
+  List<String> dco_decode_list_String(dynamic raw);
 
   @protected
   List<FileOrFolder> dco_decode_list_file_or_folder(dynamic raw);
@@ -87,13 +79,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom? dco_decode_opt_box_autoadd_idiom(dynamic raw);
 
   @protected
-  PracticeStatus? dco_decode_opt_box_autoadd_practice_status(dynamic raw);
-
-  @protected
   int? dco_decode_opt_box_autoadd_u_64(dynamic raw);
-
-  @protected
-  PracticeStatus dco_decode_practice_status(dynamic raw);
 
   @protected
   int dco_decode_u_64(dynamic raw);
@@ -126,10 +112,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom sse_decode_box_autoadd_idiom(SseDeserializer deserializer);
 
   @protected
-  PracticeStatus sse_decode_box_autoadd_practice_status(
-      SseDeserializer deserializer);
-
-  @protected
   int sse_decode_box_autoadd_u_64(SseDeserializer deserializer);
 
   @protected
@@ -138,9 +120,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   VirtualFolder sse_decode_box_autoadd_virtual_folder(
       SseDeserializer deserializer);
-
-  @protected
-  BrowserHistory sse_decode_browser_history(SseDeserializer deserializer);
 
   @protected
   double sse_decode_f_32(SseDeserializer deserializer);
@@ -155,8 +134,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom sse_decode_idiom(SseDeserializer deserializer);
 
   @protected
-  List<BrowserHistory> sse_decode_list_browser_history(
-      SseDeserializer deserializer);
+  List<String> sse_decode_list_String(SseDeserializer deserializer);
 
   @protected
   List<FileOrFolder> sse_decode_list_file_or_folder(
@@ -181,14 +159,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   Idiom? sse_decode_opt_box_autoadd_idiom(SseDeserializer deserializer);
 
   @protected
-  PracticeStatus? sse_decode_opt_box_autoadd_practice_status(
-      SseDeserializer deserializer);
-
-  @protected
   int? sse_decode_opt_box_autoadd_u_64(SseDeserializer deserializer);
-
-  @protected
-  PracticeStatus sse_decode_practice_status(SseDeserializer deserializer);
 
   @protected
   int sse_decode_u_64(SseDeserializer deserializer);
@@ -228,10 +199,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_box_autoadd_idiom(Idiom self, SseSerializer serializer);
 
   @protected
-  void sse_encode_box_autoadd_practice_status(
-      PracticeStatus self, SseSerializer serializer);
-
-  @protected
   void sse_encode_box_autoadd_u_64(int self, SseSerializer serializer);
 
   @protected
@@ -241,10 +208,6 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   @protected
   void sse_encode_box_autoadd_virtual_folder(
       VirtualFolder self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_browser_history(
-      BrowserHistory self, SseSerializer serializer);
 
   @protected
   void sse_encode_f_32(double self, SseSerializer serializer);
@@ -259,8 +222,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_idiom(Idiom self, SseSerializer serializer);
 
   @protected
-  void sse_encode_list_browser_history(
-      List<BrowserHistory> self, SseSerializer serializer);
+  void sse_encode_list_String(List<String> self, SseSerializer serializer);
 
   @protected
   void sse_encode_list_file_or_folder(
@@ -286,15 +248,7 @@ abstract class RustLibApiImplPlatform extends BaseApiImpl<RustLibWire> {
   void sse_encode_opt_box_autoadd_idiom(Idiom? self, SseSerializer serializer);
 
   @protected
-  void sse_encode_opt_box_autoadd_practice_status(
-      PracticeStatus? self, SseSerializer serializer);
-
-  @protected
   void sse_encode_opt_box_autoadd_u_64(int? self, SseSerializer serializer);
-
-  @protected
-  void sse_encode_practice_status(
-      PracticeStatus self, SseSerializer serializer);
 
   @protected
   void sse_encode_u_64(int self, SseSerializer serializer);

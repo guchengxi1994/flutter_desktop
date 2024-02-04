@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_desktop/components/routers.dart';
 import 'package:flutter_desktop/components/shortcuts/shortcut_controller.dart';
 import 'package:flutter_desktop/components/sysinfo/sysinfo_controller.dart';
+import 'package:flutter_desktop/components/utils.dart';
+import 'package:flutter_desktop/isar/database.dart';
+import 'package:flutter_desktop/src/rust/api/simple.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:provider/provider.dart';
@@ -25,6 +28,10 @@ void main() async {
   ShortcutController.init();
   SystemCommands.init();
   await RustLib.init();
+  await initSystem(s: DevUtils.systemFolders);
+
+  final IsarDatabase database = IsarDatabase();
+  await database.initialDatabase();
 
   Logger.root.level = Level.ALL; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {

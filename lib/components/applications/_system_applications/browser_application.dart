@@ -2,6 +2,7 @@
 
 import 'package:browser/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_desktop/isar/database.dart';
 import 'package:flutter_desktop/src/rust/api/simple.dart' as api;
 
 import '../application.dart';
@@ -25,6 +26,7 @@ class _BrowserForm extends StatefulWidget {
 
 class __BrowserFormState extends State<_BrowserForm> {
   var initial;
+  final IsarDatabase database = IsarDatabase();
 
   @override
   void initState() {
@@ -33,7 +35,7 @@ class __BrowserFormState extends State<_BrowserForm> {
   }
 
   Future initialBrowser() async {
-    await api.delete3DaysAgoHistory();
+    await database.delete3DaysAgoHistory();
   }
 
   Navigator get buildNavigator {
@@ -62,7 +64,7 @@ class __BrowserFormState extends State<_BrowserForm> {
                             return BrowserHistoryWidget(
                               fetchData: (i) async {
                                 // print(i);
-                                final s = await api.fetchHistory(page: i);
+                                final s = await database.fetchHistory(i);
 
                                 return s
                                     .map((e) => "${e.createAt}===>${e.url}")
@@ -72,7 +74,7 @@ class __BrowserFormState extends State<_BrowserForm> {
                           }));
                         },
                         onUrlChanged: (p0) async {
-                          await api.newBrowserHistory(s: p0);
+                          await database.newBrowserHistory(p0);
                         },
                       );
                     } else {
