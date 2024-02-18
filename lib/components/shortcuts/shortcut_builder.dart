@@ -14,7 +14,7 @@ class ShortcutBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Focus(
         focusNode: DesktopFocusNodeController.focusNode,
-        onKey: (node, event) {
+        onKeyEvent: (node, event) {
           context.read<ShortcutPreviewController>().operateEvent(event);
           KeyEventResult result = KeyEventResult.ignored;
           final function = ShortcutController.accepts(event, type);

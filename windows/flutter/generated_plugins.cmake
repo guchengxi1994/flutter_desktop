@@ -5,13 +5,17 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_windows
   battery_plus
+  file_selector_windows
   flutter_volume_controller
+  gal
+  irondash_engine_context
   isar_flutter_libs
   media_kit_libs_windows_video
   media_kit_video
   network_info_plus
   screen_brightness_windows
   screen_retriever
+  super_native_extensions
   url_launcher_windows
   webview_windows
   window_manager

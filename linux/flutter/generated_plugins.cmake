@@ -4,12 +4,14 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   audioplayers_linux
+  file_selector_linux
   flutter_volume_controller
+  irondash_engine_context
   isar_flutter_libs
   media_kit_libs_linux
   media_kit_video
-  rich_clipboard_linux
   screen_retriever
+  super_native_extensions
   url_launcher_linux
   window_manager
 )

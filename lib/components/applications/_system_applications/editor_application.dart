@@ -1,11 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'dart:convert';
-import 'dart:io';
-
-import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_desktop/components/utils.dart';
+import 'package:flutter_quill/flutter_quill.dart';
 
 import '../application.dart';
 import '../application_details.dart';
@@ -35,40 +31,26 @@ class EditorForm extends StatefulWidget {
 }
 
 class _EditorFormState extends State<EditorForm> {
-  late final EditorState editorState;
+  final QuillController _controller = QuillController.basic();
   @override
   void initState() {
     super.initState();
-    if (widget.text == "") {
-      editorState = EditorState(
-          document: Document.fromJson({
-        'document': {
-          "type": "editor",
-          "children": [
-            {"type": "text", "delta": []}
-          ]
-        }
-      }));
-    } else {
-      editorState =
-          EditorState(document: Document.fromJson(jsonDecode(widget.text)));
-    }
   }
 
   saveFile(String? name) {
-    if (editorState.document.isEmpty) {
-      return;
-    }
-    final s = editorState.document.toJson();
+    // if (editorState.document.isEmpty) {
+    //   return;
+    // }
+    // final s = editorState.document.toJson();
 
-    if (name == null) {
-      File f = File(
-          "${DevUtils.cacheTxtPath}/${DateTime.now().millisecondsSinceEpoch}.json");
-      f.writeAsStringSync(json.encode(s));
-    } else {
-      File f = File("${DevUtils.cacheTxtPath}/$name");
-      f.writeAsStringSync(json.encode(s));
-    }
+    // if (name == null) {
+    //   File f = File(
+    //       "${DevUtils.cacheTxtPath}/${DateTime.now().millisecondsSinceEpoch}.json");
+    //   f.writeAsStringSync(json.encode(s));
+    // } else {
+    //   File f = File("${DevUtils.cacheTxtPath}/$name");
+    //   f.writeAsStringSync(json.encode(s));
+    // }
   }
 
   @override
@@ -76,8 +58,14 @@ class _EditorFormState extends State<EditorForm> {
     return SizedBox(
       height: 500,
       width: 1100,
-      child: AppFlowyEditor(
-        editorState: editorState,
+      child: QuillEditor.basic(
+        configurations: QuillEditorConfigurations(
+          controller: _controller,
+          readOnly: false,
+          sharedConfigurations: const QuillSharedConfigurations(
+            locale: Locale('zh-CN'),
+          ),
+        ),
       ),
     );
   }

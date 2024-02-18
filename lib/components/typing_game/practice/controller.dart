@@ -12,14 +12,14 @@ class PracticeController extends ChangeNotifier {
   }
 
   setLast() async {
-    final last = await api.getLastPractice();
-    debugPrint("[last] ${last?.current}");
-    if (last != null) {
-      current = last.current;
-      hitCount = last.hit;
-      notifyListeners();
-      return last.practiceId;
-    }
+    // final last = await api.getLastPractice();
+    // debugPrint("[last] ${last?.current}");
+    // if (last != null) {
+    //   current = last.current;
+    //   hitCount = last.hit;
+    //   notifyListeners();
+    //   return last.practiceId;
+    // }
     return 0;
   }
 

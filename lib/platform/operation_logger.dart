@@ -4,7 +4,7 @@ class OperationLogger {
   OperationLogger._();
 
   static Future logger({required String content, String? result}) async {
-    api.newLog(content: content, result: result);
+    // api.newLog(content: content, result: result);
   }
 }
 

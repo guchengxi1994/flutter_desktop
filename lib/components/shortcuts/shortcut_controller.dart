@@ -8,23 +8,18 @@ import 'package:flutter_desktop/components/window_shortcut_types.dart';
 import 'window_shortcut.dart';
 
 class ShortcutPreviewController extends ChangeNotifier {
-  List<RawKeyEvent> events = [];
+  List<KeyEvent> events = [];
 
   clear() {
     events.clear();
     notifyListeners();
   }
 
-  operateEvent(RawKeyEvent e) {
-    if (e is RawKeyDownEvent) {
-      if (e.repeat) {
-        return;
-      }
-      events.add(e);
-    } else {
-      events.retainWhere(
-          (element) => element.logicalKey.keyLabel != e.logicalKey.keyLabel);
+  operateEvent(KeyEvent e) {
+    if (e is KeyRepeatEvent) {
+      return;
     }
+    events.add(e);
     notifyListeners();
   }
 }
@@ -46,8 +41,7 @@ class ShortcutController {
     _shortCuts.remove(shortCut);
   }
 
-  static ShortCutCallback? accepts(
-      RawKeyEvent event, WindowShortcutTypes type) {
+  static ShortCutCallback? accepts(KeyEvent event, WindowShortcutTypes type) {
     final Iterable<WindowShortcut> shortcuts;
     if (type == WindowShortcutTypes.system) {
       shortcuts = _shortCuts.where((element) => element.type == type);
@@ -61,7 +55,7 @@ class ShortcutController {
     }
     ShortCutCallback? callback = null;
     for (final s in shortcuts) {
-      if (s.shortcut.accepts(event, RawKeyboard.instance)) {
+      if (s.shortcut.accepts(event, HardwareKeyboard.instance)) {
         if (s.type == WindowShortcutTypes.system) {
           return s.callback;
         } else {

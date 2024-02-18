@@ -5,11 +5,10 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 0.1.10
 
 environment:
-  sdk: '>=3.0.0'
+  sdk: '>=3.2.3 <4.0.0'
 
 dependencies:
-  appflowy_editor: ^1.3.0
-  audioplayers: ^4.0.1
+  audioplayers: ^5.2.1
   battery_plus: ^3.0.4
   browser:
     path: ./browser
@@ -20,29 +19,33 @@ dependencies:
   filesize: ^2.0.1
   flutter:
     sdk: flutter
-  flutter_flow_chart: ^1.0.0+1  # 流程图
+  flutter_flow_chart: ^2.1.2  # 流程图
   flutter_hanoi:
     git:
       url: https://github.com/guchengxi1994/flutter_hanoi
   # flutter_rust_bridge: 1.78.0
   flutter_volume_controller: ^1.2.5
+  flutter_quill: ^9.3.1
+  flutter_quill_extensions: ^9.3.1
   graphic: ^2.0.3
   hovering: ^1.0.4
   intl: ^0.18.0
   just_the_tooltip: ^0.0.12
   loading_indicator: ^3.1.0
-  media_kit: ^1.1.7                              # Primary package.
-  media_kit_video: ^1.1.8                        # For video rendering.
-  media_kit_libs_video: ^1.0.1                   # Native video dependencies.
+  media_kit: ^1.1.10                             # Primary package.
+  media_kit_video: ^1.2.4                        # For video rendering.
+  media_kit_libs_video: ^1.0.4                   # Native video dependencies.
   minesweeper: 
     path: ./minesweeper
   network_info_plus: ^3.0.3
   package_info_plus: ^4.0.0
   provider: ^6.0.3
   siri_wave: ^0.3.0
-  uuid: ^3.0.7
+  uuid: ^4.1.0
   window_manager: ^0.3.2
-  xterm: ^3.5.0
+  xterm: 
+    git: 
+      url: https://github.com/guchengxi1994/xterm.dart
   rust_builder:
     path: rust_builder
   flutter_rust_bridge: 2.0.0-dev.21
@@ -53,7 +56,7 @@ dependencies:
 dev_dependencies:
   isar_generator: ^3.1.0+1
   build_runner: ^2.4.5
-  ffigen: ^8.0.0
+  # ffigen: ^8.0.0
   flutter_launcher_icons: ^0.13.0
   flutter_lints: ^2.0.0
   flutter_test:
@@ -67,40 +70,10 @@ dev_dependencies:
 dependency_overrides: 
   cli_util: ^0.4.0
   intl: ^0.18.0
-  # debug_repl:
-  #   path: D:/github_repo/debug_repl
   flutter_hanoi:
     path: D:/github_repo/flutter_hanoi
-  media_kit_native_event_loop:
-    git: 
-      url: https://gitee.com/guchengxi1994/media-kit
-      ref: main 
-      path: media_kit_native_event_loop
-  # media_kit_libs_android_video:
-  #   git: 
-  #     url: https://gitee.com/guchengxi1994/media-kit
-  #     ref: main 
-  #     path: libs/android/media_kit_libs_android_video
-  # media_kit_libs_ios_video:
-  #   git: 
-  #     url: https://gitee.com/guchengxi1994/media-kit
-  #     ref: main 
-  #     path: libs/ios/media_kit_libs_ios_video
-  # media_kit_libs_macos_video:
-  #   git: 
-  #     url: https://gitee.com/guchengxi1994/media-kit
-  #     ref: main 
-  #     path: libs/macos/media_kit_libs_macos_video
-  media_kit_libs_windows_video:
-    git: 
-      url: https://gitee.com/guchengxi1994/media-kit
-      ref: main 
-      path: libs/windows/media_kit_libs_windows_video
-  # media_kit_libs_linux:
-  #   git: 
-  #     url: https://gitee.com/guchengxi1994/media-kit
-  #     ref: main 
-  #     path: libs/linux/media_kit_libs_linux
+  xterm:
+    path: D:/github_repo/xterm.dart
   
 deferred-components:
   - name: flutter_desktop

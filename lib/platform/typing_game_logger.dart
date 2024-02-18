@@ -5,15 +5,16 @@ class TypingGameLogger {
   TypingGameLogger._();
 
   static Future<int> newPractice() async {
-    return await api.newPractice();
+    return 0;
   }
 
   static Future updatePractice(int hit, int current, int rowId) async {
-    await api.updatePractice(hit: hit, index: current, rowId: rowId);
+    // await api.updatePractice(hit: hit, index: current, rowId: rowId);
   }
 
   static Future<PracticeStatus?> getLast() async {
-    return await api.getLastPractice();
+    // return await api.getLastPractice();
+    return null;
   }
 }
 

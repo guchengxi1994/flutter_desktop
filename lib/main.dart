@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:appflowy_editor/appflowy_editor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_desktop/components/sysinfo/sysinfo_controller.dart';
 import 'package:flutter_desktop/components/utils.dart';
 import 'package:flutter_desktop/isar/database.dart';
 import 'package:flutter_desktop/src/rust/api/simple.dart';
+import 'package:flutter_quill/translations.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:provider/provider.dart';
@@ -83,9 +83,9 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
-            AppFlowyEditorLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            FlutterQuillLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,
           title: '桌面',
