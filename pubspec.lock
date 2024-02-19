@@ -17,6 +17,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.13.0"
+  animated_text_kit:
+    dependency: transitive
+    description:
+      name: animated_text_kit
+      sha256: "37392a5376c9a1a503b02463c38bc0342ef814ddbb8f9977bc90f2a84b22fa92"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.2.2"
   archive:
     dependency: transitive
     description:
@@ -1416,6 +1424,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.4"
+  simple_terminal:
+    dependency: "direct main"
+    description:
+      path: simple_terminal
+      relative: true
+    source: path
+    version: "0.0.1"
   siri_wave:
     dependency: "direct main"
     description:
@@ -1829,13 +1844,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.3.0"
-  xterm:
-    dependency: "direct main"
-    description:
-      path: "D:/github_repo/xterm.dart"
-      relative: false
-    source: path
-    version: "3.6.1-pre"
   xxh3:
     dependency: transitive
     description:
@@ -1860,14 +1868,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "8.1.2"
-  zmodem:
-    dependency: transitive
-    description:
-      name: zmodem
-      sha256: "3b7e5b29f3a7d8aee472029b05165a68438eff2f3f7766edf13daba1e297adbf"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "0.0.6"
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.0"

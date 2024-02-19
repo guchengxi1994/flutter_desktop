@@ -102,8 +102,8 @@ ApplicationDetails browserDetails = ApplicationDetails(
 
 ApplicationDetails replDetails = ApplicationDetails(
     uuid: "system-repl",
-    xmax: 600,
-    ymax: 400,
+    xmax: 800,
+    ymax: 600,
     name: SystemConfig.sRepl,
     needsTaskbarDisplay: true,
     needsTrayDisplay: false,
